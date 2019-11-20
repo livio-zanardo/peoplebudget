@@ -1,2 +1,2 @@
-# peoplebudget
+# PeopleBudget
 A participatory budget application
