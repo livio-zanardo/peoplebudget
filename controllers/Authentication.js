@@ -6,9 +6,10 @@ router
       const {
         body: { fname, lname }
       } = req;
-      console.log(fname, lname);
+      //console.log(fname, lname);
       const token = await encode({fname, lname});
       res.cookie("token", token, { maxAge: 900000, httpOnly: true });
+      res.statusCode = 201
       res.send({ response: "you've got a token" });
     } catch (error) {
       res.send(err);
