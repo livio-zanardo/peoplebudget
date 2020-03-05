@@ -1,5 +1,5 @@
 /**
- * @module JWT
+ * @module jwt
  */
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
@@ -8,7 +8,7 @@ var publicKey = fs.readFileSync(process.env.PUBLICKEY);
 /**
  * This function will create a JWT Token with optional payload.
  * @name encode
- * @memberof module:JWT
+ * @memberof module:jwt
  * @function
  * @param {Object} payload - Stores a payload inside of a token
  * @returns {Promise} Promise object represents a token string
@@ -25,7 +25,7 @@ const encode = payload => {
  * This function will return a payload if the token is still
  *  valid. Failing validity include expiration or tampering.
  * @name decode
- * @memberof module:JWT
+ * @memberof module:jwt
  * @function
  * @param {String} token - Token with payload
  * @returns {Promise} Promise object represents a payload returned from a token.

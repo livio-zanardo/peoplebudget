@@ -9,7 +9,7 @@
  * @namespace authRouter
  */
 const router = require("express").Router();
-const { encode, decode } = require("../helpers/JWT");
+const { encode, decode } = require("../helpers/jwt");
 
 /**
  * Register API Controller.
