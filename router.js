@@ -1,6 +1,3 @@
-/**
- * Router Configuration
- */
 const router = require("express").Router();
 // const {
 //     isUser,

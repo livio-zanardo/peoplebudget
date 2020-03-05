@@ -7,7 +7,7 @@
     "start": "npx nodemon index.js",
     "dev": "cross-env NODE_ENV=dev npx nodemon index.js",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
-    "docs":"npx jsdoc ."
+    "docs":"npx jsdoc -c docs.conf.json"
   },
   "author": "",
   "license": "ISC",
