@@ -10,6 +10,6 @@ const router = require("express").Router();
 const {
   router: Auth,
   version: AuthVersion
-} = require("./controllers/Authentication");
+} = require("./Authentication");
 router.use(`/auth/v${AuthVersion}`, Auth);
 module.exports = router;

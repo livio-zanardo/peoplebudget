@@ -15,7 +15,7 @@ var publicKey = fs.readFileSync(process.env.PUBLICKEY);
  */
 const encode = payload => {
   return new Promise((resolve, reject) => {
-    jwt.sign(payload, privateKey, { algorithm: "RS256" }, function(err, token) {
+    jwt.sign(payload, privateKey, { algorithm: "RS256" }, (err, token) => {
       if (err) reject(err);
       else resolve(token);
     });
@@ -32,7 +32,7 @@ const encode = payload => {
  */
 const decode = token => {
   return new Promise((resolve, reject) => {
-    jwt.verify(token, publicKey, function(err, decoded) {
+    jwt.verify(token, publicKey, (err, decoded) => {
       if (err) reject(err);
       else resolve(decoded);
     });

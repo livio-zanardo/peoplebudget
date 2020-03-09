@@ -1,18 +1,26 @@
 // get the client
-const mysql = require("mysql2");
+const seq = require("sequelize");
 
-// create the connection to database
-const connection = mysql.createConnection({
+const pool = {
+  max: 5,
+  min: 0,
+  acquire: 30000,
+  idle: 10000
+};
+
+const DB = new seq(process.env.DB, process.env.DBUSER, process.env.DBPW, {
   host: process.env.DBHOST,
-  user: process.env.DBUSER,
-  password: process.env.DBPW,
-  database: process.env.DB
+  dialect: "mysql",
+  /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
+  pool: pool
 });
 
-// test select statement query
-connection.query("SELECT * FROM `persons`", function(err, results, fields) {
-//   if (err) console.log(err);
-//   else console.log(results);
-});
+(async () => {
+  try {
+    await DB.authenticate();
+  } catch (error) {
+    console.log(error);
+  }
+})();
 
-module.exports = connection;
+module.exports = DB;

@@ -25,7 +25,7 @@ router.post(`/register`, async (req, res) => {
     const {
       body: { fname, lname }
     } = req;
-    //console.log(fname, lname);
+    console.log(fname, lname);
     const token = await encode({ fname, lname });
     res.cookie("token", token, { maxAge: 900000, httpOnly: true });
     res.statusCode = 201;
