@@ -33,7 +33,7 @@ This project was inspired by "Austin Budget Party" a project funded by Mozilla w
         touch .env
         ```   
 
-  4. Using .env.example as a template fill out all fields (replace angle brackets)
+  4. Using .env.example as a template, copy fields in your .env and fill out all fields (replace angle brackets)
   5. Run npm setup script
 
         ```sh
