@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx nodemon index.js",
-    "setup": "node ./setup/setup.js && echo 'Installing server dependencies...' && npm i && cd view && echo 'Installing React Dependencies...' && npm i",
+    "setup": "npm i && node ./setup/setup.js && echo 'Installing server dependencies...' && cd view && echo 'Installing React Dependencies...' && npm i",
     "dev": "cross-env NODE_ENV=dev npx nodemon index.js",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
     "docs": "npx jsdoc -c setup/docs.conf.json"

@@ -26,7 +26,7 @@ This project was inspired by "Austin Budget Party" a project funded by Mozilla w
         git clone https://github.com/Code-for-Miami/peoplebudget
         ```
 
-  2. Install MYSQL https://dev.mysql.com/downloads/mysql/
+  2. Install MYSQL https://dev.mysql.com/downloads/mysql/ (note use a password you will remember)
   3. Navigate to project directory and create a .env file
 
         ```sh
