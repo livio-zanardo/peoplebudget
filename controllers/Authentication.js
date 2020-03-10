@@ -1,6 +1,8 @@
 /**
  * @module routes/auth
  */
+const user = require("../models/user");
+const { hash, compare } = require("../helpers/hash");
 
 /**
  * Express router to handle user authentication.
@@ -20,18 +22,52 @@ const { encode, decode } = require("../helpers/jwt");
  * @param {string} path - Express path
  * @param {callback} controller - Express controller.
  */
-router.post(`/register`, async (req, res) => {
-  try {
-    const {
-      body: { fname, lname }
-    } = req;
-    console.log(fname, lname);
-    const token = await encode({ fname, lname });
+router.post(`/register`, async (req, res, next) => {
+  //check if user exists
+  if (!req.body.email) {
+    next(new Error("Missing Email!"));
+    return;
+  }
+  if (!req.body.fname) {
+    next(new Error("Missing First Name!"));
+    return;
+  }
+  if (!req.body.lname) {
+    next(new Error("Missing Last Name!"));
+    return;
+  }
+  if (!req.body.pass) {
+    next(new Error("Missing Password!"));
+    return;
+  }
+  if (!req.body.recover_pass) {
+    next(new Error("Missing Recovery Password!"));
+    return;
+  }
+  const {
+    body: { email, fname, lname, pass, recover_pass }
+  } = req;
+  const existingUser = await user.findAll({
+    where: {
+      email: req.body.email
+    }
+  });
+  // console.log(existingUser);
+  if (existingUser.length === 0) {
+    //create new user
+    const newUser = await user.create({
+      email: email,
+      firstName: fname,
+      lastName: lname,
+      hash: await hash(pass),
+      recoveryHash: await hash(recover_pass)
+    });
+    const token = await encode({ id: newUser.id, email: newUser.email });
     res.cookie("token", token, { maxAge: 900000, httpOnly: true });
     res.statusCode = 201;
-    res.send({ response: "you've got a token" });
-  } catch (error) {
-    res.send(err);
+    res.send({ response: "User registered!" });
+  } else {
+    next(new Error("User Already Exists!"));
   }
 });
 
@@ -83,6 +119,13 @@ router.post(`/logout`, async (req, res, next) => {
  * @param {callback} controller - Express controller.
  */
 router.post(`/refresh`, async (req, res) => {
+  const newUser = await user.create({
+    firstName: "test",
+    lastName: "test",
+    hash: "11111",
+    recoveryHash: "11112"
+  });
+  console.log(newUser.id);
   res.send("refresh");
 });
 module.exports = { router, version: 1 };

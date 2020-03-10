@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: jwt</title>
+    <title>JSDoc: Module: database</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: jwt</h1>
+    <h1 class="page-title">Module: database</h1>
 
     
 
@@ -54,6 +54,72 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".user"><span class="type-signature">(static) </span>user<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    User mapping.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_user.js.html">models/user.js</a>, <a href="models_user.js.html#line4">line 4</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -64,7 +130,7 @@
     
 
     
-    <h4 class="name" id=".decode"><span class="type-signature">(static) </span>decode<span class="signature">(token)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id=".drop"><span class="type-signature">(async, static) </span>drop<span class="signature">(table)</span><span class="type-signature"> &rarr; {null}</span></h4>
     
 
     
@@ -72,7 +138,7 @@
 
 
 <div class="description">
-    This function will return a payload if the token is still valid. Failing validity include expiration or tampering.
+    WIll drop all tables or a single table.
 </div>
 
 
@@ -108,7 +174,7 @@
 
         <tr>
             
-                <td class="name"><code>token</code></td>
+                <td class="name"><code>table</code></td>
             
 
             <td class="type">
@@ -124,7 +190,7 @@
 
             
 
-            <td class="description last">Token with payload</td>
+            <td class="description last">database table name</td>
         </tr>
 
     
@@ -165,7 +231,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_jwt.js.html">helpers/jwt.js</a>, <a href="helpers_jwt.js.html#line24">line 24</a>
+        <a href="database_database.js.html">database/database.js</a>, <a href="database_database.js.html#line49">line 49</a>
     </li></ul></dd>
     
 
@@ -193,10 +259,6 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    Promise object represents a payload returned from a token.
-</div>
-
 
 
 <dl>
@@ -205,7 +267,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">null</span>
 
 
     </dd>
@@ -223,7 +285,7 @@
     
 
     
-    <h4 class="name" id=".encode"><span class="type-signature">(static) </span>encode<span class="signature">(payload)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id=".migrate"><span class="type-signature">(async, static) </span>migrate<span class="signature">(table)</span><span class="type-signature"> &rarr; {null}</span></h4>
     
 
     
@@ -231,7 +293,7 @@
 
 
 <div class="description">
-    This function will create a JWT Token with optional payload.
+    WIll migrate all tables or a single table.
 </div>
 
 
@@ -267,13 +329,13 @@
 
         <tr>
             
-                <td class="name"><code>payload</code></td>
+                <td class="name"><code>table</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">String</span>
 
 
             
@@ -283,7 +345,7 @@
 
             
 
-            <td class="description last">Stores a payload inside of a token</td>
+            <td class="description last">database table name</td>
         </tr>
 
     
@@ -324,7 +386,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_jwt.js.html">helpers/jwt.js</a>, <a href="helpers_jwt.js.html#line8">line 8</a>
+        <a href="database_database.js.html">database/database.js</a>, <a href="database_database.js.html#line29">line 29</a>
     </li></ul></dd>
     
 
@@ -352,10 +414,6 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    Promise object represents a token string
-</div>
-
 
 
 <dl>
@@ -364,7 +422,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">null</span>
 
 
     </dd>

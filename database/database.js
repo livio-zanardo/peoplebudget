@@ -1,4 +1,7 @@
-// get the client
+/**
+ * @module database
+ */
+
 const seq = require("sequelize");
 
 const pool = {
@@ -11,10 +14,10 @@ const pool = {
 const DB = new seq(process.env.DB, process.env.DBUSER, process.env.DBPW, {
   host: process.env.DBHOST,
   dialect: "mysql",
-  /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
   pool: pool
 });
 
+// connection test
 (async () => {
   try {
     await DB.authenticate();
@@ -23,4 +26,44 @@ const DB = new seq(process.env.DB, process.env.DBUSER, process.env.DBPW, {
   }
 })();
 
-module.exports = DB;
+/**
+ * WIll migrate all tables or a single table.
+ * @name migrate
+ * @memberof module:database
+ * @async
+ * @function
+ * @param {String} table - database table name
+ * @returns {null}
+ */
+const migrate = async table => {
+  const models = require("../models/index");
+  if (table && typeof table === "String") {
+    await models[table].sync({ alter: true });
+  } else {
+    for (const model in models) {
+      await models[model].sync({ alter: true });
+    }
+  }
+};
+
+/**
+ * WIll drop all tables or a single table.
+ * @name drop
+ * @memberof module:database
+ * @async
+ * @function
+ * @param {String} table - database table name
+ * @returns {null}
+ */
+const drop = async table => {
+  const models = require("../models/index");
+  if (table && typeof table === "String") {
+    await models[table].drop();
+  } else {
+    for (const model in models) {
+      await models[model].drop();
+    }
+  }
+};
+
+module.exports = { DB, migrate, drop };

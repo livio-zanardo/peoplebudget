@@ -14,7 +14,8 @@ const swaggerDocument = require("./swagger/swagger.json");
 app.use(cookieParser());
 app.use(bodyParser.json());
 //Database import
-const DB = require("./database/database");
+const { DB } = require("./database/database");
+//console.log('models:',require('./models/index'))
 //setup API routing
 app.use("/api", router);
 if (process.env.NODE_ENV === "dev")
