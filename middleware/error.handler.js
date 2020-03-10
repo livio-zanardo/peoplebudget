@@ -12,8 +12,8 @@
  * @param {Function} next - Function that passes the context onto the next express middleware
  */
 const errorHandler = (err, req, res, next) => {
-  console.log('this runs');
+  console.log("Error:", err.message);
   res.send({ error: err.message });
 };
 
-module.exports= {errorHandler}
+module.exports = { errorHandler };
