@@ -13,7 +13,11 @@
  */
 const errorHandler = (err, req, res, next) => {
   console.log("Error:", err.message);
-  res.send({ error: err.message });
+
+  if (err.status) res.status(err.status);
+  else res.status(500);
+
+  res.send({ [err.name]: err.message });
 };
 
 module.exports = { errorHandler };

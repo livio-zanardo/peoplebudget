@@ -11,11 +11,20 @@ const pool = {
   idle: 10000
 };
 
-const DB = new seq(process.env.DB, process.env.DBUSER, process.env.DBPW, {
+const dbEnv = () => {
+  switch(process.env.NODE_ENV){
+    case 'test': return `${process.env.DB}_test`
+    case 'dev': return `${process.env.DB}`
+      default: return 'dev'
+  }
+}
+
+const DB = new seq(dbEnv(), process.env.DBUSER, process.env.DBPW, {
   host: process.env.DBHOST,
   dialect: "mysql",
   pool: pool
 });
+
 
 // connection test
 (async () => {

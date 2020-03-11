@@ -3,6 +3,8 @@
  */
 const user = require("../models/user");
 const { hash, compare } = require("../helpers/hash");
+const { customValidator } = require("../helpers/validator");
+const { alreadyExists } = require("../helpers/database");
 
 /**
  * Express router to handle user authentication.
@@ -23,37 +25,32 @@ const { encode, decode } = require("../helpers/jwt");
  * @param {callback} controller - Express controller.
  */
 router.post(`/register`, async (req, res, next) => {
-  //check if user exists
-  if (!req.body.email) {
-    next(new Error("Missing Email!"));
+  // valiate user input
+  const validated = customValidator(req.body, {
+    email: null,
+    fname: null,
+    lname: null,
+    pass: null,
+    recover_pass: null
+  });
+
+  //throw error is validation fails
+  if (validated !== 0) {
+    next(validated);
     return;
   }
-  if (!req.body.fname) {
-    next(new Error("Missing First Name!"));
-    return;
-  }
-  if (!req.body.lname) {
-    next(new Error("Missing Last Name!"));
-    return;
-  }
-  if (!req.body.pass) {
-    next(new Error("Missing Password!"));
-    return;
-  }
-  if (!req.body.recover_pass) {
-    next(new Error("Missing Recovery Password!"));
-    return;
-  }
+
+  //destructure user input
   const {
     body: { email, fname, lname, pass, recover_pass }
   } = req;
-  const existingUser = await user.findAll({
-    where: {
+
+  try {
+    // check if user already exists
+    await alreadyExists(user, {
       email: req.body.email
-    }
-  });
-  // console.log(existingUser);
-  if (existingUser.length === 0) {
+    });
+
     //create new user
     const newUser = await user.create({
       email: email,
@@ -62,12 +59,16 @@ router.post(`/register`, async (req, res, next) => {
       hash: await hash(pass),
       recoveryHash: await hash(recover_pass)
     });
+
+    //create jwt token
     const token = await encode({ id: newUser.id, email: newUser.email });
     res.cookie("token", token, { maxAge: 900000, httpOnly: true });
+
+    //send response
     res.statusCode = 201;
     res.send({ response: "User registered!" });
-  } else {
-    next(new Error("User Already Exists!"));
+  } catch (error) {
+    next(error);
   }
 });
 

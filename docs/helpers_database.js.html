@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: models/user.js</title>
+    <title>JSDoc: Source: helpers/database.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: models/user.js</h1>
+    <h1 class="page-title">Source: helpers/database.js</h1>
 
     
 
@@ -26,48 +26,45 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const { DB } = require("../database/database");
-const { DataTypes } = require("sequelize");
+            <pre class="prettyprint source linenums"><code>/**
+ * @module database
+ */
+const { ClientError, ServerError } = require("../helpers/error");
 
 /**
- * User mapping.
- * @name user
+ * Will check is a resource already exists
+ * @name alreadyExists
+ * @function
  * @memberof module:database
- * @param {String} table - database table name
- * @param {Object} fields - Object with required fields
- * @returns {Object} - User object to insert or retrieve from the database
+ * @param {Function} dbModel - Database object function
+ * @param {Object} query - Object used to query database
+ * @returns {Promise} returns a promise that will resolve to be a Boolean or an Error object
  */
-module.exports = DB.define(
-  "User",
-  {
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    lastName: {
-      type: DataTypes.STRING
-    },
-    hash: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    recoveryHash: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    role: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+alreadyExists = (dbModel, query) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await dbModel.findAll({
+        where: query
+      });
+      res.length &lt; 1
+        ? resolve(true)
+        : reject(
+            new ClientError(
+              400,
+              `Type:'${dbModel.name}', with query params:[${Object.keys(
+                query
+              ).join(",")}], already exists.`
+            )
+          );
+    } catch (error) {
+      reject(error);
     }
-  },
-  {
-    // Other model options go here
-  }
-);
+  });
+};
+
+module.exports = {
+  alreadyExists
+};
 </code></pre>
         </article>
     </section>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: models/user.js</title>
+    <title>JSDoc: Source: helpers/validator.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: models/user.js</h1>
+    <h1 class="page-title">Source: helpers/validator.js</h1>
 
     
 
@@ -26,48 +26,33 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const { DB } = require("../database/database");
-const { DataTypes } = require("sequelize");
+            <pre class="prettyprint source linenums"><code>/**
+ * @module validator
+ */
+
+const validators = require("validator");
 
 /**
- * User mapping.
- * @name user
- * @memberof module:database
- * @param {String} table - database table name
- * @param {Object} fields - Object with required fields
- * @returns {Object} - User object to insert or retrieve from the database
+ * This will validate an object's keys
+ * @name customValidator
+ * @function
+ * @memberof module:validator
+ * @param {Object} body - Object with keys that need to be validated
+ * @param {Object} params - An object that represents required keys and validation rules
+ * @returns {Object|Number} returns Error object | returns 0 if is valid
  */
-module.exports = DB.define(
-  "User",
-  {
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    lastName: {
-      type: DataTypes.STRING
-    },
-    hash: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    recoveryHash: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    role: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+const customValidator = (body, params) => {
+  for (const key in params) {
+    if (body.hasOwnProperty(key)) {
+      //do more validation here
+    } else {
+      return new Error(`Missing paramater '${key}' .`);
     }
-  },
-  {
-    // Other model options go here
   }
-);
+  return 0;
+};
+
+module.exports = { customValidator };
 </code></pre>
         </article>
     </section>

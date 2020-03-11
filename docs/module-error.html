@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: hash</title>
+    <title>JSDoc: Module: error</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: hash</h1>
+    <h1 class="page-title">Module: error</h1>
 
     
 
@@ -46,6 +46,16 @@
     
 
     
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="module-error.ClientError.html">ClientError</a></dt>
+            <dd></dd>
+        
+            <dt><a href="module-error.ServerError.html">ServerError</a></dt>
+            <dd></dd>
+        </dl>
+    
 
     
 
@@ -64,16 +74,12 @@
     
 
     
-    <h4 class="name" id=".compare"><span class="type-signature">(async, static) </span>compare<span class="signature">(pwFromClient, pwFromStorage)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~ClientError"><span class="type-signature">(inner) </span>ClientError<span class="signature">(status, &hellip;params)</span><span class="type-signature"></span></h4>
     
 
     
 
 
-
-<div class="description">
-    Compare a password from the client to a hashed password
-</div>
 
 
 
@@ -96,7 +102,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -108,46 +118,74 @@
 
         <tr>
             
-                <td class="name"><code>pwFromClient</code></td>
+                <td class="name"><code>status</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Number</span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last">Password from client</td>
+            
+                <td class="default">
+                
+                    400
+                
+                </td>
+            
+
+            <td class="description last">status code</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>pwFromStorage</code></td>
+                <td class="name"><code>params</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">any</span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
             
 
-            <td class="description last">Hashed password from database/storage</td>
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">standard Error constructor parameters</td>
         </tr>
 
     
@@ -188,7 +226,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_hash.js.html">helpers/hash.js</a>, <a href="helpers_hash.js.html#line28">line 28</a>
+        <a href="helpers_error.js.html">helpers/error.js</a>, <a href="helpers_error.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -213,28 +251,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    returns a promise that will resolve into true or false
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -246,16 +262,12 @@
     
 
     
-    <h4 class="name" id=".hash"><span class="type-signature">(async, static) </span>hash<span class="signature">(password)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~ServerError"><span class="type-signature">(inner) </span>ServerError<span class="signature">(status, &hellip;params)</span><span class="type-signature"></span></h4>
     
 
     
 
 
-
-<div class="description">
-    Will create a one way hash from a string
-</div>
 
 
 
@@ -278,7 +290,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -290,23 +306,74 @@
 
         <tr>
             
-                <td class="name"><code>password</code></td>
+                <td class="name"><code>status</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Number</span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last">Password to create hash</td>
+            
+                <td class="default">
+                
+                    500
+                
+                </td>
+            
+
+            <td class="description last">status code</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">any</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">standard Error constructor parameters</td>
         </tr>
 
     
@@ -347,7 +414,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_hash.js.html">helpers/hash.js</a>, <a href="helpers_hash.js.html#line8">line 8</a>
+        <a href="helpers_error.js.html">helpers/error.js</a>, <a href="helpers_error.js.html#line49">line 49</a>
     </li></ul></dd>
     
 
@@ -372,28 +439,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    returns a promise that will resolve into a hashed string
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 

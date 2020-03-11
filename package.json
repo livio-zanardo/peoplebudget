@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "npx nodemon index.js",
-    "setup": "echo 'Installing server dependencies...' && npm i && node ./setup/setup.js && npm run drop && npm run migrate && npm run docs && cd view && echo 'Installing React Dependencies...' && npm i",
-    "migrate": "cross-env DBOP=migrate node database/migrate.js",
-    "drop": "cross-env DBOP=drop node database/migrate.js",
+    "setup": "sh ./setup/setup.sh",
+    "migrate:dev": "cross-env DBOP=migrate NODE_ENV=dev node database/migrate.js",
+    "drop:dev": "cross-env DBOP=drop NODE_ENV=dev node database/migrate.js",
+    "migrate:test": "cross-env DBOP=migrate NODE_ENV=test node database/migrate.js",
+    "drop:test": "cross-env DBOP=drop NODE_ENV=test node database/migrate.js",
     "dev": "cross-env NODE_ENV=dev npx nodemon index.js",
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --detectOpenHandles",
     "docs": "npx jsdoc -c setup/docs.conf.json"
   },
   "author": "",
@@ -17,7 +19,9 @@
   "dependencies": {
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
     "cross-env": "^7.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -29,7 +33,9 @@
     "require-dir": "^1.2.0",
     "sequelize": "^5.21.5",
     "supertest": "^4.0.2",
-    "swagger-ui-express": "^4.1.3"
+    "swagger-stats": "^0.95.16",
+    "swagger-ui-express": "^4.1.3",
+    "validator": "^12.2.0"
   },
   "jest": {
     "testEnvironment": "node",

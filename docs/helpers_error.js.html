@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: database/database.js</title>
+    <title>JSDoc: Source: helpers/error.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: database/database.js</h1>
+    <h1 class="page-title">Source: helpers/error.js</h1>
 
     
 
@@ -27,83 +27,70 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module database
+ * @module error
  */
 
-const seq = require("sequelize");
+/**
+ * Status codes 400-499
+ * @name ClientError
+ * @class
+ * @extends Error
+ * @memberof module:error
+ */
+class ClientError extends Error {
+  /**
+   * @inner
+   * @method
+   * @param {Number} status - status code
+   * @param  {...any} params - standard Error constructor parameters
+   */
+  constructor(status = "400", ...params) {
+    // Pass remaining arguments (including vendor specific ones) to parent constructor
+    super(...params);
 
-const pool = {
-  max: 5,
-  min: 0,
-  acquire: 30000,
-  idle: 10000
-};
+    // Maintains proper stack trace for where our error was thrown (only available on V8)
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, ClientError);
+    }
 
-const dbEnv = () => {
-  switch(process.env.NODE_ENV){
-    case 'test': return `${process.env.DB}_test`
-    case 'dev': return `${process.env.DB}`
-      default: return 'dev'
+    this.name = "ClientError";
+    // Custom debugging information
+    this.status = status;
+    this.date = new Date();
   }
 }
 
-const DB = new seq(dbEnv(), process.env.DBUSER, process.env.DBPW, {
-  host: process.env.DBHOST,
-  dialect: "mysql",
-  pool: pool
-});
-
-
-// connection test
-(async () => {
-  try {
-    await DB.authenticate();
-  } catch (error) {
-    console.log(error);
-  }
-})();
-
 /**
- * WIll migrate all tables or a single table.
- * @name migrate
- * @memberof module:database
- * @async
- * @function
- * @param {String} table - database table name
- * @returns {null}
+ * Status codes 500-599
+ * @name ServerError
+ * @class
+ * @extends Error
+ * @memberof module:error
  */
-const migrate = async table => {
-  const models = require("../models/index");
-  if (table &amp;&amp; typeof table === "String") {
-    await models[table].sync({ alter: true });
-  } else {
-    for (const model in models) {
-      await models[model].sync({ alter: true });
-    }
-  }
-};
+class ServerError extends Error {
+  /**
+   * @inner
+   * @method
+   * @param {Number} status - status code
+   * @param  {...any} params - standard Error constructor parameters
+   */
+  constructor(status = "500", ...params) {
+    // Pass remaining arguments (including vendor specific ones) to parent constructor
+    super(...params);
 
-/**
- * WIll drop all tables or a single table.
- * @name drop
- * @memberof module:database
- * @async
- * @function
- * @param {String} table - database table name
- * @returns {null}
- */
-const drop = async table => {
-  const models = require("../models/index");
-  if (table &amp;&amp; typeof table === "String") {
-    await models[table].drop();
-  } else {
-    for (const model in models) {
-      await models[model].drop();
+    // Maintains proper stack trace for where our error was thrown (only available on V8)
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, ServerError);
     }
-  }
-};
 
-module.exports = { DB, migrate, drop };
+    this.name = "ServerError";
+    // Custom debugging information
+    this.status = status;
+    this.date = new Date();
+  }
+}
+
+module.exports = { ClientError, ServerError };
 </code></pre>
         </article>
     </section>
