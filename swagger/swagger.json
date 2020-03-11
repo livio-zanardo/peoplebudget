@@ -21,38 +21,26 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-    "/users": {
+    "/auth/v1/register": {
       "post": {
         "tags": ["Users"],
-        "description": "Create new user in system",
+        "description": "Register a new user.",
         "parameters": [
           {
-            "name": "user",
+            "name": "Register",
             "in": "body",
-            "description": "User that we want to create",
+            "description": "User that we want to register",
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/Register"
             }
           }
         ],
         "produces": ["application/json"],
         "responses": {
-          "200": {
-            "description": "New user is created",
+          "201": {
+            "description": "User registered!",
             "schema": {
-              "$ref": "#/definitions/User"
-            }
-          }
-        }
-      },
-      "get": {
-        "tags": ["Users"],
-        "summary": "Get all users in system",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Users"
+              "$ref": "#/definitions/Register"
             }
           }
         }
@@ -139,6 +127,31 @@
     "Users": {
       "type": "array",
       "$ref": "#/definitions/User"
+    },
+    "Register": {
+      "required": ["email", "_id", "fname", "lname", "pass", "recover_pass"],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "lname": {
+          "type": "string"
+        },
+        "fname": {
+          "type": "string"
+        },
+        "pass": {
+          "type": "string"
+        },
+        "recover_pass": {
+          "type": "string"
+        }
+      }
     }
   }
 }

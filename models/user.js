@@ -7,7 +7,7 @@ const { DataTypes } = require("sequelize");
  * @memberof module:database
  * @param {String} table - database table name
  * @param {Object} fields - Object with required fields
- * @returns {Object} - User object to insert or retrieve from the database
+ * @returns {Function} - User object to insert or retrieve from the database
  */
 module.exports = DB.define(
   "User",

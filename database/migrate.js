@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { DB, migrate, drop } = require("../database/database");
+const { migrate, drop } = require("../database/database");
 switch (process.env.DBOP) {
   case "migrate":
     console.log("Migrating tables...");
