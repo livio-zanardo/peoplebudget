@@ -9,6 +9,7 @@ if (
   !process.env.DBROOTUSER ||
   !process.env.DBROOTPW
 ) {
+  console.log(process.env);
   new Error("Missing a parameter(s) in your .env file");
 } else {
   (async () => {
@@ -18,10 +19,12 @@ if (
       user: process.env.DBROOTUSER,
       password: process.env.DBROOTPW
     });
+    
     try {
+      
       // testing connection ////////////////////////////////////////////////////////
-      // const res = await connection.execute(`select 1+1`);
-      // console.log(res);
+      const res = await connection.execute(`select 1+1`);
+      console.log(res);
       //////////////////////////////////////////////////////////////////////////////
       console.log("Flushing old user priveleges...");
       await connection.execute(`FLUSH PRIVILEGES`);
