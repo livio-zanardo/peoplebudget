@@ -5,6 +5,7 @@ const user = require("../models/user");
 const { hash, compare } = require("../helpers/hash");
 const { customValidator } = require("../helpers/validator");
 const { alreadyExists } = require("../helpers/database");
+const { ClientError, ServerError } = require("../helpers/error");
 
 /**
  * Express router to handle user authentication.
@@ -60,10 +61,6 @@ router.post(`/register`, async (req, res, next) => {
       recoveryHash: await hash(recover_pass)
     });
 
-    //create jwt token
-    const token = await encode({ id: newUser.id, email: newUser.email });
-    res.cookie("token", token, { maxAge: 900000, httpOnly: true });
-
     //send response
     res.statusCode = 201;
     res.send({ response: "User registered!" });
@@ -83,10 +80,38 @@ router.post(`/register`, async (req, res, next) => {
  */
 router.post(`/login`, async (req, res) => {
   try {
-    const { cookies } = req;
-    console.log(cookies);
-    const decoded = await decode(cookies.token);
-    res.send({ response: decoded });
+    //destructure body
+    const {
+      body: { email, pass }
+    } = req;
+    console.log(email, pass);
+
+    //find user based on email and password hash
+    const aUser = await user.findOne({
+      where: {
+        email: email
+      }
+    });
+
+    //check hash
+    const passMatch = await compare(pass, aUser.hash);
+    console.log(passMatch)
+
+    if (passMatch) {
+      //create jwt token
+      const token = await encode({
+        id: aUser.id,
+        email: aUser.email,
+        role:aUser.role,
+        iss: new Date().getTime(),
+        exp: new Date().getTime() + 1000 * 60 * 15
+      }); //15 min expiration
+      res.cookie("token", token, { maxAge: 900000, httpOnly: true });
+      res.send({ response: 'Login Successful!' });
+    } else {
+      next(new ClientError(400, "Bad Username/Password."));
+    }
+
   } catch (error) {
     res.send(error);
   }

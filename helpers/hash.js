@@ -5,6 +5,7 @@
 const bcrypt = require("bcrypt");
 const saltRounds = parseInt(process.env.SALT);
 
+
 /**
  * Will create a one way hash from a string
  * @name hash
@@ -39,7 +40,7 @@ const compare = async (pwFromClient, pwFromStorage) => {
   return new Promise(async (resolve, reject) => {
     try {
       const results = await bcrypt.compare(pwFromClient, pwFromStorage);
-      result ? resolve(result) : reject(result);
+      resolve(results);
     } catch (error) {
       reject(error);
     }
