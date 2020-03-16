@@ -62,7 +62,6 @@ if (
     }
   })();
 }
-
 process.on("exit", function(code) {
   console.log("Setup Complete!");
   return console.log(`Exiting with code ${code}`);
