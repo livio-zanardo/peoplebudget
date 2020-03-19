@@ -33,15 +33,15 @@ router.post("/", async (req, res, next) => {
       recoveryHash: await hash(recover_pass)
     });
 
+    res.header("Location", `api/user/v1/?id=${newUser.id}`)
     res.statusCode = 201;
-    res.send({ response: "User Created!" });
+    res.send({ response: "user created" });
   } catch (error) {
     next(error);
   }
 });
 router.get("/", async (req, res, next) => {
   let results;
-  console.log(req.query);
   try {
     if (req.query.hasOwnProperty("id")) {
       results = await user.findOne({
@@ -51,7 +51,7 @@ router.get("/", async (req, res, next) => {
         }
       });
       if (!results) {
-        next(new ClientError(400, "ID doesn't exist"));
+        next(new ClientError(400, `id ${req.query.id}doesn't exist`));
         return;
       }
     } else {
@@ -69,7 +69,6 @@ router.get("/", async (req, res, next) => {
 router.put("/", async (req, res, next) => {
   let result = null;
   try {
-    console.log(req.body);
     result = await user.update(
       { ...req.body.user },
       {
@@ -77,11 +76,10 @@ router.put("/", async (req, res, next) => {
       }
     );
     if (result.length === 1 && result[0] === 0) {
-      next(new ClientError(400, `ID #${req.body.id} doesn't exist`));
+      next(new ClientError(400, `id ${req.body.id} doesn't exist`));
       return;
     }
-    console.log("this is the result", result);
-    res.send("done");
+    res.send({response: "user info updated"});
   } catch (error) {
     next(error);
   }
@@ -95,24 +93,21 @@ router.delete("/", async (req, res, next) => {
         where: { id: req.body.id }
       });
       if (!result) {
-        next(new ClientError(400, `ID #${req.body.id} doesn't exist`));
+        next(new ClientError(400, `id ${req.body.id} doesn't exist`));
         return;
       }
-      res.send(`finshed deleting user ${req.body.id}`); // Tell User
+      res.send(`User ${req.body.id}`); // Tell User
     } else {
       result = await user.destroy({
         where: { id: req.body.id }
       });
       if (!result) {
         next(
-          new ClientError(
-            400,
-            `ID # [${req.body.id.join(" , ")}] doesn't exist`
-          )
+          new ClientError(400, `ids [${req.body.id.join(" , ")}] don't exist`)
         );
         return;
       }
-      res.send({ response: "Users deleted" });
+      res.send({ response: "users deleted" });
     }
   } catch (error) {
     next(error);
