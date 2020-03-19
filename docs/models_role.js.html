@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: routes/auth</title>
+    <title>JSDoc: Source: models/role.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,59 +17,42 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: routes/auth</h1>
+    <h1 class="page-title">Source: models/role.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { DB } = require("../database/database");
+const { DataTypes } = require("sequelize");
 
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Namespaces</h3>
-
-        <dl>
-            <dt><a href="module-routes_auth-authRouter.html">authRouter</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+/**
+ * User mapping.
+ * @name role
+ * @memberof module:database
+ * @param {String} table - database table name
+ * @param {Object} fields - Object with required fields
+ * @returns {Function} - role object to insert or retrieve from the database
+ */
+const role = DB.define(
+  "Role",
+  {
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
+  },
+  {
+    // Other model options go here
+  }
+);
+module.exports = role;
+</code></pre>
+        </article>
+    </section>
 
 
 
