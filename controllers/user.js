@@ -4,6 +4,7 @@ const { hash } = require("../helpers/hash");
 const { customValidator } = require("../helpers/validator");
 const { alreadyExists } = require("../helpers/database");
 const { ClientError, ServerError } = require("../helpers/error");
+const pagination = require("../helpers/pagination");
 
 router.post("/", async (req, res, next) => {
   const validated = customValidator(req.body, {
@@ -55,11 +56,16 @@ router.get("/", async (req, res, next) => {
         return;
       }
     } else {
-      results = await user.findAll({
-        attributes: {
-          exclude: ["hash", "recoveryHash", "createdAt", "updatedAt"]
+    
+      results = await pagination(
+        user,
+        { limit: req.query.limit, currentPage: req.query.page },
+        {
+          attributes: {
+            exclude: ["hash", "recoveryHash", "createdAt", "updatedAt"]
+          }
         }
-      });
+      );
     }
     res.send({ response: results });
   } catch (error) {
@@ -84,6 +90,7 @@ router.put("/", async (req, res, next) => {
     next(error);
   }
 });
+
 // To do: Find which id's couldn't get deleted
 router.delete("/", async (req, res, next) => {
   try {
