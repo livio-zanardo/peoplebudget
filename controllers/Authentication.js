@@ -7,6 +7,9 @@ const { customValidator } = require("../helpers/validator");
 const { alreadyExists } = require("../helpers/database");
 const { ClientError, ServerError } = require("../helpers/error");
 
+//testing it
+const {adminRequired, contributerRequired} = require("../middleware/requiredPermissions");
+
 /**
  * Express router to handle user authentication.
  * @type {object}
@@ -92,26 +95,24 @@ router.post(`/login`, async (req, res) => {
         email: email
       }
     });
-
     //check hash
     const passMatch = await compare(pass, aUser.hash);
-    console.log(passMatch)
+    console.log(passMatch);
 
     if (passMatch) {
       //create jwt token
       const token = await encode({
         id: aUser.id,
         email: aUser.email,
-        role:aUser.role,
-        iss: new Date().getTime(),
-        exp: new Date().getTime() + 1000 * 60 * 15
-      }); //15 min expiration
+        // role: aUser.role,
+        role: "contributer", //testing user role logic
+        exp: Math.floor(Date.now() / 1000) + 60 * 15 //15 min expiration
+      });
       res.cookie("token", token, { maxAge: 900000, httpOnly: true });
-      res.send({ response: 'Login Successful!' });
+      res.send({ response: "Login Successful!" });
     } else {
       next(new ClientError(400, "Bad Username/Password."));
     }
-
   } catch (error) {
     res.send(error);
   }
@@ -144,14 +145,9 @@ router.post(`/logout`, async (req, res, next) => {
  * @param {string} path - Express path
  * @param {callback} controller - Express controller.
  */
-router.post(`/refresh`, async (req, res) => {
-  const newUser = await user.create({
-    firstName: "test",
-    lastName: "test",
-    hash: "11111",
-    recoveryHash: "11112"
-  });
-  console.log(newUser.id);
+router.post(`/refresh`, adminRequired, async (req, res) => {
+  const decoded = await decode(req.cookies.token);
+  console.log(decoded);
   res.send("refresh");
 });
 module.exports = { router, version: 1 };
