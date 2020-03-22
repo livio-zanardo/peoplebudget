@@ -18,10 +18,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors());
 if (!process.env.NODE_ENV === "dev") app.use(compression());
-//Database import
-const { DB } = require("./database/database");
-//console.log('models:',require('./models/index'))
-//setup API routing
 app.use("/api", router);
 if (process.env.NODE_ENV === "dev") {
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
