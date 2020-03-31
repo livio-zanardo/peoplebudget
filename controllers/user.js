@@ -45,12 +45,12 @@ router.get("/", async (req, res, next) => {
   let results;
   try {
     if (req.query.hasOwnProperty("id")) {
-      results = await user.findOne({
-        where: { id: req.query.id },
-        attributes: {
-          exclude: ["hash", "recoveryHash", "createdAt", "updatedAt"]
-        }
-      });
+      results = await user.findOne(
+      {
+        where: { id: req.query.id }, 
+        attributes: {exclude: ["hash", "recoveryHash", "createdAt", "updatedAt"] }
+      }
+      );
       if (!results) {
         next(new ClientError(400, `id ${req.query.id}doesn't exist`));
         return;
