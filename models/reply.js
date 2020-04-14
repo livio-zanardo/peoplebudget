@@ -12,7 +12,7 @@ const { DataTypes } = require("sequelize");
 const reply = DB.define(
   "Reply",
   {
-    CommentId: {
+    commentId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
