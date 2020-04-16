@@ -16,19 +16,20 @@ router.post("/", async (req, res, next) => {
     return;
   }
   const {
-    body: { commentid, replybody }
+    body: { commentid, replybody },
   } = req;
   try {
-    // Checking for duplicate replys
+    // Checking for duplicate replys?? <- from user crud
     /*
-    await alreadyExists(user, {
-      email: req.body.email
+    await alreadyExists(reply, {
+      replyBody: req.body.replybody
     });
     */
 
     const newReply = await reply.create({
-      commentId: commentid,
-      replyBody: replybody
+      //(commentId)Change "C" to "c" to match reply model once reply model is merged
+      CommentId: commentid,
+      replyBody: replybody,
     });
 
     //res.header("Location", `api/user/v1/?id=${newUser.id}`)
@@ -42,25 +43,26 @@ router.get("/", async (req, res, next) => {
   let results;
   try {
     if (req.query.hasOwnProperty("id")) {
-      results = await user.findOne({
+      results = await reply.findOne({
         where: { id: req.query.id },
         attributes: {
-          exclude: ["hash", "recoveryHash", "createdAt", "updatedAt"]
-        }
+          //(commentId)Change "C" to "c" to match reply model once reply model is merged
+          exclude: ["id", "updatedAt"],
+        },
       });
       if (!results) {
         next(new ClientError(400, `id ${req.query.id}doesn't exist`));
         return;
       }
     } else {
-    
       results = await pagination(
-        user,
+        reply,
         { limit: req.query.limit, currentPage: req.query.page },
         {
           attributes: {
-            exclude: ["hash", "recoveryHash", "createdAt", "updatedAt"]
-          }
+            //(commentId)Change "C" to "c" to match reply model once reply model is merged
+            exclude: ["id", "updatedAt"],
+          },
         }
       );
     }
@@ -71,18 +73,20 @@ router.get("/", async (req, res, next) => {
 });
 router.put("/", async (req, res, next) => {
   let result = null;
+  console.log("My id is ", req.body.id);
   try {
-    result = await user.update(
-      { ...req.body.user },
+    result = await reply.update(
+      { ...req.body.reply },
       {
-        where: { id: req.body.id }
+        where: { id: req.body.id },
       }
     );
+    console.log("This is my update result: ", result)
     if (result.length === 1 && result[0] === 0) {
       next(new ClientError(400, `id ${req.body.id} doesn't exist`));
       return;
     }
-    res.send({response: "user info updated"});
+    res.send({ response: "reply updated" });
   } catch (error) {
     next(error);
   }
@@ -93,17 +97,17 @@ router.delete("/", async (req, res, next) => {
   try {
     let result = null;
     if (!Array.isArray(req.body.id)) {
-      result = await user.destroy({
-        where: { id: req.body.id }
+      result = await reply.destroy({
+        where: { id: req.body.id },
       });
       if (!result) {
         next(new ClientError(400, `id ${req.body.id} doesn't exist`));
         return;
       }
-      res.send(`User ${req.body.id}`); // Tell User
+      res.send(`reply ${req.body.id} deleted`);
     } else {
-      result = await user.destroy({
-        where: { id: req.body.id }
+      result = await reply.destroy({
+        where: { id: req.body.id },
       });
       if (!result) {
         next(
@@ -111,7 +115,7 @@ router.delete("/", async (req, res, next) => {
         );
         return;
       }
-      res.send({ response: "users deleted" });
+      res.send({ response: `replies [${req.body.id.join(" , ")}] deleted` });
     }
   } catch (error) {
     next(error);
