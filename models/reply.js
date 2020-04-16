@@ -14,14 +14,16 @@ const reply = DB.define(
   {
     commentId: {
       type: DataTypes.INTEGER,
+
+      references: {
+        model: comment,
+        key: 'id'
+      },
       allowNull: false,
     },
     replyBody: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    replied: {
-      type: DataTypes.DATE,
     },
   },
   {
