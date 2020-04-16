@@ -14,10 +14,9 @@ const reply = DB.define(
   {
     commentId: {
       type: DataTypes.INTEGER,
-
       references: {
         model: comment,
-        key: 'id'
+        key: "id",
       },
       allowNull: false,
     },
