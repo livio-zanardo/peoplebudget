@@ -1,4 +1,4 @@
-const comments = require("../models/comment");
+const comment = require("../models/comment");
 const router = require("express").Router();
 const { hash } = require("../helpers/hash");
 const { customValidator } = require("../helpers/validator");
@@ -8,117 +8,127 @@ const pagination = require("../helpers/pagination");
 
 router.post("/", async (req, res, next) => {
   const validated = customValidator(req.body, {
-    email: null,
-    fname: null,
-    lname: null,
-    pass: null,
-    recover_pass: null
+    userid: null,
+    postid: null,
+    commentbody: null,
   });
   if (validated !== 0) {
     next(validated);
     return;
   }
   const {
-    body: { email, fname, lname, pass, recover_pass }
+    body: { userid, postid, commentbody }
   } = req;
   try {
-    await alreadyExists(user, {
-      email: req.body.email
+    // await alreadyExists(user, {
+    //   email: req.body.email
+    // });
+
+    const newComment = await comment.create({
+      userid: userid,
+      postid: postid,
+      commentbody: commentbody
     });
 
-    const newUser = await user.create({
-      email: email,
-      firstName: fname,
-      lastName: lname,
-      hash: await hash(pass),
-      recoveryHash: await hash(recover_pass)
-    });
-
-    res.header("Location", `api/user/v1/?id=${newUser.id}`)
+    res.header("Location", `api/comment/v1/?id=${newComment.id}`)
     res.statusCode = 201;
-    res.send({ response: "user created" });
+    res.send({ response: "comment created" });
   } catch (error) {
     next(error);
   }
 });
 router.get("/", async (req, res, next) => {
   let results;
+
   try {
     if (req.query.hasOwnProperty("id")) {
-      results = await user.findOne({
+      results = await comment.findOne({
         where: { id: req.query.id },
         attributes: {
-          exclude: ["hash", "recoveryHash", "createdAt", "updatedAt"]
+          exclude: ["createdAt", "updatedAt"]
         }
       });
       if (!results) {
         next(new ClientError(400, `id ${req.query.id}doesn't exist`));
         return;
       }
-    } else {
-    
-      results = await pagination(
-        user,
-        { limit: req.query.limit, currentPage: req.query.page },
-        {
-          attributes: {
-            exclude: ["hash", "recoveryHash", "createdAt", "updatedAt"]
-          }
-        }
-      );
+    } else if(req.query.hasOwnProperty("userid") ) {
+
+   
+        results = await comment.findAll({
+           where: {
+             userid: req.query.userid,
+           },order: [
+             ['createdAt', 'DESC']
+         ],
+           attributes: {
+             exclude: ["createdAt","updatedAt","userid"],
+           },
+         });
+      
+   
     }
     res.send({ response: results });
   } catch (error) {
     next(error);
   }
 });
+
 router.put("/", async (req, res, next) => {
   let result = null;
+  const validated = customValidator(req.body, {
+    id: null, 
+    commentbody: null,
+  });
+  if (validated !== 0) {
+    next(validated);
+    return;
+  }
   try {
-    result = await user.update(
-      { ...req.body.user },
-      {
-        where: { id: req.body.id }
+    const {
+      body: { id,commentbody },
+    } = req;
+    result = await comment.update(
+      { commentbody },
+      {             
+        where: { id: req.body.id },
       }
     );
-    if (result.length === 1 && result[0] === 0) {
-      next(new ClientError(400, `id ${req.body.id} doesn't exist`));
+    if (result.length === 1 && result[0] === 0) {   
+      next(new ClientError(400, `id '${req.body.id}' doesn't exist`));
       return;
     }
-    res.send({response: "user info updated"});
+    res.send({ response: "The comment has been updated" });
   } catch (error) {
     next(error);
   }
 });
 
-// To do: Find which id's couldn't get deleted
 router.delete("/", async (req, res, next) => {
+  let result = null;
+  const validated = customValidator(req.body, {
+    id: null, 
+  });
+  if (validated !== 0) {
+    next(validated);
+    return;
+  }
   try {
-    let result = null;
-    if (!Array.isArray(req.body.id)) {
-      result = await user.destroy({
+    const {
+      body: {id, postid, commentbody},
+    } = req;
+    result = await comment.destroy({
         where: { id: req.body.id }
       });
-      if (!result) {
-        next(new ClientError(400, `id ${req.body.id} doesn't exist`));
-        return;
-      }
-      res.send(`User ${req.body.id}`); // Tell User
-    } else {
-      result = await user.destroy({
-        where: { id: req.body.id }
-      });
-      if (!result) {
-        next(
-          new ClientError(400, `ids [${req.body.id.join(" , ")}] don't exist`)
-        );
-        return;
-      }
-      res.send({ response: "users deleted" });
+    if (result.length === 1 && result[0] === 0) {   
+      next(new ClientError(400, `id '${req.body.id}' doesn't exist`));
+      return;
     }
+    res.send({ response: "The comment has been deleted successfully" });
   } catch (error) {
     next(error);
   }
+  
 });
 
 module.exports = { router, version: 1 };
