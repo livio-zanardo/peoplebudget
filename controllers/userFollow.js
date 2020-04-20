@@ -63,8 +63,8 @@ router.post("/", async (req, res, next) => {
         results = await userfollow.findOne({
           where: { id: req.query.id },
           attributes: {
-            exclude: ["createdAt", "updatedAt"],
-          },
+            exclude: ["createdAt", "updatedAt"]
+          }
         });
         if (!results) {
           next(new ClientError(400, `id ${req.query.id}doesn't exist`));
@@ -110,13 +110,12 @@ router.post("/", async (req, res, next) => {
         next(new ClientError(400, `id ${req.body.id} doesn't exist`));
         return;
       }
-      res.send({response: "userfollow info updated"});
+      res.send({response: "userfollow updated"});
     } catch (error) {
       next(error);
     }
   });
   
-  // To do: Find which id's couldn't get deleted
   router.delete("/", async (req, res, next) => {
     try {
       let result = null;
@@ -128,7 +127,7 @@ router.post("/", async (req, res, next) => {
           next(new ClientError(400, `id ${req.body.id} doesn't exist`));
           return;
         }
-        res.send({ response: `UserFollow ${req.body.id} deleted`}); // Tell User
+        res.send({ response: `userfollow ${req.body.id} deleted`}); // Tell User
       } else {
         result = await userfollow.destroy({
           where: { id: req.body.id },

@@ -44,16 +44,38 @@ describe("Registering API", () => {
     const res = await request(app).get(`/api/userfollow/v1/`);
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty("response");
-    expect(res.body.response).toStrictEqual([testJsonDataResponse]);
+    expect(res.body.response).toStrictEqual(
+      {
+        "count": 1, 
+        "maxPages": 1, 
+        "rows": [
+          {"followedUserId": 11, 
+          "followingUserId": 15, 
+          "id": testJsonDataResponse.id
+        }
+      ]}
+    );
+    done();
+  });
+  it("should update userfollow info", async done => {
+    const res = await request(app)
+      .put(`/api/userfollow/v1/`)
+      .send({
+        id: testUserFollowID,
+        followedUserId: "55"
+      });
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty("response");
+    expect(res.body.response).toBe("userfollow updated");
     done();
   });
   it("should delete one userfollow", async done => {
     const res = await request(app)
       .delete(`/api/userfollow/v1`)
-      .send({ id: [testUserFollowID] });
+      .send({ id: testUserFollowID });
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty("response");
-    expect(res.body.response).toBe("userfollow deleted");
+    expect(res.body.response).toBe(`userfollow ${testUserFollowID} deleted`);
     done();
   });
 });
