@@ -44,13 +44,13 @@ router.post("/", async (req, res, next) => {
     });
     res.header("Location", `api/postfollow/v1/?id=${newFollow.id}`);
     res.statusCode = 201;
-    res.send({ response: "user created" });
+    res.send({ response: "postfollow created" });
   } catch (error) {
     next(new ClientError(400,error.message))
   }
 });
 router.get("/", async (req, res, next) => {
-  let results = null;
+  let results = null;       
   try {
     if(req.query.hasOwnProperty("user")){
      results = await postfollow.findAll({
