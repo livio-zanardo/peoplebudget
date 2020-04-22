@@ -5,7 +5,6 @@ const user = require("../models/userfollow");
 
 
 const cleaningUpDatabase = async done => {
-  console.log("Deleting all test data...");
   const connection = await mysql.createConnection({
     host: process.env.DBHOST,
     user: process.env.DBROOTUSER,
