@@ -8,5 +8,6 @@ const { router: Role, version: RoleVersion } = require("./role");
 router.use(`/role/v${RoleVersion}`, Role);
 const { router: PostFollow, version: PostFollowVersion } = require("./postfollow");
 router.use(`/postfollow/v${PostFollowVersion}`, PostFollow);
-
+const { router: Post, version: PostVersion } = require("./post");
+router.use(`/post/v${PostVersion}`, Post);
 module.exports = router;
