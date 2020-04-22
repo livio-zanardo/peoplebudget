@@ -23,10 +23,9 @@ const testJsonData = {
 };
 const testJsonDataResponse = {
   id: "",
-  email: "testUser001@email.com",
-  firstName: "nameFirst",
-  lastName: "nameLast",
-  RoleId: null
+  userid: 1,
+  postid: 1,
+  commentBody: "Hello"
 };
 describe("Comments CRUD API", () => {
   beforeAll(cleaningUpDatabase);
@@ -45,11 +44,11 @@ describe("Comments CRUD API", () => {
     const res = await request(app).get(`/api/comment/v1/`);
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty("response");
-    expect(res.body.response).toStrictEqual([testJsonDataResponse]);
+    expect(res.body.response.rows).toStrictEqual([testJsonDataResponse]);
     done();
-  });
-  it("should return one json file of a user", async done => {
-    const res = await request(app).get(`/api/user/v1?id=${testCommentsID}`);
+  }); //Worked on
+  it("should return one comment", async done => {
+    const res = await request(app).get(`/api/comment/v1?id=${testCommentsID}`);
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty("response");
     expect(res.body.response).toStrictEqual(testJsonDataResponse);
