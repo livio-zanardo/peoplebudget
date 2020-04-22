@@ -18,10 +18,6 @@ npm run migrate:dev
 npm run migrate:test
 
 clear
-printf 'Generating docs...'
-npm run docs
-
-clear
 printf 'Setting up keys...'
 PRI=jwtRS256.key
 PUB=jwtRS256.key.pub
