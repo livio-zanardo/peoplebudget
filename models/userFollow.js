@@ -14,7 +14,7 @@ const userfollow = DB.define(
         }
     },
     {
-         // Other model options go here
+
     }
 );
 

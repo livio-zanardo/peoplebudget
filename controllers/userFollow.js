@@ -127,7 +127,7 @@ router.post("/", async (req, res, next) => {
           next(new ClientError(400, `id ${req.body.id} doesn't exist`));
           return;
         }
-        res.send({ response: `userfollow ${req.body.id} deleted`}); // Tell User
+        res.send({ response: `userfollow ${req.body.id} deleted`});
       } else {
         result = await userfollow.destroy({
           where: { id: req.body.id },
