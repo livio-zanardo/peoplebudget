@@ -53,8 +53,6 @@ router.get("/", async (req, res, next) => {
         return;
       }
     } else if(req.query.hasOwnProperty("userid") ) {
-
-   
         results = await comment.findAll({
            where: {
              userid: req.query.userid,
@@ -66,7 +64,18 @@ router.get("/", async (req, res, next) => {
            },
          });
       
-   
+      
+    }
+    else {
+      results = await pagination(
+        comment,
+        { limit: req.query.limit, currentPage: req.query.page },
+        {
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        }
+      );
     }
     res.send({ response: results });
   } catch (error) {
