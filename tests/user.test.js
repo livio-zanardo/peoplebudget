@@ -5,6 +5,7 @@ const user = require("../models/user");
 const role = require("../models/role");
 
 const cleaningUpDatabase = async done => {
+  console.log("Deleting all test data...");
   const connection = await mysql.createConnection({
     host: process.env.DBHOST,
     user: process.env.DBROOTUSER,
