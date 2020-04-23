@@ -97,10 +97,16 @@ router.post("/", async (req, res, next) => {
   router.put("/", async (req, res, next) => {
     let result = null;
     const validated = customValidator(req.body, {
-      id: null,
-      followedUserId: null
+      id: {
+      nullable:false, 
+      type:'numeric'
+    },
+    followedUserId: {
+      nullable:false,
+      type:'numeric'
+    }
     });
-    if (validated !== 0) {
+    if (validated !== true) {
       next(validated);
       return;
     }
