@@ -11,17 +11,15 @@ const { DataTypes } = require("sequelize");
  */
 const reply = DB.define(
   "Reply",
+  // Join
   {
-    CommentId: {
+    commentId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
     replyBody: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(150),
       allowNull: false,
-    },
-    replied: {
-      type: DataTypes.DATE,
     },
   },
   {

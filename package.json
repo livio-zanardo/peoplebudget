@@ -11,7 +11,7 @@
     "migrate:test": "cross-env DBOP=migrate NODE_ENV=test node database/migrate.js",
     "drop:test": "cross-env DBOP=drop NODE_ENV=test node database/migrate.js",
     "start:dev": "cross-env NODE_ENV=dev npx nodemon index.js",
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --detectOpenHandles",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --runInBand --detectOpenHandles",
     "docs": "npx jsdoc -c setup/docs.conf.json"
   },
   "author": "",
