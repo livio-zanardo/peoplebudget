@@ -146,5 +146,39 @@ router.delete("/", async (req, res, next) => {
     next(error);
   }
 });
+router.post("/create-post", async (req, res, next) => {
+  const validated = customValidator(req.body, {
+    userId: null,
+    title: null,
+    tags: null,
+    votes: null,
+  });
+  if (validated !== 0) {
+    next(validated);
+    return;
+  }
+  try {
+    const {
+      body: { userId, title, tags, votes },
+    } = req;
 
+    const result = await alreadyExists(post, {
+      postId: req.body.postId,
+    });
+
+    const newPost = await post.create({
+      postId: postId,
+      userId: userId,
+      title: title,
+      tags: tags,
+      votes: votes,
+    });
+
+    res.header("Location", `api/post/v1/?id=${newPost.id}`);
+    res.statusCode = 201;
+    res.send({ response: "post created" });
+  } catch (error) {
+    next(new ClientError(400, `Post id '${req.body.postId}' already exists`));
+  }
+}
 module.exports = { router, version: 1 };
