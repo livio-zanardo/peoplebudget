@@ -8,10 +8,16 @@ const pagination = require("../helpers/pagination");
 
 router.post("/", async (req, res, next) => {
   const validated = customValidator(req.body, {
-    followedUserId: null,
-    followingUserId: null,
+    followedUserId: {
+      nullable:false, 
+      type:'numeric'
+    },
+    followingUserId: {
+      nullable:false,
+      type:'numeric'
+    }
   });
-  if (validated !== 0) {
+  if (validated !== true) {
     next(validated);
     return;
   }
