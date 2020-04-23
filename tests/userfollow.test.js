@@ -39,6 +39,17 @@ describe("Registering API", () => {
     expect(res.body.response).toBe("userfollow created");
     done();
   });
+    it("should fail at creating a new userfollow", async done => {
+      const res = await request(app)
+        .post("/api/userfollow/v1/")
+        .send(testUserFollow);
+      testUserFollowID = res.header.location.split("=")[1];
+      testJsonDataResponse.id = parseInt(testUserFollowID);
+      expect(res.statusCode).toEqual(201);
+      expect(res.body).toHaveProperty("response");
+      expect(res.body.response).toBe("userfollow created");
+      done();
+  });
   it("should return all userfollows", async done => {
     const res = await request(app).get(`/api/userfollow/v1/`);
     expect(res.statusCode).toEqual(200);
