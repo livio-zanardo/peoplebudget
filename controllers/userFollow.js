@@ -52,6 +52,52 @@ router.post("/", async (req, res, next) => {
     }
   });
 
+  router.post("/follow", async (req, res, next) => {
+    const validated = customValidator(req.body, {
+      followedUserId: {
+        nullable:false, 
+        type:'numeric'
+      },
+      followingUserId: {
+        nullable:false,
+        type:'numeric'
+      }
+    });
+    if (validated !== true) {
+      next(validated);
+      return;
+    }
+      try {
+        const {
+          body: {followedUserId, followingUserId},
+        } = req;
+  
+        const followingUserIdList = await userfollow.findAll({
+          where: {
+            followingUserId: followingUserId,
+          },
+        });
+  
+        for(const {
+          dataValues: { followedUserId: _followedUserId}
+        } of followingUserIdList){
+          if(_followedUserId === followedUserId){
+            next(new ClientError(400, `User ${followingUserId} is already following ${followedUserId}`)
+            );
+          }
+        }
+        const newUserFollow = await userfollow.create({
+          followedUserId: followedUserId,
+          followingUserId: followingUserId
+        });
+        res.header("Location", `api/userfollow/v1/?id=${newUserFollow.id}`)
+        res.statusCode = 201;
+        res.send({ response: "userfollow created" });
+      } catch (error) {
+        next(new ClientError(400, error.message))
+      }
+    });
+
   router.get("/", async (req, res, next) => {
     let results = null;
     try {
@@ -73,7 +119,7 @@ router.post("/", async (req, res, next) => {
           }
         });
         if (!results) {
-          next(new ClientError(400, `id ${req.query.id}doesn't exist`));
+          next(new ClientError(400, `id ${req.query.id} doesn't exist`));
           return;
         }
       } else {
