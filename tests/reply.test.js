@@ -4,8 +4,8 @@ const reply = require("../models/reply");
 
 const prepareDatabase = (model) => async () => model.destroy({ where: {} });
 
-let testDBEntryId;
-const testDBMissingId = 0;
+let testDBEntryId = null;
+const testDBMissingId = null;
 
 const testJsonData = {
   commentId: 1,
