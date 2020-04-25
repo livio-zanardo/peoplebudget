@@ -14,7 +14,6 @@ router.post("/reply/", async (req, res, next) => {
     commentId: null,
     replyBody: null,
   });
-
   if (validated !== true) {
     next(validated);
     return;
@@ -29,7 +28,7 @@ router.post("/reply/", async (req, res, next) => {
     });
     /**********************************
       Included for testing lyfe cycle */
-    res.header("Dbrecordid", `api/reply/v1/?id=${newReply.id}`);
+    res.header("location", `api/reply/v1/?id=${newReply.id}`);
     //**********************************
     res.statusCode = 201;
     res.send({ response: "reply posted" });
@@ -59,7 +58,7 @@ router.post("/", async (req, res, next) => {
     });
     /**********************************
       Included for testing lyfe cycle */
-    res.header("Dbrecordid", `api/reply/v1/?id=${newReply.id}`);
+    res.header("location", `api/reply/v1/?id=${newReply.id}`);
     //**********************************
     res.statusCode = 201;
     res.send({ response: "reply posted" });
@@ -101,7 +100,6 @@ router.get("/", async (req, res, next) => {
 });
 router.put("/", async (req, res, next) => {
   let result = null;
-  console.log("My id is ", req.body);
   try {
     result = await reply.update(
       { ...req.body.reply },
