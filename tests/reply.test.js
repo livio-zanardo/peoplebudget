@@ -165,8 +165,8 @@ describe("Reply API", () => {
       });
   });
   /***************************************
-  CRUD Operations Test - USER ACCESIBLE
- ***************************************/
+  CRUD Testing - USER ACCESIBLE
+ *****************************************/
   // POST - CREATE
   it("Can Post New Reply", async (done) => {
     request(app)
