@@ -7,8 +7,8 @@ const pagination = require("../helpers/pagination");
 
 router.post("/", async (req, res, next) => {
   const validated = customValidator(req.body, {
-    postId: null,
     userId: null,
+    body: null,
     title: null,
     tags: null,
     votes: null,
@@ -19,16 +19,12 @@ router.post("/", async (req, res, next) => {
   }
   try {
     const {
-      body: { postId, userId, title, tags, votes },
+      body: { body, userId, title, tags, votes },
     } = req;
-
-    const result = await alreadyExists(post, {
-      postId: req.body.postId,
-    });
-
+ 
     const newPost = await post.create({
-      postId: postId,
       userId: userId,
+      body: body,
       title: title,
       tags: tags,
       votes: votes,
@@ -38,7 +34,7 @@ router.post("/", async (req, res, next) => {
     res.statusCode = 201;
     res.send({ response: "post created" });
   } catch (error) {
-    next(new ClientError(400, `Post id '${req.body.postId}' already exists`));
+    next(error);
   }
 });
 router.get("/", async (req, res, next) => {
@@ -104,9 +100,9 @@ router.put("/", async (req, res, next) => {
       body: { title, tags, votes },
     } = req;
     result = await post.update(
-      { title, tags, votes  },
+      { title, tags, votes },
       {
-        where: { postId: req.body.id },
+        where: { id: req.body.id },
       }
     );
     if (result.length === 1 && result[0] === 0) {
@@ -123,7 +119,7 @@ router.delete("/", async (req, res, next) => {
     let result = null;
     if (!Array.isArray(req.body.id)) {
       result = await post.destroy({
-        where: { postId: req.body.id },
+        where: { id: req.body.id },
       });
       if (!result) {
         next(new ClientError(400, `id '${req.body.id}' doesn't exist`));
@@ -132,7 +128,7 @@ router.delete("/", async (req, res, next) => {
       res.send({ response: `post '${req.body.id}' was deleted` }); // Tell User
     } else {
       result = await post.destroy({
-        where: { postId: req.body.id },
+        where: { id: req.body.id },
       });
       if (!result) {
         next(
@@ -149,6 +145,7 @@ router.delete("/", async (req, res, next) => {
 router.post("/create-post", async (req, res, next) => {
   const validated = customValidator(req.body, {
     userId: null,
+    body: null,
     title: null,
     tags: null,
     votes: null,
@@ -159,16 +156,12 @@ router.post("/create-post", async (req, res, next) => {
   }
   try {
     const {
-      body: { userId, title, tags, votes },
+      body: { userId, body, title, tags, votes },
     } = req;
 
-    const result = await alreadyExists(post, {
-      postId: req.body.postId,
-    });
-
     const newPost = await post.create({
-      postId: postId,
       userId: userId,
+      body: body,
       title: title,
       tags: tags,
       votes: votes,
@@ -178,7 +171,7 @@ router.post("/create-post", async (req, res, next) => {
     res.statusCode = 201;
     res.send({ response: "post created" });
   } catch (error) {
-    next(new ClientError(400, `Post id '${req.body.postId}' already exists`));
+    next(error);
   }
-}
+});
 module.exports = { router, version: 1 };

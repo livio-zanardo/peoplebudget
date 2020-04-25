@@ -2,11 +2,6 @@ const { DB } = require("../database/database");
 const { DataTypes } = require("sequelize");
 
 const post = DB.define("post", {
-  postId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true
-  },
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -16,6 +11,10 @@ const post = DB.define("post", {
     },
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
+  },
+  body: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   title: {
     type: DataTypes.STRING(50),

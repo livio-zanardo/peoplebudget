@@ -9,7 +9,7 @@ const postFollow = DB.define(
       allowNull: false,
       references: {
         model: "posts",
-        key: "postId",
+        key: "id",
       },
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
