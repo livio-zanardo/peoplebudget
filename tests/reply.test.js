@@ -21,7 +21,7 @@ describe("Reply API", () => {
   /*****************************
   CRUD Testing - ADMIN
  *******************************/
-  // CREATE - POST
+  // CREATE - post
   it("Can Post New Reply", async (done) => {
     request(app)
       .post("/api/reply/v1/")
@@ -59,7 +59,7 @@ describe("Reply API", () => {
         done();
       });
   });
-  // READ - GET
+  // READ - get
   it("Can GET A Reply", async (done) => {
     testJsonDataResponse.id = testDBEntryId;
     request(app)
@@ -99,7 +99,7 @@ describe("Reply API", () => {
         done();
       });
   });
-  // UPDATE - PUT
+  // UPDATE - put
   it("Can Update A Reply", async (done) => {
     request(app)
       .put("/api/reply/v1/")
@@ -135,7 +135,7 @@ describe("Reply API", () => {
         done();
       });
   });
-  // DELETE - DEL
+  // DELETE - del
   it("Can Delete A Reply", async (done) => {
     request(app)
       .delete("/api/reply/v1/")
@@ -167,7 +167,7 @@ describe("Reply API", () => {
   /***************************************
   CRUD Testing - USER ACCESIBLE
  *****************************************/
-  // POST - CREATE
+  // CREATE - post
   it("Can Post New Reply", async (done) => {
     request(app)
       .post("/api/reply/v1/reply")
