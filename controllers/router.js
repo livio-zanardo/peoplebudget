@@ -6,6 +6,8 @@ const { router: User, version: UserVersion } = require("./user");
 router.use(`/user/v${UserVersion}`, User);
 const { router: Role, version: RoleVersion } = require("./role");
 router.use(`/role/v${RoleVersion}`, Role);
+const { router: UserFollow, version: UserFollowVersion } = require("./userfollow");
+router.use(`/userfollow/v${UserFollowVersion}`, UserFollow);
 const { router: Comment, version: CommentVersion } = require("./comment");
 router.use(`/comment/v${CommentVersion}`, Comment);
 const { router: PostFollow, version: PostFollowVersion } = require("./postfollow");
