@@ -11,7 +11,7 @@
     "migrate:test": "cross-env DBOP=migrate NODE_ENV=test node database/migrate.js",
     "drop:test": "cross-env DBOP=drop NODE_ENV=test node database/migrate.js",
     "start:dev": "cross-env NODE_ENV=dev npx nodemon index.js",
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --detectOpenHandles",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --runInBand --detectOpenHandles",
     "docs": "npx jsdoc -c setup/docs.conf.json"
   },
   "author": "",
@@ -25,16 +25,11 @@
     "cross-env": "^7.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "jest": "^25.1.0",
-    "jsdoc": "^3.6.3",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.1.0",
     "nodemon": "^2.0.2",
     "require-dir": "^1.2.0",
     "sequelize": "^5.21.5",
-    "supertest": "^4.0.2",
-    "swagger-stats": "^0.95.16",
-    "swagger-ui-express": "^4.1.3",
     "validator": "^12.2.0"
   },
   "jest": {
@@ -42,5 +37,12 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/"
     ]
+  },
+  "devDependencies": {
+    "jest": "^25.4.0",
+    "jsdoc": "^3.6.4",
+    "supertest": "^4.0.2",
+    "swagger-stats": "^0.95.17",
+    "swagger-ui-express": "^4.1.4"
   }
 }
