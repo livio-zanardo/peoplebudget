@@ -7,7 +7,7 @@ let testDBEntryIdUserAccesible = null;
 
 const testJsonData = {
   commentId: 1,
-  replyBody: "Test reply message"
+  replyBody: "Test reply message",
 };
 
 const cleaningUpDatabase = async (done) => {
@@ -23,19 +23,18 @@ const cleaningUpDatabase = async (done) => {
   done();
 };
 
-describe("Reply API", () => {
-  beforeAll(cleaningUpDatabase);
-  /**************************
+/**************************
   CRUD Operations Test
   ***************************/
+describe("Reply API", () => {
+  beforeAll(cleaningUpDatabase);
   // POST - CREATE
   describe("Create Reply Endpoint", () => {
-    console.log('*********************CREATE**********************************');
     it("should post a new reply", async (done) => {
-      const res = await request(app).post("/api/reply/v1/").send(testJsonData);
-      testDBEntryId = parseInt(res.header.location.split("=")[1]);
-      //testJsonDataResponse.id = testDBEntryId;
-      console.log("***********************Is key, Timestamp here?********************", res.header);
+      const res = request(app).post("/api/reply/v1/").send(testJsonData);
+      // Grab
+      testDBEntryId = parseInt(res.header.dbrecordid.split("=")[1]);
+      console.warn(res.header);
       expect(res.statusCode).toEqual(201);
       expect(res.body).toHaveProperty("response");
       expect(res.body.response).toBe("reply posted");
@@ -43,88 +42,99 @@ describe("Reply API", () => {
     });
     // User accessible post
     it("should post a new reply", async (done) => {
-      const res = await request(app).post("/api/reply/v1/reply/").send(testJsonData);
-      testDBEntryIdUserAccesible = parseInt(res.header.location.split("=")[1]);
-      //testJsonDataResponse.id = testDBEntryId;
-      console.log("***********************Is key, Timestamp here?********************", res.header);
+      const res = await request(app)
+        .post("/api/reply/v1/reply/")
+        .send(testJsonData);
+      testDBEntryIdUserAccesible = parseInt(
+        res.header.dbrecordid.split("=")[1]
+      );
       expect(res.statusCode).toEqual(201);
       expect(res.body).toHaveProperty("response");
       expect(res.body.response).toBe("reply posted");
       done();
     });
-    /*
-    it("cleans out extra database entries", async (done) => {
-      const testDBEntryId2 = testDBEntryId + 1;
-      await request(app).delete(`/api/reply/v1/reply/`).send({ id: testDBEntryId2 });
-      done();
-    });
-    */
     // CREATE - neagative test cases
-    it(`should receive error if the "replybody" field is missing`, async (done) => {
+    it(`should receive client error if the "replybody" field is missing`, async (done) => {
       const testJsonBadData = { ...testJsonData };
-      delete testJsonBadData.replybody;
-      console.log("Sending in", testJsonBadData);
-      const res = await request(app).post("/api/reply/v1/").send(testJsonBadData);
-      console.log("Getting bqck", res.body);
+      delete testJsonBadData.replyBody;
+      //console.warn("Sending in", testJsonBadData);
+      const res = await request(app)
+        .post("/api/reply/v1/")
+        .send(testJsonBadData);
+      //console.log("Getting bqck", res.body);
       expect(res.statusCode).toEqual(400);
       expect(res.body).toHaveProperty("ClientError");
-      expect(res.body.ClientError).toBe("Missing paramater 'replybody' .");
+      expect(res.body.ClientError).toBe("Missing paramater 'replyBody' .");
       done();
     });
-    it(`should receive error if the "commentid" field is missing`, async (done) => {
+    it(`should receive client error if the "commentid" field is missing`, async (done) => {
       const testJsonBadData = { ...testJsonData };
-      delete testJsonBadData.commentid;
-      console.log("Sending in", testJsonBadData);
-      const res = await request(app).post("/api/reply/v1/").send(testJsonBadData);
-      console.log("Getting bqck", res.body);
+      delete testJsonBadData.commentId;
+      //console.log("Sending in", testJsonBadData);
+      const res = await request(app)
+        .post("/api/reply/v1/")
+        .send(testJsonBadData);
+      //console.log("Getting bqck", res.body);
       expect(res.statusCode).toEqual(400);
       expect(res.body).toHaveProperty("ClientError");
-      expect(res.body.ClientError).toBe("Missing paramater 'commentid' .");
+      expect(res.body.ClientError).toBe("Missing paramater 'commentId' .");
       done();
     });
   });
+  console.error("G", testDBEntryId);
   // GET - READ
   describe("Read Reply Endpoint", () => {
-    console.log('*********************READ**********************************');
+    console.log("*********************READ**********************************");
     const testJsonDataResponse = { id: testDBEntryId, ...testJsonData };
-    const testJsonDataResponseCopy = { id: testDBEntryIdUserAccesible, ...testJsonData };
+    const testJsonDataResponseCopy = {
+      id: testDBEntryIdUserAccesible,
+      ...testJsonData,
+    };
     let testReplyMissingId = 0;
+    console.warn(
+      "GET - testDBEntryId",
+      testDBEntryId,
+      testDBEntryIdUserAccesible
+    );
     // returns single
     it("should get a single existing reply", async (done) => {
-      const res = await request(app)
-        .get(`/api/reply/v1?id=${testDBEntryId}`)
+      const res = await request(app).get(`/api/reply/v1?id=${testDBEntryId}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body).toHaveProperty("response");
       expect(res.body.response).toStrictEqual(testJsonDataResponse);
       done();
     });
-    // returns multiple - take into account pagination
-    it("should get multiple existing replies paginated", async (done) => {
-      const testJsonDataResponsePagination = {
-        count: 2,
-        rows: [testJsonDataResponse, testJsonDataResponseCopy],
-        maxPages: 1
-      };
-      const res = await request(app)
-        .get(`/api/reply/v1/`)
-      expect(res.statusCode).toEqual(200);
-      expect(res.body).toHaveProperty("response");
-      expect(res.body.response).toStrictEqual(testJsonDataResponsePagination);
-      done();
-    });
-    // READ - neagative test case - single
-    it("should return client error specifying non-existant id", async (done) => {
-      const res = await request(app)
-        .get(`/api/reply/v1?id=${testReplyMissingId}`)
-      expect(res.statusCode).toEqual(400);
-      expect(res.body).toHaveProperty("ClientError");
-      expect(res.body.ClientError).toStrictEqual(`reply with id[${testReplyMissingId}] does not exist`);
-      done();
-    });
+  });
+  // returns multiple - take into account pagination
+  it("should get multiple existing replies paginated", async (done) => {
+    const testJsonDataResponsePagination = {
+      count: 2,
+      rows: [testJsonDataResponse, testJsonDataResponseCopy],
+      maxPages: 1,
+    };
+    const res = await request(app).get(`/api/reply/v1/`);
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty("response");
+    expect(res.body.response).toStrictEqual(testJsonDataResponsePagination);
+    done();
+  });
+  // READ - neagative test case - single
+  it("should return client error specifying non-existant id", async (done) => {
+    const res = await request(app).get(
+      `/api/reply/v1?id=${testReplyMissingId}`
+    );
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty("ClientError");
+    expect(res.body.ClientError).toStrictEqual(
+      `reply with id[${testReplyMissingId}] does not exist`
+    );
+    done();
   });
   // PUT - Update
   describe("Update Reply Endpoint", () => {
-    console.log('*********************UPDATE**********************************');
+    console.log(
+      "*********************UPDATE**********************************"
+    );
     let testReplyMissingId = testDBEntryId + 1;
     // UPDATE - neagative test case
     it("should return client error specifying non-existant id", async (done) => {
@@ -133,12 +143,14 @@ describe("Reply API", () => {
         .send({
           id: testReplyMissingId,
           reply: {
-            replyBody: "Test reply message"
-          }
+            replyBody: "Test reply message",
+          },
         });
       expect(res.statusCode).toEqual(400);
       expect(res.body).toHaveProperty("ClientError");
-      expect(res.body.ClientError).toBe(`reply with id[${testReplyMissingId}] does not exist`);
+      expect(res.body.ClientError).toBe(
+        `reply with id[${testReplyMissingId}] does not exist`
+      );
       done();
     });
     it("should update a single existing reply", async (done) => {
@@ -148,8 +160,8 @@ describe("Reply API", () => {
         .send({
           id: testDBEntryId,
           reply: {
-            replyBody: "Test reply message"
-          }
+            replyBody: "Test reply message",
+          },
         });
       expect(res.statusCode).toEqual(200);
       expect(res.body).toHaveProperty("response");
@@ -160,7 +172,9 @@ describe("Reply API", () => {
   // DELETE - delete
   // single deletion
   describe("Delete Reply Endpoint", () => {
-    console.log('*********************DELETE**********************************');
+    console.log(
+      "*********************DELETE**********************************"
+    );
     let testReplyMissingId = testDBEntryId + 1;
     it("should delete a single existing reply", async (done) => {
       const res = await request(app)
@@ -173,7 +187,9 @@ describe("Reply API", () => {
     });
     // multiple deletion
     it("should delete multiple existing replies", async (done) => {
-      const testSetupRes = await request(app).post("/api/reply/v1/").send(testJsonData);
+      const testSetupRes = await request(app)
+        .post("/api/reply/v1/")
+        .send(testJsonData);
       testDBEntryId = parseInt(testSetupRes.header.location.split("=")[1]);
       testJsonDataResponse.id = testDBEntryId;
       const res = await request(app)
@@ -181,7 +197,9 @@ describe("Reply API", () => {
         .send({ id: [testDBEntryId] });
       expect(res.statusCode).toEqual(200);
       expect(res.body).toHaveProperty("response");
-      expect(res.body.response).toBe(`replies with ids[${testDBEntryId}] deleted`);
+      expect(res.body.response).toBe(
+        `replies with ids[${testDBEntryId}] deleted`
+      );
       done();
     });
     // DELETE - neagative test case - single
@@ -191,7 +209,9 @@ describe("Reply API", () => {
         .send({ id: testReplyMissingId });
       expect(res.statusCode).toEqual(400);
       expect(res.body).toHaveProperty("ClientError");
-      expect(res.body.ClientError).toBe(`reply with id[${testReplyMissingId}] does not exist`);
+      expect(res.body.ClientError).toBe(
+        `reply with id[${testReplyMissingId}] does not exist`
+      );
       done();
     });
     // DELETE - neagative test case - multiple
@@ -201,7 +221,9 @@ describe("Reply API", () => {
         .send({ id: [testReplyMissingId] });
       expect(res.statusCode).toEqual(400);
       expect(res.body).toHaveProperty("ClientError");
-      expect(res.body.ClientError).toBe(`replies with ids[${testReplyMissingId}] does not exist`);
+      expect(res.body.ClientError).toBe(
+        `replies with ids[${testReplyMissingId}] does not exist`
+      );
       done();
     });
   });

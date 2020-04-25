@@ -6,67 +6,62 @@ const { alreadyExists } = require("../helpers/database");
 const { ClientError, ServerError } = require("../helpers/error");
 const pagination = require("../helpers/pagination");
 
-router.post("/", async (req, res, next) => {
+/****************************
+ * User Accecible CRUD API
+ ****************************/
+router.post("/reply/", async (req, res, next) => {
   const validated = customValidator(req.body, {
     commentId: null,
     replyBody: null,
   });
 
-  if (validated !== 0) {
+  if (validated !== true) {
     next(validated);
     return;
   }
   const {
-    body: { commentid, replybody }
+    body: { commentId, replyBody },
   } = req;
   try {
     const newReply = await reply.create({
-      commentId: commentid,
-      replyBody: replybody
+      commentId: commentId,
+      replyBody: replyBody,
     });
-    const timestamp = newReply.createdAt.toString();
-    console.log("*************************************** timestamp returns", newReply.createdAt);
-    //console.log("*************************************** type of time stamp", timestamp);
-
-    let { createdAt } = newReply;
-    // Included for testing 
-    res.header("Location", `api/reply/v1/?id=${newReply.id}`);
-    //res.header("Timestamp", createdAt);
-
-    res.statusCode = 201; // Check for correct status code
+    /**********************************
+      Included for testing lyfe cycle */
+    res.header("Dbrecordid", `api/reply/v1/?id=${newReply.id}`);
+    //**********************************
+    res.statusCode = 201;
     res.send({ response: "reply posted" });
   } catch (error) {
     next(error);
   }
 });
-router.post("/reply/", async (req, res, next) => {
+/****************************
+ * Admin CRUD API
+ ****************************/
+router.post("/", async (req, res, next) => {
   const validated = customValidator(req.body, {
-    commentid: null,
-    replybody: null,
+    commentId: { type: "numeric" },
+    replyBody: { nullable: false, max: 150 },
   });
-
-  if (validated !== 0) {
+  if (validated !== true) {
     next(validated);
     return;
   }
   const {
-    body: { commentid, replybody }
+    body: { commentId, replyBody },
   } = req;
   try {
     const newReply = await reply.create({
-      commentId: commentid,
-      replyBody: replybody
+      commentId: commentId,
+      replyBody: replyBody,
     });
-    const timestamp = newReply.createdAt.toString();
-    console.log("*************************************** timestamp returns", newReply.createdAt);
-    //console.log("*************************************** type of time stamp", timestamp);
-
-    let { createdAt } = newReply;
-    // Included for testing 
-    res.header("Location", `api/reply/v1/?id=${newReply.id}`);
-    //res.header("Timestamp", createdAt);
-
-    res.statusCode = 201; // Check for correct status code
+    /**********************************
+      Included for testing lyfe cycle */
+    res.header("Dbrecordid", `api/reply/v1/?id=${newReply.id}`);
+    //**********************************
+    res.statusCode = 201;
     res.send({ response: "reply posted" });
   } catch (error) {
     next(error);
@@ -83,7 +78,9 @@ router.get("/", async (req, res, next) => {
         },
       });
       if (!results) {
-        next(new ClientError(400, `reply with id[${req.query.id}] does not exist`));
+        next(
+          new ClientError(400, `reply with id[${req.query.id}] does not exist`)
+        );
         return;
       }
     } else {
@@ -108,22 +105,19 @@ router.put("/", async (req, res, next) => {
   try {
     result = await reply.update(
       { ...req.body.reply },
-      {
-        where: { id: req.body.id },
-      }
+      { where: { id: req.body.id } }
     );
-    console.log("***************RESULTS**************", result);
     if (result.length === 1 && result[0] === 0) {
-      next(new ClientError(400, `reply with id[${req.body.id}] does not exist`));
+      next(
+        new ClientError(400, `reply with id[${req.body.id}] does not exist`)
+      );
       return;
     }
-
     res.send({ response: `reply with id[${req.body.id}] updated` });
   } catch (error) {
     next(error);
   }
 });
-
 // To do: Find which id's couldn't get deleted
 router.delete("/", async (req, res, next) => {
   try {
@@ -133,7 +127,9 @@ router.delete("/", async (req, res, next) => {
         where: { id: req.body.id },
       });
       if (!result) {
-        next(new ClientError(400, `reply with id[${req.body.id}] does not exist`));
+        next(
+          new ClientError(400, `reply with id[${req.body.id}] does not exist`)
+        );
         return;
       }
       res.statusCode = 200;
@@ -144,12 +140,17 @@ router.delete("/", async (req, res, next) => {
       });
       if (!result) {
         next(
-          new ClientError(400, `replies with ids[${req.body.id.join(" , ")}] does not exist`)
+          new ClientError(
+            400,
+            `replies with ids[${req.body.id.join(" , ")}] does not exist`
+          )
         );
         return;
       }
       res.statusCode = 200;
-      res.send({ response: `replies with ids[${req.body.id.join(" , ")}] deleted` });
+      res.send({
+        response: `replies with ids[${req.body.id.join(" , ")}] deleted`,
+      });
     }
   } catch (error) {
     next(error);
