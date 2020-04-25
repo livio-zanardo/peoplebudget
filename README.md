@@ -43,10 +43,19 @@ This project was inspired by "Austin Budget Party" a project funded by Mozilla w
   1. Run npm start script
 
         ```sh
-        npm start
+        npm run start:dev
         ```
 
 - Testing & Debugging
+  -   NPM run start : will start the server
+  -   NPM run setup : setup databases and install dependencies
+  -   NPM run migrate:dev : will updates database tables for dev database
+  -   NPM run migrate:test : will updates database tables for test database
+  -   NPM run migrate:drop : will drop all tables in the dev database
+  -   NPM run migrate:drop : will drop all tables in the test database
+  -   NPM run start:dev : will start the server with development specific flags
+  -   NPM run test : will run the unit tests
+  -   NPM run docs : will generate documentations from jsdocs.
 
 - Releasing & Deploying
 
