@@ -8,7 +8,10 @@ const { alreadyExists } = require("../helpers/database");
 const { ClientError, ServerError } = require("../helpers/error");
 
 //testing it
-const {adminRequired, contributerRequired} = require("../middleware/requiredPermissions");
+const {
+  adminRequired,
+  contributerRequired,
+} = require("../middleware/requiredPermissions");
 
 /**
  * Express router to handle user authentication.
@@ -35,7 +38,7 @@ router.post(`/register`, async (req, res, next) => {
     fname: null,
     lname: null,
     pass: null,
-    recover_pass: null
+    recover_pass: null,
   });
 
   //throw error is validation fails
@@ -46,13 +49,13 @@ router.post(`/register`, async (req, res, next) => {
 
   //destructure user input
   const {
-    body: { email, fname, lname, pass, recover_pass }
+    body: { email, fname, lname, pass, recover_pass },
   } = req;
 
   try {
     // check if user already exists
     await alreadyExists(user, {
-      email: req.body.email
+      email: req.body.email,
     });
 
     //create new user
@@ -61,7 +64,7 @@ router.post(`/register`, async (req, res, next) => {
       firstName: fname,
       lastName: lname,
       hash: await hash(pass),
-      recoveryHash: await hash(recover_pass)
+      recoveryHash: await hash(recover_pass),
     });
 
     //send response
@@ -85,15 +88,15 @@ router.post(`/login`, async (req, res) => {
   try {
     //destructure body
     const {
-      body: { email, pass }
+      body: { email, pass },
     } = req;
     console.log(email, pass);
 
     //find user based on email and password hash
     const aUser = await user.findOne({
       where: {
-        email: email
-      }
+        email: email,
+      },
     });
     //check hash
     const passMatch = await compare(pass, aUser.hash);
@@ -106,7 +109,7 @@ router.post(`/login`, async (req, res) => {
         email: aUser.email,
         // role: aUser.role,
         role: "contributer", //testing user role logic
-        exp: Math.floor(Date.now() / 1000) + 60 * 15 //15 min expiration
+        exp: Math.floor(Date.now() / 1000) + 60 * 15, //15 min expiration
       });
       res.cookie("token", token, { maxAge: 900000, httpOnly: true });
       res.send({ response: "Login Successful!" });

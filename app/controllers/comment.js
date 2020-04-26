@@ -17,7 +17,7 @@ router.post("/", async (req, res, next) => {
     return;
   }
   const {
-    body: { userid, postid, commentbody }
+    body: { userid, postid, commentbody },
   } = req;
   try {
     // await alreadyExists(user, {
@@ -27,10 +27,10 @@ router.post("/", async (req, res, next) => {
     const newComment = await comment.create({
       userid: userid,
       postid: postid,
-      commentbody: commentbody
+      commentbody: commentbody,
     });
 
-    res.header("Location", `api/comment/v1/?id=${newComment.id}`)
+    res.header("Location", `api/comment/v1/?id=${newComment.id}`);
     res.statusCode = 201;
     res.send({ response: "comment created" });
   } catch (error) {
@@ -44,28 +44,23 @@ router.get("/", async (req, res, next) => {
       results = await comment.findOne({
         where: { id: req.query.id },
         attributes: {
-          exclude: ["createdAt", "updatedAt"]
-        }
+          exclude: ["createdAt", "updatedAt"],
+        },
       });
       if (!results) {
         next(new ClientError(400, `id ${req.query.id}doesn't exist`));
         return;
       }
-    } else if(req.query.hasOwnProperty("userid") ) {
-
-   
-        results = await comment.findAll({
-           where: {
-             userid: req.query.userid,
-           },order: [
-             ['createdAt', 'DESC']
-         ],
-           attributes: {
-             exclude: ["createdAt","updatedAt","userid"],
-           },
-         });
-      
-   
+    } else if (req.query.hasOwnProperty("userid")) {
+      results = await comment.findAll({
+        where: {
+          userid: req.query.userid,
+        },
+        order: [["createdAt", "DESC"]],
+        attributes: {
+          exclude: ["createdAt", "updatedAt", "userid"],
+        },
+      });
     }
     res.send({ response: results });
   } catch (error) {
@@ -75,7 +70,7 @@ router.get("/", async (req, res, next) => {
 router.put("/", async (req, res, next) => {
   let result = null;
   const validationError = customValidator(req.body, {
-    id: null, 
+    id: null,
     commentbody: null,
   });
   if (validationError) {
@@ -84,15 +79,15 @@ router.put("/", async (req, res, next) => {
   }
   try {
     const {
-      body: { id,commentbody },
+      body: { id, commentbody },
     } = req;
     result = await comment.update(
       { commentbody },
-      {             
+      {
         where: { id: req.body.id },
       }
     );
-    if (result.length === 1 && result[0] === 0) {   
+    if (result.length === 1 && result[0] === 0) {
       next(new ClientError(400, `id '${req.body.id}' doesn't exist`));
       return;
     }
@@ -104,7 +99,7 @@ router.put("/", async (req, res, next) => {
 router.delete("/", async (req, res, next) => {
   let result = null;
   const validationError = customValidator(req.body, {
-    id: null, 
+    id: null,
   });
   if (validationError) {
     next(validationError);
@@ -112,12 +107,12 @@ router.delete("/", async (req, res, next) => {
   }
   try {
     const {
-      body: {id, postid, commentbody},
+      body: { id, postid, commentbody },
     } = req;
     result = await comment.destroy({
-        where: { id: req.body.id }
-      });
-    if (result.length === 1 && result[0] === 0) {   
+      where: { id: req.body.id },
+    });
+    if (result.length === 1 && result[0] === 0) {
       next(new ClientError(400, `id '${req.body.id}' doesn't exist`));
       return;
     }
@@ -125,7 +120,6 @@ router.delete("/", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-  
 });
 
 module.exports = { router, version: 1 };

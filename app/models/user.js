@@ -2,7 +2,6 @@ const { DB } = require("../database/database");
 const { DataTypes } = require("sequelize");
 const role = require("./role");
 
-
 /**
  * User mapping.
  * @name user
@@ -16,18 +15,18 @@ const user = DB.define(
   {
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     firstName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     lastName: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     hash: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     /*
     securityQuestion: {
@@ -37,8 +36,8 @@ const user = DB.define(
     */
     recoveryHash: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
   {
     // Other model options go here

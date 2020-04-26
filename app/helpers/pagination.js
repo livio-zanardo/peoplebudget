@@ -19,7 +19,7 @@ const pagination = async (model, page, params) => {
   const table = await model.findAndCountAll({
     limit,
     offset: limit * (currentPage - 1),
-    ...params
+    ...params,
   });
   table.maxPages = Math.ceil(table.count / limit);
   return table;

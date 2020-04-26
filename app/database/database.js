@@ -8,23 +8,25 @@ const pool = {
   max: 5,
   min: 0,
   acquire: 30000,
-  idle: 10000
+  idle: 10000,
 };
 
 const dbEnv = () => {
-  switch(process.env.NODE_ENV){
-    case 'test': return `${process.env.DB}_test`
-    case 'dev': return `${process.env.DB}`
-      default: return 'dev'
+  switch (process.env.NODE_ENV) {
+    case "test":
+      return `${process.env.DB}_test`;
+    case "dev":
+      return `${process.env.DB}`;
+    default:
+      return "dev";
   }
-}
+};
 
 const DB = new seq(dbEnv(), process.env.DBUSER, process.env.DBPW, {
   host: process.env.DBHOST,
   dialect: "mysql",
-  pool: pool
+  pool: pool,
 });
-
 
 // connection test
 (async () => {
@@ -44,7 +46,7 @@ const DB = new seq(dbEnv(), process.env.DBUSER, process.env.DBPW, {
  * @param {String} table - database table name
  * @returns {null}
  */
-const migrate = async table => {
+const migrate = async (table) => {
   const models = require("../models/index");
   if (table && typeof table === "String") {
     await models[table].sync({ alter: true });
@@ -64,7 +66,7 @@ const migrate = async table => {
  * @param {String} table - database table name
  * @returns {null}
  */
-const drop = async table => {
+const drop = async (table) => {
   const models = require("../models/index");
   if (table && typeof table === "String") {
     await models[table].drop();
