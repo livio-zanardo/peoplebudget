@@ -14,9 +14,9 @@ const { decode } = require("../helpers/jwt");
  * @param {Function} next
  */
 const adminRequired = async (req, res, next) => {
-  const decoded = await decode(req.cookies.token);
-  if (decoded && decoded.role === "admin") next();
-  else res.status(403).send({ response: "Access denied!" });
+    const decoded = await decode(req.cookies.token);
+    if (decoded && decoded.role === "admin") next();
+    else res.status(403).send({ response: "Access denied!" });
 };
 
 /**
@@ -30,9 +30,9 @@ const adminRequired = async (req, res, next) => {
  * @param {Function} next
  */
 const contributerRequired = async (req, res, next) => {
-  const decoded = await decode(req.cookies.token);
-  if (decoded && decoded.role === "contributer") next();
-  else res.status(403).send({ response: "Access denied!" });
+    const decoded = await decode(req.cookies.token);
+    if (decoded && decoded.role === "contributer") next();
+    else res.status(403).send({ response: "Access denied!" });
 };
 
 module.exports = { adminRequired, contributerRequired };

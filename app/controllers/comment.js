@@ -7,119 +7,119 @@ const { ClientError, ServerError } = require("../helpers/error");
 const pagination = require("../helpers/pagination");
 
 router.post("/", async (req, res, next) => {
-  const validationError = customValidator(req.body, {
-    userid: null,
-    postid: null,
-    commentbody: null,
-  });
-  if (validationError) {
-    next(validationError);
-    return;
-  }
-  const {
-    body: { userid, postid, commentbody },
-  } = req;
-  try {
-    // await alreadyExists(user, {
-    //   email: req.body.email
-    // });
-
-    const newComment = await comment.create({
-      userid: userid,
-      postid: postid,
-      commentbody: commentbody,
+    const validationError = customValidator(req.body, {
+        userid: null,
+        postid: null,
+        commentbody: null,
     });
+    if (validationError) {
+        next(validationError);
+        return;
+    }
+    const {
+        body: { userid, postid, commentbody },
+    } = req;
+    try {
+        // await alreadyExists(user, {
+        //   email: req.body.email
+        // });
 
-    res.header("Location", `api/comment/v1/?id=${newComment.id}`);
-    res.statusCode = 201;
-    res.send({ response: "comment created" });
-  } catch (error) {
-    next(error);
-  }
+        const newComment = await comment.create({
+            userid: userid,
+            postid: postid,
+            commentbody: commentbody,
+        });
+
+        res.header("Location", `api/comment/v1/?id=${newComment.id}`);
+        res.statusCode = 201;
+        res.send({ response: "comment created" });
+    } catch (error) {
+        next(error);
+    }
 });
 router.get("/", async (req, res, next) => {
-  let results;
-  try {
-    if (req.query.hasOwnProperty("id")) {
-      results = await comment.findOne({
-        where: { id: req.query.id },
-        attributes: {
-          exclude: ["createdAt", "updatedAt"],
-        },
-      });
-      if (!results) {
-        next(new ClientError(400, `id ${req.query.id}doesn't exist`));
-        return;
-      }
-    } else if (req.query.hasOwnProperty("userid")) {
-      results = await comment.findAll({
-        where: {
-          userid: req.query.userid,
-        },
-        order: [["createdAt", "DESC"]],
-        attributes: {
-          exclude: ["createdAt", "updatedAt", "userid"],
-        },
-      });
+    let results;
+    try {
+        if (req.query.hasOwnProperty("id")) {
+            results = await comment.findOne({
+                where: { id: req.query.id },
+                attributes: {
+                    exclude: ["createdAt", "updatedAt"],
+                },
+            });
+            if (!results) {
+                next(new ClientError(400, `id ${req.query.id}doesn't exist`));
+                return;
+            }
+        } else if (req.query.hasOwnProperty("userid")) {
+            results = await comment.findAll({
+                where: {
+                    userid: req.query.userid,
+                },
+                order: [["createdAt", "DESC"]],
+                attributes: {
+                    exclude: ["createdAt", "updatedAt", "userid"],
+                },
+            });
+        }
+        res.send({ response: results });
+    } catch (error) {
+        next(error);
     }
-    res.send({ response: results });
-  } catch (error) {
-    next(error);
-  }
 });
 router.put("/", async (req, res, next) => {
-  let result = null;
-  const validationError = customValidator(req.body, {
-    id: null,
-    commentbody: null,
-  });
-  if (validationError) {
-    next(validationError);
-    return;
-  }
-  try {
-    const {
-      body: { id, commentbody },
-    } = req;
-    result = await comment.update(
-      { commentbody },
-      {
-        where: { id: req.body.id },
-      }
-    );
-    if (result.length === 1 && result[0] === 0) {
-      next(new ClientError(400, `id '${req.body.id}' doesn't exist`));
-      return;
+    let result = null;
+    const validationError = customValidator(req.body, {
+        id: null,
+        commentbody: null,
+    });
+    if (validationError) {
+        next(validationError);
+        return;
     }
-    res.send({ response: "The comment has been updated" });
-  } catch (error) {
-    next(error);
-  }
+    try {
+        const {
+            body: { id, commentbody },
+        } = req;
+        result = await comment.update(
+            { commentbody },
+            {
+                where: { id: req.body.id },
+            }
+        );
+        if (result.length === 1 && result[0] === 0) {
+            next(new ClientError(400, `id '${req.body.id}' doesn't exist`));
+            return;
+        }
+        res.send({ response: "The comment has been updated" });
+    } catch (error) {
+        next(error);
+    }
 });
 router.delete("/", async (req, res, next) => {
-  let result = null;
-  const validationError = customValidator(req.body, {
-    id: null,
-  });
-  if (validationError) {
-    next(validationError);
-    return;
-  }
-  try {
-    const {
-      body: { id, postid, commentbody },
-    } = req;
-    result = await comment.destroy({
-      where: { id: req.body.id },
+    let result = null;
+    const validationError = customValidator(req.body, {
+        id: null,
     });
-    if (result.length === 1 && result[0] === 0) {
-      next(new ClientError(400, `id '${req.body.id}' doesn't exist`));
-      return;
+    if (validationError) {
+        next(validationError);
+        return;
     }
-    res.send({ response: "The comment has been deleted successfully" });
-  } catch (error) {
-    next(error);
-  }
+    try {
+        const {
+            body: { id, postid, commentbody },
+        } = req;
+        result = await comment.destroy({
+            where: { id: req.body.id },
+        });
+        if (result.length === 1 && result[0] === 0) {
+            next(new ClientError(400, `id '${req.body.id}' doesn't exist`));
+            return;
+        }
+        res.send({ response: "The comment has been deleted successfully" });
+    } catch (error) {
+        next(error);
+    }
 });
 
 module.exports = { router, version: 1 };

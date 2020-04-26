@@ -10,15 +10,15 @@ const { DataTypes } = require("sequelize");
  * @returns {Function} - role object to insert or retrieve from the database
  */
 const role = DB.define(
-  "Role",
-  {
-    role: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    "Role",
+    {
+        role: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     },
-  },
-  {
-    // Other model options go here
-  }
+    {
+        // Other model options go here
+    }
 );
 module.exports = role;

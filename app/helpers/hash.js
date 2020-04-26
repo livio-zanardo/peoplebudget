@@ -15,14 +15,14 @@ const saltRounds = parseInt(process.env.SALT);
  * @returns {Promise} returns a promise that will resolve into a hashed string
  */
 const hash = async (password) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const results = await bcrypt.hash(password, saltRounds);
-      resolve(results);
-    } catch (error) {
-      reject(error);
-    }
-  });
+    return new Promise(async (resolve, reject) => {
+        try {
+            const results = await bcrypt.hash(password, saltRounds);
+            resolve(results);
+        } catch (error) {
+            reject(error);
+        }
+    });
 };
 
 /**
@@ -36,14 +36,14 @@ const hash = async (password) => {
  * @returns {Promise}  returns a promise that will resolve into true or false
  */
 const compare = async (pwFromClient, pwFromStorage) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const results = await bcrypt.compare(pwFromClient, pwFromStorage);
-      resolve(results);
-    } catch (error) {
-      reject(error);
-    }
-  });
+    return new Promise(async (resolve, reject) => {
+        try {
+            const results = await bcrypt.compare(pwFromClient, pwFromStorage);
+            resolve(results);
+        } catch (error) {
+            reject(error);
+        }
+    });
 };
 
 module.exports = { hash, compare };
