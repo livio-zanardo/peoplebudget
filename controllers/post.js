@@ -6,22 +6,22 @@ const { ClientError, ServerError } = require("../helpers/error");
 const pagination = require("../helpers/pagination");
 
 router.post("/", async (req, res, next) => {
-  const validated = customValidator(req.body, {
+  const validationError = customValidator(req.body, {
     userId: null,
     body: null,
     title: null,
     tags: null,
     votes: null,
   });
-  if (validated !== 0) {
-    next(validated);
+  if (validationError) {
+    next(validationError);
     return;
   }
   try {
     const {
       body: { body, userId, title, tags, votes },
     } = req;
- 
+
     const newPost = await post.create({
       userId: userId,
       body: body,
@@ -85,14 +85,14 @@ router.get("/", async (req, res, next) => {
 });
 router.put("/", async (req, res, next) => {
   let result = null;
-  const validated = customValidator(req.body, {
+  const validationError = customValidator(req.body, {
     id: null,
     title: null,
     tags: null,
     votes: null,
   });
-  if (validated !== 0) {
-    next(validated);
+  if (validationError) {
+    next(validationError);
     return;
   }
   try {
@@ -143,15 +143,15 @@ router.delete("/", async (req, res, next) => {
   }
 });
 router.post("/create-post", async (req, res, next) => {
-  const validated = customValidator(req.body, {
+  const validationError = customValidator(req.body, {
     userId: null,
     body: null,
     title: null,
     tags: null,
     votes: null,
   });
-  if (validated !== 0) {
-    next(validated);
+  if (validationError) {
+    next(validationError);
     return;
   }
   try {
@@ -174,4 +174,5 @@ router.post("/create-post", async (req, res, next) => {
     next(error);
   }
 });
+
 module.exports = { router, version: 1 };

@@ -30,7 +30,7 @@ const { encode, decode } = require("../helpers/jwt");
  */
 router.post(`/register`, async (req, res, next) => {
   // valiate user input
-  const validated = customValidator(req.body, {
+  const validationError = customValidator(req.body, {
     email: null,
     fname: null,
     lname: null,
@@ -39,8 +39,8 @@ router.post(`/register`, async (req, res, next) => {
   });
 
   //throw error is validation fails
-  if (validated !== 0) {
-    next(validated);
+  if (validationError) {
+    next(validationError);
     return;
   }
 

@@ -6,27 +6,25 @@ const { ClientError, ServerError } = require("../helpers/error");
 const pagination = require("../helpers/pagination");
 
 router.post("/", async (req, res, next) => {
-  const validated = customValidator(req.body, {
+  const validationError = customValidator(req.body, {
     followedPostId: null,
     followingUserId: null,
   });
-  if (validated !== 0) {
-    next(validated);
+  if (validationError) {
+    next(validationError);
     return;
   }
   try {
     const {
       body: { followedPostId, followingUserId },
     } = req;
-
     const followingUserIdList = await postfollow.findAll({
       where: {
         followingUserId: followingUserId,
       },
     });
-
     for (const {
-      dataValues: { followedPostId: _followedPostId }
+      dataValues: { followedPostId: _followedPostId },
     } of followingUserIdList) {
       if (_followedPostId === followedPostId) {
         next(
@@ -37,7 +35,6 @@ router.post("/", async (req, res, next) => {
         );
       }
     }
-
     const newFollow = await postfollow.create({
       followedPostId: followedPostId,
       followingUserId: followingUserId,
@@ -46,25 +43,23 @@ router.post("/", async (req, res, next) => {
     res.statusCode = 201;
     res.send({ response: "postfollow created" });
   } catch (error) {
-    next(new ClientError(400,error.message))
+    next(new ClientError(400, error.message));
   }
 });
 router.get("/", async (req, res, next) => {
-  let results = null;       
+  let results = null;
   try {
-    if(req.query.hasOwnProperty("user")){
-     results = await postfollow.findAll({
+    if (req.query.hasOwnProperty("user")) {
+      results = await postfollow.findAll({
         where: {
           followingUserId: req.query.user,
-        },order: [
-          ['createdAt', 'DESC']
-      ],
+        },
+        order: [["createdAt", "DESC"]],
         attributes: {
-          exclude: ["createdAt","updatedAt","followingUserId"],
+          exclude: ["createdAt", "updatedAt", "followingUserId"],
         },
       });
-
-    }else if (req.query.hasOwnProperty("id")) {
+    } else if (req.query.hasOwnProperty("id")) {
       results = await postfollow.findOne({
         where: { id: req.query.id },
         attributes: {
@@ -86,8 +81,6 @@ router.get("/", async (req, res, next) => {
         }
       );
     }
-  
-  
     res.send({ response: results });
   } catch (error) {
     next(error);
@@ -95,12 +88,12 @@ router.get("/", async (req, res, next) => {
 });
 router.put("/", async (req, res, next) => {
   let result = null;
-  const validated = customValidator(req.body, {
+  const validationError = customValidator(req.body, {
     id: null,
     followedPostId: null,
   });
-  if (validated !== 0) {
-    next(validated);
+  if (validationError) {
+    next(validationError);
     return;
   }
   try {
@@ -122,11 +115,6 @@ router.put("/", async (req, res, next) => {
     next(error);
   }
 });
-//get id
-
-//get new data
-//update the model
-
 router.delete("/", async (req, res, next) => {
   try {
     let result = null;
