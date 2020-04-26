@@ -8,7 +8,7 @@ const pool = {
     max: 5,
     min: 0,
     acquire: 30000,
-    idle: 10000,
+    idle: 10000
 };
 
 const dbEnv = () => {
@@ -25,7 +25,7 @@ const dbEnv = () => {
 const DB = new seq(dbEnv(), process.env.DBUSER, process.env.DBPW, {
     host: process.env.DBHOST,
     dialect: "mysql",
-    pool: pool,
+    pool: pool
 });
 
 // connection test

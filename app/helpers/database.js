@@ -16,7 +16,7 @@ alreadyExists = (dbModel, query) => {
     return new Promise(async (resolve, reject) => {
         try {
             const res = await dbModel.count({
-                where: query,
+                where: query
             });
             if (res === 0) resolve(true);
             else if (res > 0) {
@@ -38,5 +38,5 @@ alreadyExists = (dbModel, query) => {
 };
 
 module.exports = {
-    alreadyExists,
+    alreadyExists
 };

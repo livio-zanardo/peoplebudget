@@ -9,19 +9,19 @@ const pagination = require("../helpers/pagination");
 router.post("/", async (req, res, next) => {
     const validationError = customValidator(req.body, {
         commentId: null,
-        replyBody: null,
+        replyBody: null
     });
     if (validationError) {
         next(validationError);
         return;
     }
     const {
-        body: { commentid, replybody },
+        body: { commentid, replybody }
     } = req;
     try {
         const newReply = await reply.create({
             commentId: commentid,
-            replyBody: replybody,
+            replyBody: replybody
         });
         let { createdAt } = newReply;
         res.header("Location", `api/reply/v1/?id=${newReply.id}`);
@@ -34,19 +34,19 @@ router.post("/", async (req, res, next) => {
 router.post("/reply/", async (req, res, next) => {
     const validationError = customValidator(req.body, {
         commentid: null,
-        replybody: null,
+        replybody: null
     });
     if (validationError) {
         next(validationError);
         return;
     }
     const {
-        body: { commentid, replybody },
+        body: { commentid, replybody }
     } = req;
     try {
         const newReply = await reply.create({
             commentId: commentid,
-            replyBody: replybody,
+            replyBody: replybody
         });
         let { createdAt } = newReply;
         res.header("Location", `api/reply/v1/?id=${newReply.id}`);
@@ -63,8 +63,8 @@ router.get("/", async (req, res, next) => {
             results = await reply.findOne({
                 where: { id: req.query.id },
                 attributes: {
-                    exclude: ["updatedAt", "createdAt"],
-                },
+                    exclude: ["updatedAt", "createdAt"]
+                }
             });
             if (!results) {
                 next(
@@ -81,8 +81,8 @@ router.get("/", async (req, res, next) => {
                 { limit: req.query.limit, currentPage: req.query.page },
                 {
                     attributes: {
-                        exclude: ["updatedAt", "createdAt"],
-                    },
+                        exclude: ["updatedAt", "createdAt"]
+                    }
                 }
             );
         }
@@ -117,7 +117,7 @@ router.delete("/", async (req, res, next) => {
         let result = null;
         if (!Array.isArray(req.body.id)) {
             result = await reply.destroy({
-                where: { id: req.body.id },
+                where: { id: req.body.id }
             });
             if (!result) {
                 next(
@@ -132,7 +132,7 @@ router.delete("/", async (req, res, next) => {
             res.send({ response: `reply with id[${req.body.id}] deleted` });
         } else {
             result = await reply.destroy({
-                where: { id: req.body.id },
+                where: { id: req.body.id }
             });
             if (!result) {
                 next(
@@ -147,9 +147,7 @@ router.delete("/", async (req, res, next) => {
             }
             res.statusCode = 200;
             res.send({
-                response: `replies with ids[${req.body.id.join(
-                    " , "
-                )}] deleted`,
+                response: `replies with ids[${req.body.id.join(" , ")}] deleted`
             });
         }
     } catch (error) {

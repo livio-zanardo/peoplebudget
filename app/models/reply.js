@@ -15,7 +15,7 @@ const reply = DB.define(
     {
         commentId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: false
             /*references: {
         model: "Comments",
         key: "commentId"
@@ -25,8 +25,8 @@ const reply = DB.define(
         },
         replyBody: {
             type: DataTypes.STRING(150),
-            allowNull: false,
-        },
+            allowNull: false
+        }
     },
     {
         // Other model options go here

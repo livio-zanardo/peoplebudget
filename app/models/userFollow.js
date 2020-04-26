@@ -6,12 +6,12 @@ const userfollow = DB.define(
     {
         followedUserId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: false
         },
         followingUserId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-        },
+            allowNull: false
+        }
     },
     {}
 );

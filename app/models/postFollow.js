@@ -9,10 +9,10 @@ const postFollow = DB.define(
             allowNull: false,
             references: {
                 model: "posts",
-                key: "id",
+                key: "id"
             },
             onDelete: "CASCADE",
-            onUpdate: "CASCADE",
+            onUpdate: "CASCADE"
         },
 
         followingUserId: {
@@ -20,11 +20,11 @@ const postFollow = DB.define(
             allowNull: false,
             references: {
                 model: "Users",
-                key: "id",
+                key: "id"
             },
             onDelete: "CASCADE",
-            onUpdate: "CASCADE",
-        },
+            onUpdate: "CASCADE"
+        }
     },
     {
         // Other model options go here

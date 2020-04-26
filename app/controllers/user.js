@@ -13,25 +13,25 @@ router.post("/", adminRequired, async (req, res, next) => {
         fname: null,
         lname: null,
         pass: null,
-        recover_pass: null,
+        recover_pass: null
     });
     if (validationError) {
         next(validationError);
         return;
     }
     const {
-        body: { email, fname, lname, pass, recover_pass },
+        body: { email, fname, lname, pass, recover_pass }
     } = req;
     try {
         await alreadyExists(user, {
-            email: req.body.email,
+            email: req.body.email
         });
         const newUser = await user.create({
             email: email,
             firstName: fname,
             lastName: lname,
             hash: await hash(pass),
-            recoveryHash: await hash(recover_pass),
+            recoveryHash: await hash(recover_pass)
         });
         res.header("Location", `api/user/v1/?id=${newUser.id}`);
         res.statusCode = 201;
@@ -47,8 +47,8 @@ router.get("/", adminRequired, async (req, res, next) => {
             results = await user.findOne({
                 where: { id: req.query.id },
                 attributes: {
-                    exclude: ["hash", "recoveryHash", "createdAt", "updatedAt"],
-                },
+                    exclude: ["hash", "recoveryHash", "createdAt", "updatedAt"]
+                }
             });
             if (!results) {
                 next(new ClientError(400, `id ${req.query.id}doesn't exist`));
@@ -64,9 +64,9 @@ router.get("/", adminRequired, async (req, res, next) => {
                             "hash",
                             "recoveryHash",
                             "createdAt",
-                            "updatedAt",
-                        ],
-                    },
+                            "updatedAt"
+                        ]
+                    }
                 }
             );
         }
@@ -81,7 +81,7 @@ router.put("/", adminRequired, async (req, res, next) => {
         result = await user.update(
             { ...req.body.user },
             {
-                where: { id: req.body.id },
+                where: { id: req.body.id }
             }
         );
         if (result.length === 1 && result[0] === 0) {
@@ -98,7 +98,7 @@ router.delete("/", adminRequired, async (req, res, next) => {
         let result = null;
         if (!Array.isArray(req.body.id)) {
             result = await user.destroy({
-                where: { id: req.body.id },
+                where: { id: req.body.id }
             });
             if (!result) {
                 next(new ClientError(400, `id ${req.body.id} doesn't exist`));
@@ -107,7 +107,7 @@ router.delete("/", adminRequired, async (req, res, next) => {
             res.send(`User ${req.body.id}`); // Tell User
         } else {
             result = await user.destroy({
-                where: { id: req.body.id },
+                where: { id: req.body.id }
             });
             if (!result) {
                 next(

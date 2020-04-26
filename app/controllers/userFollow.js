@@ -10,12 +10,12 @@ router.post("/", async (req, res, next) => {
     const validationError = customValidator(req.body, {
         followedUserId: {
             nullable: false,
-            type: "numeric",
+            type: "numeric"
         },
         followingUserId: {
             nullable: false,
-            type: "numeric",
-        },
+            type: "numeric"
+        }
     });
     if (validationError) {
         next(validationError);
@@ -23,16 +23,16 @@ router.post("/", async (req, res, next) => {
     }
     try {
         const {
-            body: { followedUserId, followingUserId },
+            body: { followedUserId, followingUserId }
         } = req;
 
         const followingUserIdList = await userfollow.findAll({
             where: {
-                followingUserId: followingUserId,
-            },
+                followingUserId: followingUserId
+            }
         });
         for (const {
-            dataValues: { followedUserId: _followedUserId },
+            dataValues: { followedUserId: _followedUserId }
         } of followingUserIdList) {
             if (_followedUserId === followedUserId) {
                 next(
@@ -45,7 +45,7 @@ router.post("/", async (req, res, next) => {
         }
         const newUserFollow = await userfollow.create({
             followedUserId: followedUserId,
-            followingUserId: followingUserId,
+            followingUserId: followingUserId
         });
         res.header("Location", `api/userfollow/v1/?id=${newUserFollow.id}`);
         res.statusCode = 201;
@@ -58,12 +58,12 @@ router.post("/follow", async (req, res, next) => {
     const validationError = customValidator(req.body, {
         followedUserId: {
             nullable: false,
-            type: "numeric",
+            type: "numeric"
         },
         followingUserId: {
             nullable: false,
-            type: "numeric",
-        },
+            type: "numeric"
+        }
     });
     if (validationError) {
         next(validationError);
@@ -71,16 +71,16 @@ router.post("/follow", async (req, res, next) => {
     }
     try {
         const {
-            body: { followedUserId, followingUserId },
+            body: { followedUserId, followingUserId }
         } = req;
 
         const followingUserIdList = await userfollow.findAll({
             where: {
-                followingUserId: followingUserId,
-            },
+                followingUserId: followingUserId
+            }
         });
         for (const {
-            dataValues: { followedUserId: _followedUserId },
+            dataValues: { followedUserId: _followedUserId }
         } of followingUserIdList) {
             if (_followedUserId === followedUserId) {
                 next(
@@ -93,7 +93,7 @@ router.post("/follow", async (req, res, next) => {
         }
         const newUserFollow = await userfollow.create({
             followedUserId: followedUserId,
-            followingUserId: followingUserId,
+            followingUserId: followingUserId
         });
         res.header("Location", `api/userfollow/v1/?id=${newUserFollow.id}`);
         res.statusCode = 201;
@@ -110,15 +110,15 @@ router.get("/", async (req, res, next) => {
                 where: { followingUserId: req.query.user },
                 order: [[`createdAt`, `DESC`]],
                 attributes: {
-                    exclude: ["createdAt", "updatedAt", "followingUserId"],
-                },
+                    exclude: ["createdAt", "updatedAt", "followingUserId"]
+                }
             });
         } else if (req.query.hasOwnProperty("id")) {
             results = await userfollow.findOne({
                 where: { id: req.query.id },
                 attributes: {
-                    exclude: ["createdAt", "updatedAt"],
-                },
+                    exclude: ["createdAt", "updatedAt"]
+                }
             });
             if (!results) {
                 next(new ClientError(400, `id ${req.query.id} doesn't exist`));
@@ -130,8 +130,8 @@ router.get("/", async (req, res, next) => {
                 { limit: req.query.limit, currentPage: req.query.page },
                 {
                     attributes: {
-                        exclude: ["createdAt", "updatedAt"],
-                    },
+                        exclude: ["createdAt", "updatedAt"]
+                    }
                 }
             );
         }
@@ -145,12 +145,12 @@ router.put("/", async (req, res, next) => {
     const validationError = customValidator(req.body, {
         id: {
             nullable: false,
-            type: "numeric",
+            type: "numeric"
         },
         followedUserId: {
             nullable: false,
-            type: "numeric",
-        },
+            type: "numeric"
+        }
     });
     if (validationError) {
         next(validationError);
@@ -158,12 +158,12 @@ router.put("/", async (req, res, next) => {
     }
     try {
         const {
-            body: { followedUserId },
+            body: { followedUserId }
         } = req;
         result = await userfollow.update(
             { followedUserId },
             {
-                where: { id: req.body.id },
+                where: { id: req.body.id }
             }
         );
         if (result.length === 1 && result[0] === 0) {
@@ -180,7 +180,7 @@ router.delete("/", async (req, res, next) => {
         let result = null;
         if (!Array.isArray(req.body.id)) {
             result = await userfollow.destroy({
-                where: { id: req.body.id },
+                where: { id: req.body.id }
             });
             if (!result) {
                 next(new ClientError(400, `id ${req.body.id} doesn't exist`));
@@ -189,7 +189,7 @@ router.delete("/", async (req, res, next) => {
             res.send({ response: `userfollow ${req.body.id} deleted` });
         } else {
             result = await userfollow.destroy({
-                where: { id: req.body.id },
+                where: { id: req.body.id }
             });
             if (!result) {
                 next(
@@ -201,7 +201,7 @@ router.delete("/", async (req, res, next) => {
                 return;
             }
             res.send({
-                response: `userfollows [${req.body.id.join(", ")}] deleted`,
+                response: `userfollows [${req.body.id.join(", ")}] deleted`
             });
         }
     } catch (error) {

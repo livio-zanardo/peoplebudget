@@ -6,8 +6,8 @@ const securityQuestion = DB.define(
     {
         securityQuestion: {
             type: DataTypes.STRING,
-            allowNull: false,
-        },
+            allowNull: false
+        }
     },
     {
         // Other model options go here

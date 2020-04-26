@@ -15,35 +15,35 @@ const user = DB.define(
     {
         name: {
             type: DataTypes.STRING(50),
-            allowNull: false,
+            allowNull: false
         },
         email: {
             type: DataTypes.STRING(50),
-            allowNull: false,
+            allowNull: false
         },
         linkedinurl: {
             type: DataTypes.STRING(100),
-            allowNull: true,
+            allowNull: true
         },
         image: {
             type: DataTypes.STRING.BINARY,
-            allowNull: true,
+            allowNull: true
         },
         zip: {
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: true
         },
         address1: {
             type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: false
         },
         address2: {
             type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: false
         },
         hash: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: false
         },
         /*
     securityQuestion: {
@@ -53,8 +53,8 @@ const user = DB.define(
     */
         recoveryHash: {
             type: DataTypes.STRING,
-            allowNull: false,
-        },
+            allowNull: false
+        }
     },
     {
         // Other model options go here

@@ -11,7 +11,7 @@ router.post("/", async (req, res, next) => {
         body: null,
         title: null,
         tags: null,
-        votes: null,
+        votes: null
     });
     if (validationError) {
         next(validationError);
@@ -19,7 +19,7 @@ router.post("/", async (req, res, next) => {
     }
     try {
         const {
-            body: { body, userId, title, tags, votes },
+            body: { body, userId, title, tags, votes }
         } = req;
 
         const newPost = await post.create({
@@ -27,7 +27,7 @@ router.post("/", async (req, res, next) => {
             body: body,
             title: title,
             tags: tags,
-            votes: votes,
+            votes: votes
         });
 
         res.header("Location", `api/post/v1/?id=${newPost.id}`);
@@ -43,12 +43,12 @@ router.get("/", async (req, res, next) => {
         if (req.query.hasOwnProperty("postedby")) {
             results = await post.findAll({
                 where: {
-                    userId: req.query.postedby,
+                    userId: req.query.postedby
                 },
                 order: [["createdAt", "DESC"]],
                 attributes: {
-                    exclude: ["createdAt", "updatedAt", "UserId"],
-                },
+                    exclude: ["createdAt", "updatedAt", "UserId"]
+                }
             });
 
             if (results.length === 0) {
@@ -64,8 +64,8 @@ router.get("/", async (req, res, next) => {
             results = await post.findOne({
                 where: { id: req.query.id },
                 attributes: {
-                    exclude: ["createdAt", "updatedAt"],
-                },
+                    exclude: ["createdAt", "updatedAt"]
+                }
             });
             if (!results) {
                 next(
@@ -79,8 +79,8 @@ router.get("/", async (req, res, next) => {
                 { limit: req.query.limit, currentPage: req.query.page },
                 {
                     attributes: {
-                        exclude: ["createdAt", "updatedAt"],
-                    },
+                        exclude: ["createdAt", "updatedAt"]
+                    }
                 }
             );
         }
@@ -96,7 +96,7 @@ router.put("/", async (req, res, next) => {
         id: null,
         title: null,
         tags: null,
-        votes: null,
+        votes: null
     });
     if (validationError) {
         next(validationError);
@@ -104,12 +104,12 @@ router.put("/", async (req, res, next) => {
     }
     try {
         const {
-            body: { title, tags, votes },
+            body: { title, tags, votes }
         } = req;
         result = await post.update(
             { title, tags, votes },
             {
-                where: { id: req.body.id },
+                where: { id: req.body.id }
             }
         );
         if (result.length === 1 && result[0] === 0) {
@@ -126,7 +126,7 @@ router.delete("/", async (req, res, next) => {
         let result = null;
         if (!Array.isArray(req.body.id)) {
             result = await post.destroy({
-                where: { id: req.body.id },
+                where: { id: req.body.id }
             });
             if (!result) {
                 next(new ClientError(400, `id '${req.body.id}' doesn't exist`));
@@ -135,7 +135,7 @@ router.delete("/", async (req, res, next) => {
             res.send({ response: `post '${req.body.id}' was deleted` }); // Tell User
         } else {
             result = await post.destroy({
-                where: { id: req.body.id },
+                where: { id: req.body.id }
             });
             if (!result) {
                 next(
@@ -158,7 +158,7 @@ router.post("/create-post", async (req, res, next) => {
         body: null,
         title: null,
         tags: null,
-        votes: null,
+        votes: null
     });
     if (validationError) {
         next(validationError);
@@ -166,7 +166,7 @@ router.post("/create-post", async (req, res, next) => {
     }
     try {
         const {
-            body: { userId, body, title, tags, votes },
+            body: { userId, body, title, tags, votes }
         } = req;
 
         const newPost = await post.create({
@@ -174,7 +174,7 @@ router.post("/create-post", async (req, res, next) => {
             body: body,
             title: title,
             tags: tags,
-            votes: votes,
+            votes: votes
         });
 
         res.header("Location", `api/post/v1/?id=${newPost.id}`);

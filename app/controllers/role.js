@@ -7,21 +7,21 @@ const pagination = require("../helpers/pagination");
 
 router.post("/", async (req, res, next) => {
     const validationError = customValidator(req.body, {
-        role: null,
+        role: null
     });
     if (validationError) {
         next(validationError);
         return;
     }
     const {
-        body: { role },
+        body: { role }
     } = req;
     try {
         await alreadyExists(Role, {
-            role: role,
+            role: role
         });
         const newRole = await Role.create({
-            role: role,
+            role: role
         });
         res.header("Location", `api/role/v1/?id=${newRole.id}`);
         res.statusCode = 201;
@@ -35,7 +35,7 @@ router.get("/", async (req, res, next) => {
     try {
         if (req.query.hasOwnProperty("id")) {
             results = await Role.findOne({
-                where: { id: req.query.id },
+                where: { id: req.query.id }
             });
             if (!results) {
                 next(new ClientError(400, `id ${req.query.id}doesn't exist`));
@@ -59,7 +59,7 @@ router.put("/", async (req, res, next) => {
         result = await Role.update(
             { role: req.body.role },
             {
-                where: { id: req.body.id },
+                where: { id: req.body.id }
             }
         );
         if (result.length === 1 && result[0] === 0) {
@@ -76,7 +76,7 @@ router.delete("/", async (req, res, next) => {
         let result = null;
         if (!Array.isArray(req.body.id)) {
             result = await Role.destroy({
-                where: { id: req.body.id },
+                where: { id: req.body.id }
             });
             if (!result) {
                 next(new ClientError(400, `id ${req.body.id} doesn't exist`));
@@ -85,7 +85,7 @@ router.delete("/", async (req, res, next) => {
             res.send(`Role ${req.body.id} is deleted`); // Tell Role
         } else {
             result = await Role.destroy({
-                where: { id: req.body.id },
+                where: { id: req.body.id }
             });
             if (!result) {
                 next(

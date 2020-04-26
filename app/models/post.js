@@ -7,26 +7,26 @@ const post = DB.define("post", {
         allowNull: false,
         references: {
             model: "Users",
-            key: "id",
+            key: "id"
         },
         onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        onUpdate: "CASCADE"
     },
     body: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
     },
     title: {
         type: DataTypes.STRING(50),
-        allowNull: false,
+        allowNull: false
     },
     tags: {
         type: DataTypes.JSON,
-        allowNull: false,
+        allowNull: false
     },
     votes: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-    },
+        allowNull: false
+    }
 });
 module.exports = post;
