@@ -12,7 +12,7 @@ const { errorHandler } = require("./middleware/error.handler");
 //https://www.npmjs.com/package/swagger-ui-express
 const swaggerUi = require("swagger-ui-express");
 const swStats = require("swagger-stats");
-const swaggerDocument = require("./swagger/swagger.json");
+const swaggerDocument = require("../swagger/swagger.json");
 //Express middleware
 app.use(cookieParser());
 app.use(bodyParser.json());

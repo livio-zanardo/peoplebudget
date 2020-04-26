@@ -32,6 +32,7 @@ const encode = (payload) => {
  */
 const decode = (token) => {
   return new Promise((resolve, reject) => {
+    if (!token) resolve(undefined);
     jwt.verify(token, publicKey, (err, decoded) => {
       if (err) reject(err);
       else resolve(decoded);
