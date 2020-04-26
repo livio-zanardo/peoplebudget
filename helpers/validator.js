@@ -114,7 +114,7 @@ const customValidator = (body, params) => {
       return new ClientError(400, `Missing paramater '${key}' .`);
     }
   }
-  return true;
+  return false;
 };
 
 module.exports = { customValidator };

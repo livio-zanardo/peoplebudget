@@ -7,13 +7,13 @@ const { ClientError, ServerError } = require("../helpers/error");
 const pagination = require("../helpers/pagination");
 
 router.post("/", async (req, res, next) => {
-  const validated = customValidator(req.body, {
+  const validationError = customValidator(req.body, {
     userid: null,
     postid: null,
     commentbody: null,
   });
-  if (validated !== 0) {
-    next(validated);
+  if (validationError) {
+    next(validationError);
     return;
   }
   const {
@@ -39,7 +39,6 @@ router.post("/", async (req, res, next) => {
 });
 router.get("/", async (req, res, next) => {
   let results;
-
   try {
     if (req.query.hasOwnProperty("id")) {
       results = await comment.findOne({
@@ -73,15 +72,14 @@ router.get("/", async (req, res, next) => {
     next(error);
   }
 });
-
 router.put("/", async (req, res, next) => {
   let result = null;
-  const validated = customValidator(req.body, {
+  const validationError = customValidator(req.body, {
     id: null, 
     commentbody: null,
   });
-  if (validated !== 0) {
-    next(validated);
+  if (validationError) {
+    next(validationError);
     return;
   }
   try {
@@ -103,14 +101,13 @@ router.put("/", async (req, res, next) => {
     next(error);
   }
 });
-
 router.delete("/", async (req, res, next) => {
   let result = null;
-  const validated = customValidator(req.body, {
+  const validationError = customValidator(req.body, {
     id: null, 
   });
-  if (validated !== 0) {
-    next(validated);
+  if (validationError) {
+    next(validationError);
     return;
   }
   try {
