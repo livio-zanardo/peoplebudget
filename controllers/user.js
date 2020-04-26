@@ -1,12 +1,13 @@
 const user = require("../models/user");
 const router = require("express").Router();
+const { adminRequired } = require("../middleware/requiredPermissions");
 const { hash } = require("../helpers/hash");
 const { customValidator } = require("../helpers/validator");
 const { alreadyExists } = require("../helpers/database");
 const { ClientError, ServerError } = require("../helpers/error");
 const pagination = require("../helpers/pagination");
 
-router.post("/", async (req, res, next) => {
+router.post("/", adminRequired, async (req, res, next) => {
   const validationError = customValidator(req.body, {
     email: null,
     fname: null,
@@ -39,7 +40,7 @@ router.post("/", async (req, res, next) => {
     next(error);
   }
 });
-router.get("/", async (req, res, next) => {
+router.get("/", adminRequired, async (req, res, next) => {
   let results;
   try {
     if (req.query.hasOwnProperty("id")) {
@@ -69,7 +70,7 @@ router.get("/", async (req, res, next) => {
     next(error);
   }
 });
-router.put("/", async (req, res, next) => {
+router.put("/", adminRequired, async (req, res, next) => {
   let result = null;
   try {
     result = await user.update(
@@ -87,7 +88,7 @@ router.put("/", async (req, res, next) => {
     next(error);
   }
 });
-router.delete("/", async (req, res, next) => {
+router.delete("/", adminRequired, async (req, res, next) => {
   try {
     let result = null;
     if (!Array.isArray(req.body.id)) {
