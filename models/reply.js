@@ -16,6 +16,12 @@ const reply = DB.define(
     commentId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      /*references: {
+        model: "Comments",
+        key: "commentId"
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE"*/
     },
     replyBody: {
       type: DataTypes.STRING(150),
