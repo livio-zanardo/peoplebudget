@@ -5,3 +5,5 @@
 /docs
 package-lock.json
 test.js
+/.vscode
+/view\node_modules
