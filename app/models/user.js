@@ -13,16 +13,33 @@ const role = require("./role");
 const user = DB.define(
   "User",
   {
+    name: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
     email: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(50),
       allowNull: false,
     },
-    firstName: {
-      type: DataTypes.STRING,
+    linkedinurl: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+    },
+    image: {
+      type: DataTypes.STRING.BINARY,
+      allowNull: true,
+    },
+    zip: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    address1: {
+      type: DataTypes.STRING(100),
       allowNull: false,
     },
-    lastName: {
-      type: DataTypes.STRING,
+    address2: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
     },
     hash: {
       type: DataTypes.STRING,
@@ -37,7 +54,7 @@ const user = DB.define(
     recoveryHash: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
+    }
   },
   {
     // Other model options go here
