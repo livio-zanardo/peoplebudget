@@ -24,16 +24,25 @@ const customValidator = (body, params) => {
     if (body.hasOwnProperty(key)) {
       //check length
       if (params[key] && (params[key].min || params[key].max)) {
-        if (body[key].length < params[key].min) {
+        const userInput =
+          typeof body[key] === "number"
+            ? body[key].toString().length
+            : body[key].length;
+        if (userInput < params[key].min) {
+          console.log("should throw error");
           return new ClientError(
             400,
-            `The '${key}' value is too short, must be greater than ${params[key].min} characters.`
+            `The '${key}' value is too short, must be greater than ${
+              params[key].min - 1
+            } characters.`
           );
         }
-        if (body[key].length > params[key].max) {
+        if (userInput > params[key].max) {
           return new ClientError(
             400,
-            `The '${key}' value is too long, must be less than ${params[key].max} characters.`
+            `The '${key}' value is too long, must be less than ${
+              params[key].max + 1
+            } characters.`
           );
         }
       }
@@ -105,7 +114,7 @@ const customValidator = (body, params) => {
       return new ClientError(400, `Missing paramater '${key}' .`);
     }
   }
-  return true;
+  return false;
 };
 
 module.exports = { customValidator };

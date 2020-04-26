@@ -13,7 +13,7 @@ var publicKey = fs.readFileSync(process.env.PUBLICKEY);
  * @param {Object} payload - Stores a payload inside of a token
  * @returns {Promise} Promise object represents a token string
  */
-const encode = payload => {
+const encode = (payload) => {
   return new Promise((resolve, reject) => {
     jwt.sign(payload, privateKey, { algorithm: "RS256" }, (err, token) => {
       if (err) reject(err);
@@ -30,7 +30,7 @@ const encode = payload => {
  * @param {String} token - Token with payload
  * @returns {Promise} Promise object represents a payload returned from a token.
  */
-const decode = token => {
+const decode = (token) => {
   return new Promise((resolve, reject) => {
     jwt.verify(token, publicKey, (err, decoded) => {
       if (err) reject(err);

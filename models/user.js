@@ -2,6 +2,7 @@ const { DB } = require("../database/database");
 const { DataTypes } = require("sequelize");
 const role = require("./role");
 
+
 /**
  * User mapping.
  * @name user
@@ -45,6 +46,12 @@ const user = DB.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    /*
+    securityQuestion: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    */
     recoveryHash: {
       type: DataTypes.STRING,
       allowNull: false,

@@ -17,7 +17,7 @@ const errorHandler = (err, req, res, next) => {
   if (err.status) res.status(err.status);
   else res.status(500);
 
-  res.send({ [err.name]: err.message });
+  res.send({ error: err.message, type: err.name });
 };
 
 module.exports = { errorHandler };
