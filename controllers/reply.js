@@ -6,60 +6,50 @@ const { alreadyExists } = require("../helpers/database");
 const { ClientError, ServerError } = require("../helpers/error");
 const pagination = require("../helpers/pagination");
 
-/****************************
- * User Accecible CRUD API
- ****************************/
-router.post("/reply/", async (req, res, next) => {
-  const validated = customValidator(req.body, {
+router.post("/", async (req, res, next) => {
+  const validationError = customValidator(req.body, {
     commentId: null,
     replyBody: null,
   });
-  if (validated !== true) {
-    next(validated);
+  if (validationError) {
+    next(validationError);
     return;
   }
   const {
-    body: { commentId, replyBody },
+    body: { commentid, replybody },
   } = req;
   try {
     const newReply = await reply.create({
-      commentId: commentId,
-      replyBody: replyBody,
+      commentId: commentid,
+      replyBody: replybody,
     });
-    /**********************************
-      Included for testing lyfe cycle */
-    res.header("location", `api/reply/v1/?id=${newReply.id}`);
-    //**********************************
+    let { createdAt } = newReply;
+    res.header("Location", `api/reply/v1/?id=${newReply.id}`);
     res.statusCode = 201;
     res.send({ response: "reply posted" });
   } catch (error) {
     next(error);
   }
 });
-/****************************
- * Admin CRUD API
- ****************************/
-router.post("/", async (req, res, next) => {
-  const validated = customValidator(req.body, {
-    commentId: { type: "numeric" },
-    replyBody: { nullable: false, max: 150 },
+router.post("/reply/", async (req, res, next) => {
+  const validationError = customValidator(req.body, {
+    commentid: null,
+    replybody: null,
   });
-  if (validated !== true) {
-    next(validated);
+  if (validationError) {
+    next(validationError);
     return;
   }
   const {
-    body: { commentId, replyBody },
+    body: { commentid, replybody },
   } = req;
   try {
     const newReply = await reply.create({
-      commentId: commentId,
-      replyBody: replyBody,
+      commentId: commentid,
+      replyBody: replybody,
     });
-    /**********************************
-      Included for testing lyfe cycle */
-    res.header("location", `api/reply/v1/?id=${newReply.id}`);
-    //**********************************
+    let { createdAt } = newReply;
+    res.header("Location", `api/reply/v1/?id=${newReply.id}`);
     res.statusCode = 201;
     res.send({ response: "reply posted" });
   } catch (error) {
@@ -116,7 +106,6 @@ router.put("/", async (req, res, next) => {
     next(error);
   }
 });
-// To do: Find which id's couldn't get deleted
 router.delete("/", async (req, res, next) => {
   try {
     let result = null;
