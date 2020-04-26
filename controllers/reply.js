@@ -23,10 +23,9 @@ router.post("/", async (req, res, next) => {
       commentId: commentid,
       replyBody: replybody,
     });
-    const timestamp = newReply.createdAt.toString();
     let { createdAt } = newReply;
     res.header("Location", `api/reply/v1/?id=${newReply.id}`);
-    res.statusCode = 201; // Check for correct status code
+    res.statusCode = 201;
     res.send({ response: "reply posted" });
   } catch (error) {
     next(error);
@@ -49,10 +48,9 @@ router.post("/reply/", async (req, res, next) => {
       commentId: commentid,
       replyBody: replybody,
     });
-    const timestamp = newReply.createdAt.toString();
     let { createdAt } = newReply;
     res.header("Location", `api/reply/v1/?id=${newReply.id}`);
-    res.statusCode = 201; // Check for correct status code
+    res.statusCode = 201;
     res.send({ response: "reply posted" });
   } catch (error) {
     next(error);
