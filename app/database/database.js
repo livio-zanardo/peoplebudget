@@ -2,7 +2,7 @@
  * @module database
  */
 
-const seq = require('sequelize');
+const Seq = require('sequelize');
 
 const pool = {
     max: 5,
@@ -22,7 +22,7 @@ const dbEnv = () => {
     }
 };
 
-const DB = new seq(dbEnv(), process.env.DBUSER, process.env.DBPW, {
+const DB = new Seq(dbEnv(), process.env.DBUSER, process.env.DBPW, {
     host: process.env.DBHOST,
     dialect: 'mysql',
     pool: pool
@@ -51,8 +51,28 @@ const migrate = async (table) => {
     if (table && typeof table === 'String') {
         await models[table].sync({ alter: true });
     } else {
+        const deffered = [];
         for (const model in models) {
-            await models[model].sync({ alter: true });
+            if (models.hasOwnProperty(model)) {
+                try {
+                    await models[model].sync({ alter: true });
+                } catch (e) {
+                    deffered.push(models[model]);
+                }
+            }
+        }
+        console.warn('Deffered tables:', deffered);
+        if (deffered.length > 1) {
+            for (const model in deffered) {
+                if (models.hasOwnProperty(model)) {
+                    try {
+                        await models[model].sync({ alter: true });
+                        deffered.pop(model);
+                    } catch (e) {
+                        deffered.push(models[model]);
+                    }
+                }
+            }
         }
     }
 };
@@ -71,8 +91,28 @@ const drop = async (table) => {
     if (table && typeof table === 'String') {
         await models[table].drop();
     } else {
+        const deffered = [];
         for (const model in models) {
-            await models[model].drop();
+            if (models.hasOwnProperty(model)) {
+                try {
+                    await models[model].drop();
+                } catch (e) {
+                    deffered.push(models[model]);
+                }
+            }
+        }
+        console.warn('Deffered tables:', deffered);
+        if (deffered.length > 1) {
+            for (const model in deffered) {
+                if (models.hasOwnProperty(model)) {
+                    try {
+                        await models[model].drop();
+                        deffered.pop(model);
+                    } catch (e) {
+                        deffered.push(models[model]);
+                    }
+                }
+            }
         }
     }
 };
