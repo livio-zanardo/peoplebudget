@@ -1,37 +1,38 @@
 const user = require('../models/user');
 const router = require('express').Router();
-const { adminRequired } = require('../middleware/requiredPermissions');
 const { hash } = require('../helpers/hash');
 const { customValidator } = require('../helpers/validator');
 const { alreadyExists } = require('../helpers/database');
 const { ClientError } = require('../helpers/error');
 const pagination = require('../helpers/pagination');
 
-router.post('/', adminRequired, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     const validationError = customValidator(req.body, {
-        email: null,
-        fname: null,
-        lname: null,
-        pass: null,
-        recover_pass: null
+        // email: null,
+        // fname: null,
+        // lname: null,
+        name: null,
+        pass: null
+        // recover_pass: null
     });
     if (validationError) {
         next(validationError);
         return;
     }
     const {
-        body: { email, fname, lname, pass, recover_pass }
+        body: { email, name, fname, lname, pass, recover_pass }
     } = req;
     try {
         await alreadyExists(user, {
-            email: req.body.email
+            email: email
         });
         const newUser = await user.create({
+            name: name,
             email: email,
-            firstName: fname,
-            lastName: lname,
-            hash: await hash(pass),
-            recoveryHash: await hash(recover_pass)
+            // firstName: fname,
+            // lastName: lname,
+            hash: await hash(pass)
+            // recoveryHash: await hash(recover_pass)
         });
         res.header('Location', `api/user/v1/?id=${newUser.id}`);
         res.statusCode = 201;
@@ -40,7 +41,7 @@ router.post('/', adminRequired, async (req, res, next) => {
         next(error);
     }
 });
-router.get('/', adminRequired, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     let results;
     try {
         if (req.query.hasOwnProperty('id')) {
@@ -70,7 +71,7 @@ router.get('/', adminRequired, async (req, res, next) => {
         next(error);
     }
 });
-router.put('/', adminRequired, async (req, res, next) => {
+router.put('/', async (req, res, next) => {
     let result = null;
     try {
         result = await user.update(
@@ -88,7 +89,7 @@ router.put('/', adminRequired, async (req, res, next) => {
         next(error);
     }
 });
-router.delete('/', adminRequired, async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
     try {
         let result = null;
         if (!Array.isArray(req.body.id)) {

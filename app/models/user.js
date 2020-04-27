@@ -19,7 +19,7 @@ const user = DB.define(
         },
         email: {
             type: DataTypes.STRING(50),
-            allowNull: false
+            allowNull: true
         },
         linkedinurl: {
             type: DataTypes.STRING(100),
@@ -35,11 +35,11 @@ const user = DB.define(
         },
         address1: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: true
         },
         address2: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: true
         },
         hash: {
             type: DataTypes.STRING,
@@ -53,7 +53,7 @@ const user = DB.define(
     */
         recoveryHash: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         }
     },
     {
