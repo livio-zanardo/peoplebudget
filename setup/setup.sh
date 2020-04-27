@@ -1,8 +1,10 @@
 #!/bin/bash
 
+clear
 printf 'Installing VSCode Plugins...\n'
-sh ./install-plugins.sh
+sh ./setup/install-plugins.sh
 
+clear
 printf 'Installing server dependencies...\n'
 npm i
 
