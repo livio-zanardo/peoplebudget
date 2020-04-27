@@ -16,7 +16,7 @@ class ClientError extends Error {
      * @param {Number} status - status code
      * @param  {...any} params - standard Error constructor parameters
      */
-    constructor(status = "400", ...params) {
+    constructor(status = '400', ...params) {
         // Pass remaining arguments (including vendor specific ones) to parent constructor
         super(...params);
 
@@ -25,7 +25,7 @@ class ClientError extends Error {
             Error.captureStackTrace(this, ClientError);
         }
 
-        this.name = "ClientError";
+        this.name = 'ClientError';
         // Custom debugging information
         this.status = status;
         this.date = new Date();
@@ -46,7 +46,7 @@ class ServerError extends Error {
      * @param {Number} status - status code
      * @param  {...any} params - standard Error constructor parameters
      */
-    constructor(status = "500", ...params) {
+    constructor(status = '500', ...params) {
         // Pass remaining arguments (including vendor specific ones) to parent constructor
         super(...params);
 
@@ -55,7 +55,7 @@ class ServerError extends Error {
             Error.captureStackTrace(this, ServerError);
         }
 
-        this.name = "ServerError";
+        this.name = 'ServerError';
         // Custom debugging information
         this.status = status;
         this.date = new Date();

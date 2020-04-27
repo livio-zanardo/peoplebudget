@@ -1,7 +1,7 @@
 /**
  * @module permissions
  */
-const { decode } = require("../helpers/jwt");
+const { decode } = require('../helpers/jwt');
 
 /**
  *  this middleware Can be used to set permissions for end points
@@ -15,8 +15,8 @@ const { decode } = require("../helpers/jwt");
  */
 const adminRequired = async (req, res, next) => {
     const decoded = await decode(req.cookies.token);
-    if (decoded && decoded.role === "admin") next();
-    else res.status(403).send({ response: "Access denied!" });
+    if (decoded && decoded.role === 'admin') next();
+    else res.status(403).send({ response: 'Access denied!' });
 };
 
 /**
@@ -31,8 +31,8 @@ const adminRequired = async (req, res, next) => {
  */
 const contributerRequired = async (req, res, next) => {
     const decoded = await decode(req.cookies.token);
-    if (decoded && decoded.role === "contributer") next();
-    else res.status(403).send({ response: "Access denied!" });
+    if (decoded && decoded.role === 'contributer') next();
+    else res.status(403).send({ response: 'Access denied!' });
 };
 
 module.exports = { adminRequired, contributerRequired };

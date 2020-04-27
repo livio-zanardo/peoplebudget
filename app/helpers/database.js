@@ -1,7 +1,7 @@
 /**
  * @module database
  */
-const { ClientError, ServerError } = require("../helpers/error");
+const { ClientError, ServerError } = require('../helpers/error');
 
 /**
  * Will check is a resource already exists
@@ -10,7 +10,7 @@ const { ClientError, ServerError } = require("../helpers/error");
  * @memberof module:database
  * @param {Function} dbModel - Database object function
  * @param {Object} query - Object used to query database
- * @returns {Promise} returns a promise that will resolve to be a Boolean or an Error object
+ * @return {Promise} returns a promise that will resolve to be a Boolean or an Error object
  */
 alreadyExists = (dbModel, query) => {
     return new Promise(async (resolve, reject) => {
@@ -23,10 +23,8 @@ alreadyExists = (dbModel, query) => {
                 reject(
                     new ClientError(
                         400,
-                        `Type:'${
-                            dbModel.name
-                        }', with query params:[${Object.keys(query).join(
-                            ","
+                        `Type:'${dbModel.name}', with query params:[${Object.keys(query).join(
+                            ','
                         )}], already exists.`
                     )
                 );

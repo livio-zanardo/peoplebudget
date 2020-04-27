@@ -2,8 +2,8 @@
  * @module validator
  */
 
-const validator = require("validator");
-const { ClientError, ServerError } = require("../helpers/error");
+const validator = require('validator');
+const { ClientError, ServerError } = require('../helpers/error');
 
 /**
  * This will validate an object's keys
@@ -17,19 +17,17 @@ const { ClientError, ServerError } = require("../helpers/error");
  * @memberof module:validator
  * @param {Object} body - Object with keys that need to be validated
  * @param {Object} params - An object that represents required keys and validation rules
- * @returns {Object|Boolean} returns Error object | returns true if is valid
+ * @return {Object|Boolean} returns Error object | returns true if is valid
  */
 const customValidator = (body, params) => {
     for (const key in params) {
         if (body.hasOwnProperty(key)) {
-            //check length
+            // check length
             if (params[key] && (params[key].min || params[key].max)) {
                 const userInput =
-                    typeof body[key] === "number"
-                        ? body[key].toString().length
-                        : body[key].length;
+                    typeof body[key] === 'number' ? body[key].toString().length : body[key].length;
                 if (userInput < params[key].min) {
-                    console.log("should throw error");
+                    console.log('should throw error');
                     return new ClientError(
                         400,
                         `The '${key}' value is too short, must be greater than ${
@@ -46,61 +44,48 @@ const customValidator = (body, params) => {
                     );
                 }
             }
-            //check types
+            // check types
             if (params[key] && params[key].type) {
                 switch (typeof body[key]) {
-                    case "object":
+                    case 'object':
                         return new ClientError(
                             400,
-                            `The '${key}' can not be type '${typeof body[
-                                key
-                            ]}'.`
+                            `The '${key}' can not be type '${typeof body[key]}'.`
                         );
                     default:
                         break;
                 }
                 switch (params[key].type) {
-                    case "alphanumeric":
+                    case 'alphanumeric':
                         if (!validator.isAlphanumeric(body[key])) {
                             return new ClientError(
                                 400,
                                 `The '${key}' must be should only contain characters or letters.`
                             );
                         }
-                    case "alpha":
-                        if (!validator.isAlpha(body[key].replace(/-|'/g, ""))) {
+                    case 'alpha':
+                        if (!validator.isAlpha(body[key].replace(/-|'/g, ''))) {
                             return new ClientError(
                                 400,
                                 `The '${key}' must contain charactes only.`
                             );
                         }
                         break;
-                    case "numeric":
-                        if (
-                            typeof body[key] !== "number" &&
-                            !validator.isNumeric(body[key])
-                        ) {
+                    case 'numeric':
+                        if (typeof body[key] !== 'number' && !validator.isNumeric(body[key])) {
                             return new ClientError(
                                 400,
                                 `The '${key}' must be contain numbers only.`
                             );
                         }
                         break;
-                    case "email":
+                    case 'email':
                         if (!validator.isEmail(body[key])) {
-                            return new ClientError(
-                                400,
-                                `The '${key}' must be in email format.`
-                            );
+                            return new ClientError(400, `The '${key}' must be in email format.`);
                         }
                         break;
-                    case "password":
-                        if (
-                            !validator.matches(
-                                body[key],
-                                process.env.PASSWORDRULE
-                            )
-                        ) {
+                    case 'password':
+                        if (!validator.matches(body[key], process.env.PASSWORDRULE)) {
                             return new ClientError(
                                 400,
                                 `The '${key}' ${process.env.PASSWORDRULEMESSAGE}`
@@ -114,10 +99,7 @@ const customValidator = (body, params) => {
             // check if nullable
             if (params[key] && !params[key].nullable) {
                 if (!params[key].nullable && !body[key]) {
-                    return new ClientError(
-                        400,
-                        `The '${key}' can not be null or empty`
-                    );
+                    return new ClientError(400, `The '${key}' can not be null or empty`);
                 }
             }
         } else {

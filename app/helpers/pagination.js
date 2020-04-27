@@ -10,7 +10,7 @@
  * @param {Object} model - sequelize model
  * @param {Object} page - has two keys limit(string) a number that decides the amount of records per page and page(string) is a number that decides which page to access
  * @param {Object} params - stores the query parameters for the database
- * @returns {Promise} is a promise that resolves a database object
+ * @return {Promise} is a promise that resolves a database object
  */
 const pagination = async (model, page, params) => {
     let { limit, currentPage } = page;

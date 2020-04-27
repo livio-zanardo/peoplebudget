@@ -1,20 +1,18 @@
 module.exports = {
-  env: {
-    browser: true,
-    es6: true,
-  },
-  extends: ["google"],
-  globals: {
-    Atomics: "readonly",
-    SharedArrayBuffer: "readonly",
-  },
-  parserOptions: {
-    ecmaVersion: 2018,
-  },
-  rules: {},
-  extends: ["prettier"],
-  plugins: ["prettier"],
-  rules: {
-    "prettier/prettier": "error",
-  },
+    env: {
+        node: true,
+        es6: true
+    },
+    extends: ["google", "prettier"],
+    globals: {
+        Atomics: "readonly",
+        SharedArrayBuffer: "readonly"
+    },
+    parserOptions: {
+        ecmaVersion: 2018
+    },
+    plugins: ["prettier"],
+    rules: {
+        "prettier/prettier": "error"
+    }
 };

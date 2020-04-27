@@ -1,8 +1,8 @@
-const { DB } = require("../database/database");
-const { DataTypes } = require("sequelize");
+const { DB } = require('../database/database');
+const { DataTypes } = require('sequelize');
 
 const securityQuestion = DB.define(
-    "securityQuestion",
+    'securityQuestion',
     {
         securityQuestion: {
             type: DataTypes.STRING,

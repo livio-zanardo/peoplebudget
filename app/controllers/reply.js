@@ -1,12 +1,12 @@
-const reply = require("../models/reply");
-const router = require("express").Router();
-const { hash } = require("../helpers/hash");
-const { customValidator } = require("../helpers/validator");
-const { alreadyExists } = require("../helpers/database");
-const { ClientError, ServerError } = require("../helpers/error");
-const pagination = require("../helpers/pagination");
+const reply = require('../models/reply');
+const router = require('express').Router();
+const { hash } = require('../helpers/hash');
+const { customValidator } = require('../helpers/validator');
+const { alreadyExists } = require('../helpers/database');
+const { ClientError, ServerError } = require('../helpers/error');
+const pagination = require('../helpers/pagination');
 
-router.post("/", async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     const validationError = customValidator(req.body, {
         commentId: null,
         replyBody: null
@@ -23,15 +23,15 @@ router.post("/", async (req, res, next) => {
             commentId: commentid,
             replyBody: replybody
         });
-        let { createdAt } = newReply;
-        res.header("Location", `api/reply/v1/?id=${newReply.id}`);
+        const { createdAt } = newReply;
+        res.header('Location', `api/reply/v1/?id=${newReply.id}`);
         res.statusCode = 201;
-        res.send({ response: "reply posted" });
+        res.send({ response: 'reply posted' });
     } catch (error) {
         next(error);
     }
 });
-router.post("/reply/", async (req, res, next) => {
+router.post('/reply/', async (req, res, next) => {
     const validationError = customValidator(req.body, {
         commentid: null,
         replybody: null
@@ -48,31 +48,26 @@ router.post("/reply/", async (req, res, next) => {
             commentId: commentid,
             replyBody: replybody
         });
-        let { createdAt } = newReply;
-        res.header("Location", `api/reply/v1/?id=${newReply.id}`);
+        const { createdAt } = newReply;
+        res.header('Location', `api/reply/v1/?id=${newReply.id}`);
         res.statusCode = 201;
-        res.send({ response: "reply posted" });
+        res.send({ response: 'reply posted' });
     } catch (error) {
         next(error);
     }
 });
-router.get("/", async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     let results;
     try {
-        if (req.query.hasOwnProperty("id")) {
+        if (req.query.hasOwnProperty('id')) {
             results = await reply.findOne({
                 where: { id: req.query.id },
                 attributes: {
-                    exclude: ["updatedAt", "createdAt"]
+                    exclude: ['updatedAt', 'createdAt']
                 }
             });
             if (!results) {
-                next(
-                    new ClientError(
-                        400,
-                        `reply with id[${req.query.id}] does not exist`
-                    )
-                );
+                next(new ClientError(400, `reply with id[${req.query.id}] does not exist`));
                 return;
             }
         } else {
@@ -81,7 +76,7 @@ router.get("/", async (req, res, next) => {
                 { limit: req.query.limit, currentPage: req.query.page },
                 {
                     attributes: {
-                        exclude: ["updatedAt", "createdAt"]
+                        exclude: ['updatedAt', 'createdAt']
                     }
                 }
             );
@@ -91,20 +86,12 @@ router.get("/", async (req, res, next) => {
         next(error);
     }
 });
-router.put("/", async (req, res, next) => {
+router.put('/', async (req, res, next) => {
     let result = null;
     try {
-        result = await reply.update(
-            { ...req.body.reply },
-            { where: { id: req.body.id } }
-        );
+        result = await reply.update({ ...req.body.reply }, { where: { id: req.body.id } });
         if (result.length === 1 && result[0] === 0) {
-            next(
-                new ClientError(
-                    400,
-                    `reply with id[${req.body.id}] does not exist`
-                )
-            );
+            next(new ClientError(400, `reply with id[${req.body.id}] does not exist`));
             return;
         }
         res.send({ response: `reply with id[${req.body.id}] updated` });
@@ -112,7 +99,7 @@ router.put("/", async (req, res, next) => {
         next(error);
     }
 });
-router.delete("/", async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
     try {
         let result = null;
         if (!Array.isArray(req.body.id)) {
@@ -120,12 +107,7 @@ router.delete("/", async (req, res, next) => {
                 where: { id: req.body.id }
             });
             if (!result) {
-                next(
-                    new ClientError(
-                        400,
-                        `reply with id[${req.body.id}] does not exist`
-                    )
-                );
+                next(new ClientError(400, `reply with id[${req.body.id}] does not exist`));
                 return;
             }
             res.statusCode = 200;
@@ -138,16 +120,14 @@ router.delete("/", async (req, res, next) => {
                 next(
                     new ClientError(
                         400,
-                        `replies with ids[${req.body.id.join(
-                            " , "
-                        )}] does not exist`
+                        `replies with ids[${req.body.id.join(' , ')}] does not exist`
                     )
                 );
                 return;
             }
             res.statusCode = 200;
             res.send({
-                response: `replies with ids[${req.body.id.join(" , ")}] deleted`
+                response: `replies with ids[${req.body.id.join(' , ')}] deleted`
             });
         }
     } catch (error) {

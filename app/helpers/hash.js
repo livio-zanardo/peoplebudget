@@ -2,7 +2,7 @@
  * @module hash
  */
 
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 const saltRounds = parseInt(process.env.SALT);
 
 /**
@@ -12,7 +12,7 @@ const saltRounds = parseInt(process.env.SALT);
  * @function
  * @memberof module:hash
  * @param {String} password - Password to create hash
- * @returns {Promise} returns a promise that will resolve into a hashed string
+ * @return {Promise} returns a promise that will resolve into a hashed string
  */
 const hash = async (password) => {
     return new Promise(async (resolve, reject) => {
@@ -33,7 +33,7 @@ const hash = async (password) => {
  * @memberof module:hash
  * @param {String} pwFromClient - Password from client
  * @param {String} pwFromStorage - Hashed password from database/storage
- * @returns {Promise}  returns a promise that will resolve into true or false
+ * @return {Promise}  returns a promise that will resolve into true or false
  */
 const compare = async (pwFromClient, pwFromStorage) => {
     return new Promise(async (resolve, reject) => {

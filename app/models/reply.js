@@ -1,5 +1,5 @@
-const { DB } = require("../database/database");
-const { DataTypes } = require("sequelize");
+const { DB } = require('../database/database');
+const { DataTypes } = require('sequelize');
 
 /**
  * User mapping.
@@ -10,13 +10,13 @@ const { DataTypes } = require("sequelize");
  * @returns {Function} - User object to insert or retrieve from the database
  */
 const reply = DB.define(
-    "Reply",
+    'Reply',
     // Join
     {
         commentId: {
             type: DataTypes.INTEGER,
             allowNull: false
-            /*references: {
+            /* references: {
         model: "Comments",
         key: "commentId"
       },

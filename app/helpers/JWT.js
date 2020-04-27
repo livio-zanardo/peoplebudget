@@ -1,21 +1,21 @@
 /**
  * @module jwt
  */
-const fs = require("fs");
-const jwt = require("jsonwebtoken");
+const fs = require('fs');
+const jwt = require('jsonwebtoken');
 const privateKey = fs.readFileSync(process.env.PRIVATEKEY);
-var publicKey = fs.readFileSync(process.env.PUBLICKEY);
+const publicKey = fs.readFileSync(process.env.PUBLICKEY);
 /**
  * This function will create a JWT Token with optional payload.
  * @name encode
  * @memberof module:jwt
  * @function
  * @param {Object} payload - Stores a payload inside of a token
- * @returns {Promise} Promise object represents a token string
+ * @return {Promise} Promise object represents a token string
  */
 const encode = (payload) => {
     return new Promise((resolve, reject) => {
-        jwt.sign(payload, privateKey, { algorithm: "RS256" }, (err, token) => {
+        jwt.sign(payload, privateKey, { algorithm: 'RS256' }, (err, token) => {
             if (err) reject(err);
             else resolve(token);
         });
@@ -28,7 +28,7 @@ const encode = (payload) => {
  * @memberof module:jwt
  * @function
  * @param {String} token - Token with payload
- * @returns {Promise} Promise object represents a payload returned from a token.
+ * @return {Promise} Promise object represents a payload returned from a token.
  */
 const decode = (token) => {
     return new Promise((resolve, reject) => {

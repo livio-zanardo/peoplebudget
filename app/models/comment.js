@@ -1,7 +1,7 @@
-const { DB } = require("../database/database");
-const { DataTypes } = require("sequelize");
+const { DB } = require('../database/database');
+const { DataTypes } = require('sequelize');
 
-const comment = DB.define("Comment", {
+const comment = DB.define('Comment', {
     userid: {
         type: DataTypes.INTEGER,
         allowNull: false
