@@ -14,12 +14,12 @@ var publicKey = fs.readFileSync(process.env.PUBLICKEY);
  * @returns {Promise} Promise object represents a token string
  */
 const encode = (payload) => {
-  return new Promise((resolve, reject) => {
-    jwt.sign(payload, privateKey, { algorithm: "RS256" }, (err, token) => {
-      if (err) reject(err);
-      else resolve(token);
+    return new Promise((resolve, reject) => {
+        jwt.sign(payload, privateKey, { algorithm: "RS256" }, (err, token) => {
+            if (err) reject(err);
+            else resolve(token);
+        });
     });
-  });
 };
 /**
  * This function will return a payload if the token is still
@@ -31,12 +31,12 @@ const encode = (payload) => {
  * @returns {Promise} Promise object represents a payload returned from a token.
  */
 const decode = (token) => {
-  return new Promise((resolve, reject) => {
-    if (!token) resolve(undefined);
-    jwt.verify(token, publicKey, (err, decoded) => {
-      if (err) reject(err);
-      else resolve(decoded);
+    return new Promise((resolve, reject) => {
+        if (!token) resolve(undefined);
+        jwt.verify(token, publicKey, (err, decoded) => {
+            if (err) reject(err);
+            else resolve(decoded);
+        });
     });
-  });
 };
 module.exports = { encode, decode };

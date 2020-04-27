@@ -13,28 +13,30 @@ const { ClientError, ServerError } = require("../helpers/error");
  * @returns {Promise} returns a promise that will resolve to be a Boolean or an Error object
  */
 alreadyExists = (dbModel, query) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const res = await dbModel.count({
-        where: query
-      });
-      if (res === 0) resolve(true);
-      else if (res > 0) {
-        reject(
-          new ClientError(
-            400,
-            `Type:'${dbModel.name}', with query params:[${Object.keys(
-              query
-            ).join(",")}], already exists.`
-          )
-        );
-      }
-    } catch (error) {
-      reject(error);
-    }
-  });
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await dbModel.count({
+                where: query
+            });
+            if (res === 0) resolve(true);
+            else if (res > 0) {
+                reject(
+                    new ClientError(
+                        400,
+                        `Type:'${
+                            dbModel.name
+                        }', with query params:[${Object.keys(query).join(
+                            ","
+                        )}], already exists.`
+                    )
+                );
+            }
+        } catch (error) {
+            reject(error);
+        }
+    });
 };
 
 module.exports = {
-  alreadyExists
+    alreadyExists
 };

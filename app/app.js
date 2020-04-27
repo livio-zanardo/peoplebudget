@@ -20,8 +20,8 @@ app.use(cors());
 if (!process.env.NODE_ENV === "dev") app.use(compression());
 app.use("/api", router);
 if (process.env.NODE_ENV === "dev") {
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-  app.use(swStats.getMiddleware({ swaggerSpec: swaggerDocument }));
+    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+    app.use(swStats.getMiddleware({ swaggerSpec: swaggerDocument }));
 }
 app.use(errorHandler);
 module.exports = app;

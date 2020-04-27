@@ -5,7 +5,6 @@
 const bcrypt = require("bcrypt");
 const saltRounds = parseInt(process.env.SALT);
 
-
 /**
  * Will create a one way hash from a string
  * @name hash
@@ -15,15 +14,15 @@ const saltRounds = parseInt(process.env.SALT);
  * @param {String} password - Password to create hash
  * @returns {Promise} returns a promise that will resolve into a hashed string
  */
-const hash = async password => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const results = await bcrypt.hash(password, saltRounds);
-      resolve(results);
-    } catch (error) {
-      reject(error);
-    }
-  });
+const hash = async (password) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const results = await bcrypt.hash(password, saltRounds);
+            resolve(results);
+        } catch (error) {
+            reject(error);
+        }
+    });
 };
 
 /**
@@ -37,14 +36,14 @@ const hash = async password => {
  * @returns {Promise}  returns a promise that will resolve into true or false
  */
 const compare = async (pwFromClient, pwFromStorage) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const results = await bcrypt.compare(pwFromClient, pwFromStorage);
-      resolve(results);
-    } catch (error) {
-      reject(error);
-    }
-  });
+    return new Promise(async (resolve, reject) => {
+        try {
+            const results = await bcrypt.compare(pwFromClient, pwFromStorage);
+            resolve(results);
+        } catch (error) {
+            reject(error);
+        }
+    });
 };
 
 module.exports = { hash, compare };
