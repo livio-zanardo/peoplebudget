@@ -3,26 +3,32 @@
 printf 'Installing server dependencies...'
 npm i
 
-printf '\n\n\n\n\n\n\n\n\n\n\n\n\nSetting up database'
+clear
+printf 'Setting up database'
 node ./setup/setup.js
 
-printf '\n\n\n\n\n\n\n\n\n\n\n\n\nCleaning up database...'
+clear
+printf 'Cleaning up database...'
 npm run drop:dev
 npm run drop:test
 
-printf '\n\n\n\n\n\n\n\n\n\n\n\n\nMigrating Database...'
+clear
+printf 'Migrating Database...'
 npm run migrate:dev
 npm run migrate:test
 
-printf '\n\n\n\n\n\n\n\n\n\n\n\n\nGenerating docs...'
+clear
+printf 'Generating docs...'
 npm run docs
 
-printf '\n\n\n\n\n\n\n\n\n\n\n\n\nSetting up keys...'
+clear
+printf 'Setting up keys...'
 PRI=jwtRS256.key
 PUB=jwtRS256.key.pub
 KEYS=keys
 
-printf '\n\n\n\n\n\n\n\n\n\n\n\n\nChecking for existing keys...'
+clear
+printf 'Checking for existing keys...'
 if [ -d "$KEYS" ]; then
     printf 'Keys found, removing old keys'
     rm -rf $KEYS
@@ -31,7 +37,8 @@ mkdir keys
 
 cd keys || exit
 
-printf '\n\n\n\n\n\n\n\n\n\n\n\n\nGenerating private key...'
+clear
+printf 'Generating private key...'
 ssh-keygen -t rsa -P "" -b 4096 -m PEM -f $PRI
 if [ -f "$PRI" ];
 then
@@ -40,7 +47,8 @@ else
     printf "$PRI has failed."
 fi
 
-printf '\n\n\n\n\n\n\n\n\n\n\n\n\nGenerating public key...'
+clear
+printf 'Generating public key...'
 ssh-keygen -e -m PEM -f $PRI > $PUB
 if [ -f "$PUB" ];
 then
@@ -49,7 +57,8 @@ else
     printf "$PUB has failed."
 fi
 
-printf '\n\n\n\n\n\n\n\n\n\n\n\n\nInstalling React Dependencies...'
-cd view
+clear
+printf 'Installing React Dependencies...'
+cd ../view
 npm i
 
