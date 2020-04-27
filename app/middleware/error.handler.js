@@ -12,7 +12,7 @@
  * @param {Function} next - Function that passes the context onto the next express middleware
  */
 const errorHandler = (err, req, res, next) => {
-    console.log("Error:", err.message);
+    console.log('Error:', err.message);
 
     if (err.status) res.status(err.status);
     else res.status(500);

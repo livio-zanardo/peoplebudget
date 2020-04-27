@@ -1,17 +1,14 @@
 /**
  * @module routes/auth
  */
-const user = require("../models/user");
-const { hash, compare } = require("../helpers/hash");
-const { customValidator } = require("../helpers/validator");
-const { alreadyExists } = require("../helpers/database");
-const { ClientError, ServerError } = require("../helpers/error");
+const user = require('../models/user');
+const { hash, compare } = require('../helpers/hash');
+const { customValidator } = require('../helpers/validator');
+const { alreadyExists } = require('../helpers/database');
+const { ClientError } = require('../helpers/error');
 
-//testing it
-const {
-    adminRequired,
-    contributerRequired
-} = require("../middleware/requiredPermissions");
+// testing it
+const { adminRequired } = require('../middleware/requiredPermissions');
 
 /**
  * Express router to handle user authentication.
@@ -19,8 +16,8 @@ const {
  * @const
  * @namespace authRouter
  */
-const router = require("express").Router();
-const { encode, decode } = require("../helpers/jwt");
+const router = require('express').Router();
+const { encode, decode } = require('../helpers/jwt');
 
 /**
  * Register API Controller.
@@ -41,13 +38,13 @@ router.post(`/register`, async (req, res, next) => {
         recover_pass: null
     });
 
-    //throw error is validation fails
+    // throw error is validation fails
     if (validationError) {
         next(validationError);
         return;
     }
 
-    //destructure user input
+    // destructure user input
     const {
         body: { email, fname, lname, pass, recover_pass }
     } = req;
@@ -55,11 +52,11 @@ router.post(`/register`, async (req, res, next) => {
     try {
         // check if user already exists
         await alreadyExists(user, {
-            email: req.body.email
+            email: email
         });
 
-        //create new user
-        const newUser = await user.create({
+        // create new user
+        await user.create({
             email: email,
             firstName: fname,
             lastName: lname,
@@ -67,9 +64,9 @@ router.post(`/register`, async (req, res, next) => {
             recoveryHash: await hash(recover_pass)
         });
 
-        //send response
+        // send response
         res.statusCode = 201;
-        res.send({ response: "User registered!" });
+        res.send({ response: 'User registered!' });
     } catch (error) {
         next(error);
     }
@@ -86,35 +83,35 @@ router.post(`/register`, async (req, res, next) => {
  */
 router.post(`/login`, async (req, res) => {
     try {
-        //destructure body
+        // destructure body
         const {
             body: { email, pass }
         } = req;
         console.log(email, pass);
 
-        //find user based on email and password hash
+        // find user based on email and password hash
         const aUser = await user.findOne({
             where: {
                 email: email
             }
         });
-        //check hash
+        // check hash
         const passMatch = await compare(pass, aUser.hash);
         console.log(passMatch);
 
         if (passMatch) {
-            //create jwt token
+            // create jwt token
             const token = await encode({
                 id: aUser.id,
                 email: aUser.email,
                 // role: aUser.role,
-                role: "contributer", //testing user role logic
-                exp: Math.floor(Date.now() / 1000) + 60 * 15 //15 min expiration
+                role: 'contributer', // testing user role logic
+                exp: Math.floor(Date.now() / 1000) + 60 * 15 // 15 min expiration
             });
-            res.cookie("token", token, { maxAge: 900000, httpOnly: true });
-            res.send({ response: "Login Successful!" });
+            res.cookie('token', token, { maxAge: 900000, httpOnly: true });
+            res.send({ response: 'Login Successful!' });
         } else {
-            next(new ClientError(400, "Bad Username/Password."));
+            next(new ClientError(400, 'Bad Username/Password.'));
         }
     } catch (error) {
         res.send(error);
@@ -132,8 +129,8 @@ router.post(`/login`, async (req, res) => {
  */
 router.post(`/logout`, async (req, res, next) => {
     try {
-        throw new Error("test error");
-        res.send("logout");
+        throw new Error('test error');
+        res.send('logout');
     } catch (error) {
         next(error);
     }
@@ -151,6 +148,6 @@ router.post(`/logout`, async (req, res, next) => {
 router.post(`/refresh`, adminRequired, async (req, res) => {
     const decoded = await decode(req.cookies.token);
     console.log(decoded);
-    res.send("refresh");
+    res.send('refresh');
 });
 module.exports = { router, version: 1 };

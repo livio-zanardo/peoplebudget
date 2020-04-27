@@ -2,7 +2,7 @@
  * @module database
  */
 
-const seq = require("sequelize");
+const seq = require('sequelize');
 
 const pool = {
     max: 5,
@@ -13,18 +13,18 @@ const pool = {
 
 const dbEnv = () => {
     switch (process.env.NODE_ENV) {
-        case "test":
+        case 'test':
             return `${process.env.DB}_test`;
-        case "dev":
+        case 'dev':
             return `${process.env.DB}`;
         default:
-            return "dev";
+            return 'dev';
     }
 };
 
 const DB = new seq(dbEnv(), process.env.DBUSER, process.env.DBPW, {
     host: process.env.DBHOST,
-    dialect: "mysql",
+    dialect: 'mysql',
     pool: pool
 });
 
@@ -44,11 +44,11 @@ const DB = new seq(dbEnv(), process.env.DBUSER, process.env.DBPW, {
  * @async
  * @function
  * @param {String} table - database table name
- * @returns {null}
+ * @return {null}
  */
 const migrate = async (table) => {
-    const models = require("../models/index");
-    if (table && typeof table === "String") {
+    const models = require('../models/index');
+    if (table && typeof table === 'String') {
         await models[table].sync({ alter: true });
     } else {
         for (const model in models) {
@@ -64,11 +64,11 @@ const migrate = async (table) => {
  * @async
  * @function
  * @param {String} table - database table name
- * @returns {null}
+ * @return {null}
  */
 const drop = async (table) => {
-    const models = require("../models/index");
-    if (table && typeof table === "String") {
+    const models = require('../models/index');
+    if (table && typeof table === 'String') {
         await models[table].drop();
     } else {
         for (const model in models) {

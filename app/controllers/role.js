@@ -1,11 +1,11 @@
-const Role = require("../models/role");
-const router = require("express").Router();
-const { customValidator } = require("../helpers/validator");
-const { alreadyExists } = require("../helpers/database");
-const { ClientError, ServerError } = require("../helpers/error");
-const pagination = require("../helpers/pagination");
+const Role = require('../models/role');
+const router = require('express').Router();
+const { customValidator } = require('../helpers/validator');
+const { alreadyExists } = require('../helpers/database');
+const { ClientError, ServerError } = require('../helpers/error');
+const pagination = require('../helpers/pagination');
 
-router.post("/", async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     const validationError = customValidator(req.body, {
         role: null
     });
@@ -23,17 +23,17 @@ router.post("/", async (req, res, next) => {
         const newRole = await Role.create({
             role: role
         });
-        res.header("Location", `api/role/v1/?id=${newRole.id}`);
+        res.header('Location', `api/role/v1/?id=${newRole.id}`);
         res.statusCode = 201;
-        res.send({ response: "role created" });
+        res.send({ response: 'role created' });
     } catch (error) {
         next(error);
     }
 });
-router.get("/", async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     let results;
     try {
-        if (req.query.hasOwnProperty("id")) {
+        if (req.query.hasOwnProperty('id')) {
             results = await Role.findOne({
                 where: { id: req.query.id }
             });
@@ -53,7 +53,7 @@ router.get("/", async (req, res, next) => {
         next(error);
     }
 });
-router.put("/", async (req, res, next) => {
+router.put('/', async (req, res, next) => {
     let result = null;
     try {
         result = await Role.update(
@@ -66,12 +66,12 @@ router.put("/", async (req, res, next) => {
             next(new ClientError(400, `id ${req.body.id} doesn't exist`));
             return;
         }
-        res.send({ response: "role info updated" });
+        res.send({ response: 'role info updated' });
     } catch (error) {
         next(error);
     }
 });
-router.delete("/", async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
     try {
         let result = null;
         if (!Array.isArray(req.body.id)) {
@@ -88,15 +88,10 @@ router.delete("/", async (req, res, next) => {
                 where: { id: req.body.id }
             });
             if (!result) {
-                next(
-                    new ClientError(
-                        400,
-                        `ids [${req.body.id.join(" , ")}] don't exist`
-                    )
-                );
+                next(new ClientError(400, `ids [${req.body.id.join(' , ')}] don't exist`));
                 return;
             }
-            res.send({ response: "Roles deleted" });
+            res.send({ response: 'Roles deleted' });
         }
     } catch (error) {
         next(error);

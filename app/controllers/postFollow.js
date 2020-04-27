@@ -1,11 +1,11 @@
-const postfollow = require("../models/postFollow");
-const router = require("express").Router();
-const { customValidator } = require("../helpers/validator");
-const { alreadyExists } = require("../helpers/database");
-const { ClientError, ServerError } = require("../helpers/error");
-const pagination = require("../helpers/pagination");
+const postfollow = require('../models/postFollow');
+const router = require('express').Router();
+const { customValidator } = require('../helpers/validator');
+const { alreadyExists } = require('../helpers/database');
+const { ClientError, ServerError } = require('../helpers/error');
+const pagination = require('../helpers/pagination');
 
-router.post("/", async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     const validationError = customValidator(req.body, {
         followedPostId: null,
         followingUserId: null
@@ -39,37 +39,35 @@ router.post("/", async (req, res, next) => {
             followedPostId: followedPostId,
             followingUserId: followingUserId
         });
-        res.header("Location", `api/postfollow/v1/?id=${newFollow.id}`);
+        res.header('Location', `api/postfollow/v1/?id=${newFollow.id}`);
         res.statusCode = 201;
-        res.send({ response: "postfollow created" });
+        res.send({ response: 'postfollow created' });
     } catch (error) {
         next(new ClientError(400, error.message));
     }
 });
-router.get("/", async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     let results = null;
     try {
-        if (req.query.hasOwnProperty("user")) {
+        if (req.query.hasOwnProperty('user')) {
             results = await postfollow.findAll({
                 where: {
                     followingUserId: req.query.user
                 },
-                order: [["createdAt", "DESC"]],
+                order: [['createdAt', 'DESC']],
                 attributes: {
-                    exclude: ["createdAt", "updatedAt", "followingUserId"]
+                    exclude: ['createdAt', 'updatedAt', 'followingUserId']
                 }
             });
-        } else if (req.query.hasOwnProperty("id")) {
+        } else if (req.query.hasOwnProperty('id')) {
             results = await postfollow.findOne({
                 where: { id: req.query.id },
                 attributes: {
-                    exclude: ["createdAt", "updatedAt"]
+                    exclude: ['createdAt', 'updatedAt']
                 }
             });
             if (!results) {
-                next(
-                    new ClientError(400, `id '${req.query.id}' doesn't exist`)
-                );
+                next(new ClientError(400, `id '${req.query.id}' doesn't exist`));
                 return;
             }
         } else {
@@ -78,7 +76,7 @@ router.get("/", async (req, res, next) => {
                 { limit: req.query.limit, currentPage: req.query.page },
                 {
                     attributes: {
-                        exclude: ["createdAt", "updatedAt"]
+                        exclude: ['createdAt', 'updatedAt']
                     }
                 }
             );
@@ -88,7 +86,7 @@ router.get("/", async (req, res, next) => {
         next(error);
     }
 });
-router.put("/", async (req, res, next) => {
+router.put('/', async (req, res, next) => {
     let result = null;
     const validationError = customValidator(req.body, {
         id: null,
@@ -112,12 +110,12 @@ router.put("/", async (req, res, next) => {
             next(new ClientError(400, `id '${req.body.id}' doesn't exist`));
             return;
         }
-        res.send({ response: "follow info updated" });
+        res.send({ response: 'follow info updated' });
     } catch (error) {
         next(error);
     }
 });
-router.delete("/", async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
     try {
         let result = null;
         if (!Array.isArray(req.body.id)) {
@@ -134,16 +132,11 @@ router.delete("/", async (req, res, next) => {
                 where: { id: req.body.id }
             });
             if (!result) {
-                next(
-                    new ClientError(
-                        400,
-                        `ids [${req.body.id.join(", ")}] don't exist`
-                    )
-                );
+                next(new ClientError(400, `ids [${req.body.id.join(', ')}] don't exist`));
                 return;
             }
             res.send({
-                response: `follows [${req.body.id.join(", ")}] deleted`
+                response: `follows [${req.body.id.join(', ')}] deleted`
             });
         }
     } catch (error) {

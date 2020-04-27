@@ -1,13 +1,13 @@
-const user = require("../models/user");
-const router = require("express").Router();
-const { adminRequired } = require("../middleware/requiredPermissions");
-const { hash } = require("../helpers/hash");
-const { customValidator } = require("../helpers/validator");
-const { alreadyExists } = require("../helpers/database");
-const { ClientError, ServerError } = require("../helpers/error");
-const pagination = require("../helpers/pagination");
+const user = require('../models/user');
+const router = require('express').Router();
+const { adminRequired } = require('../middleware/requiredPermissions');
+const { hash } = require('../helpers/hash');
+const { customValidator } = require('../helpers/validator');
+const { alreadyExists } = require('../helpers/database');
+const { ClientError } = require('../helpers/error');
+const pagination = require('../helpers/pagination');
 
-router.post("/", adminRequired, async (req, res, next) => {
+router.post('/', adminRequired, async (req, res, next) => {
     const validationError = customValidator(req.body, {
         email: null,
         fname: null,
@@ -33,21 +33,21 @@ router.post("/", adminRequired, async (req, res, next) => {
             hash: await hash(pass),
             recoveryHash: await hash(recover_pass)
         });
-        res.header("Location", `api/user/v1/?id=${newUser.id}`);
+        res.header('Location', `api/user/v1/?id=${newUser.id}`);
         res.statusCode = 201;
-        res.send({ response: "user created" });
+        res.send({ response: 'user created' });
     } catch (error) {
         next(error);
     }
 });
-router.get("/", adminRequired, async (req, res, next) => {
+router.get('/', adminRequired, async (req, res, next) => {
     let results;
     try {
-        if (req.query.hasOwnProperty("id")) {
+        if (req.query.hasOwnProperty('id')) {
             results = await user.findOne({
                 where: { id: req.query.id },
                 attributes: {
-                    exclude: ["hash", "recoveryHash", "createdAt", "updatedAt"]
+                    exclude: ['hash', 'recoveryHash', 'createdAt', 'updatedAt']
                 }
             });
             if (!results) {
@@ -60,12 +60,7 @@ router.get("/", adminRequired, async (req, res, next) => {
                 { limit: req.query.limit, currentPage: req.query.page },
                 {
                     attributes: {
-                        exclude: [
-                            "hash",
-                            "recoveryHash",
-                            "createdAt",
-                            "updatedAt"
-                        ]
+                        exclude: ['hash', 'recoveryHash', 'createdAt', 'updatedAt']
                     }
                 }
             );
@@ -75,7 +70,7 @@ router.get("/", adminRequired, async (req, res, next) => {
         next(error);
     }
 });
-router.put("/", adminRequired, async (req, res, next) => {
+router.put('/', adminRequired, async (req, res, next) => {
     let result = null;
     try {
         result = await user.update(
@@ -88,12 +83,12 @@ router.put("/", adminRequired, async (req, res, next) => {
             next(new ClientError(400, `id ${req.body.id} doesn't exist`));
             return;
         }
-        res.send({ response: "user info updated" });
+        res.send({ response: 'user info updated' });
     } catch (error) {
         next(error);
     }
 });
-router.delete("/", adminRequired, async (req, res, next) => {
+router.delete('/', adminRequired, async (req, res, next) => {
     try {
         let result = null;
         if (!Array.isArray(req.body.id)) {
@@ -110,15 +105,10 @@ router.delete("/", adminRequired, async (req, res, next) => {
                 where: { id: req.body.id }
             });
             if (!result) {
-                next(
-                    new ClientError(
-                        400,
-                        `ids [${req.body.id.join(" , ")}] don't exist`
-                    )
-                );
+                next(new ClientError(400, `ids [${req.body.id.join(' , ')}] don't exist`));
                 return;
             }
-            res.send({ response: "users deleted" });
+            res.send({ response: 'users deleted' });
         }
     } catch (error) {
         next(error);

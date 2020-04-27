@@ -1,16 +1,16 @@
-const { DB } = require("../database/database");
-const { DataTypes } = require("sequelize");
+const { DB } = require('../database/database');
+const { DataTypes } = require('sequelize');
 
-const post = DB.define("post", {
+const post = DB.define('post', {
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: "Users",
-            key: "id"
+            model: 'Users',
+            key: 'id'
         },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE"
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
     },
     body: {
         type: DataTypes.STRING,

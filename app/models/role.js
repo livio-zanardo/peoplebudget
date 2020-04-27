@@ -1,5 +1,5 @@
-const { DB } = require("../database/database");
-const { DataTypes } = require("sequelize");
+const { DB } = require('../database/database');
+const { DataTypes } = require('sequelize');
 
 /**
  * User mapping.
@@ -10,7 +10,7 @@ const { DataTypes } = require("sequelize");
  * @returns {Function} - role object to insert or retrieve from the database
  */
 const role = DB.define(
-    "Role",
+    'Role',
     {
         role: {
             type: DataTypes.STRING,
