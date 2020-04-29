@@ -47,7 +47,7 @@ router.post('/', async (req, res, next) => {
             followedUserId: followedUserId,
             followingUserId: followingUserId
         });
-        res.header('Location', `api/userfollow/v1/?id=${newUserFollow.id}`);
+        res.header('Location', `api/v1/userfollow/?id=${newUserFollow.id}`);
         res.statusCode = 201;
         res.send({ response: 'userfollow created' });
     } catch (error) {
@@ -95,7 +95,7 @@ router.post('/follow', async (req, res, next) => {
             followedUserId: followedUserId,
             followingUserId: followingUserId
         });
-        res.header('Location', `api/userfollow/v1/?id=${newUserFollow.id}`);
+        res.header('Location', `api/v1/userfollow/?id=${newUserFollow.id}`);
         res.statusCode = 201;
         res.send({ response: 'userfollow created' });
     } catch (error) {
