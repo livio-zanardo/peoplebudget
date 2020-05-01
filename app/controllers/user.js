@@ -15,6 +15,7 @@ router.post('/', adminRequired, async (req, res, next) => {
         image: { nullable: true },
         address1: { nullable: false },
         address2: { nullable: false },
+        securityQuestion: { nullable: false },
         fname: { nullable: false, min: 2, max: 15 },
         lname: { nullable: false, min: 2, max: 15 },
         zip: { type: 'numeric', nullable: false },
@@ -32,6 +33,7 @@ router.post('/', adminRequired, async (req, res, next) => {
             lname,
             pass,
             recover,
+            securityQuestion,
             roleid,
             linkedinurl,
             image,
@@ -50,6 +52,7 @@ router.post('/', adminRequired, async (req, res, next) => {
             firstName: fname,
             hash: await hash(pass),
             recoveryHash: await hash(recover),
+            securityQuestion: securityQuestion,
             image: image,
             RoleId: roleid,
             address1: address1,
@@ -71,7 +74,7 @@ router.get('/', adminRequired, async (req, res, next) => {
             results = await user.findOne({
                 where: { id: req.query.id },
                 attributes: {
-                    exclude: ['hash', 'recoveryHash', 'createdAt', 'updatedAt']
+                    exclude: ['hash', 'recoveryHash', 'createdAt', 'updatedAt', 'securityQuestion']
                 }
             });
             if (!results) {
@@ -84,7 +87,13 @@ router.get('/', adminRequired, async (req, res, next) => {
                 { limit: req.query.limit, currentPage: req.query.page },
                 {
                     attributes: {
-                        exclude: ['hash', 'recoveryHash', 'createdAt', 'updatedAt']
+                        exclude: [
+                            'hash',
+                            'recoveryHash',
+                            'createdAt',
+                            'updatedAt',
+                            'securityQuestion'
+                        ]
                     }
                 }
             );
