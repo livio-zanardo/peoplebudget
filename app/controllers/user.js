@@ -10,8 +10,13 @@ const pagination = require('../helpers/pagination');
 router.post('/', adminRequired, async (req, res, next) => {
     const validationError = customValidator(req.body, {
         email: null,
+        roleid: null,
+        linkedinurl: null,
+        image: null,
+        address1: null,
+        address2: null,
         fname: null,
-        lname: null,
+        zip: null,
         pass: null,
         recover_pass: null
     });
@@ -20,7 +25,18 @@ router.post('/', adminRequired, async (req, res, next) => {
         return;
     }
     const {
-        body: { email, fname, lname, pass, recover_pass }
+        body: {
+            email,
+            fname,
+            pass,
+            recover_pass,
+            roleid,
+            linkedinurl,
+            image,
+            address1,
+            address2,
+            zip
+        }
     } = req;
     try {
         await alreadyExists(user, {
@@ -28,10 +44,15 @@ router.post('/', adminRequired, async (req, res, next) => {
         });
         const newUser = await user.create({
             email: email,
-            firstName: fname,
-            lastName: lname,
+            name: fname,
             hash: await hash(pass),
-            recoveryHash: await hash(recover_pass)
+            recoveryHash: await hash(recover_pass),
+            image: image,
+            RoleId: roleid,
+            address1: address1,
+            address2: address2,
+            zip: zip,
+            linkedinurl: linkedinurl
         });
         res.header('Location', `api/user/v1/?id=${newUser.id}`);
         res.statusCode = 201;
