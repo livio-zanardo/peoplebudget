@@ -9,16 +9,17 @@ const pagination = require('../helpers/pagination');
 
 router.post('/', adminRequired, async (req, res, next) => {
     const validationError = customValidator(req.body, {
-        email: null,
-        roleid: null,
-        linkedinurl: null,
-        image: null,
-        address1: null,
-        address2: null,
-        fname: null,
-        zip: null,
-        pass: null,
-        recover_pass: null
+        email: { type: 'email', nullable: false },
+        roleid: { type: 'alpha', nullable: false },
+        linkedinurl: { nullable: true },
+        image: { nullable: true },
+        address1: { nullable: false },
+        address2: { nullable: false },
+        fname: { nullable: false, min: 2, max: 15 },
+        lname: { nullable: false, min: 2, max: 15 },
+        zip: { type: 'numeric', nullable: false },
+        pass: { type: 'password', nullable: false },
+        recover: { nullable: false, max: 30 }
     });
     if (validationError) {
         next(validationError);
@@ -28,8 +29,9 @@ router.post('/', adminRequired, async (req, res, next) => {
         body: {
             email,
             fname,
+            lname,
             pass,
-            recover_pass,
+            recover,
             roleid,
             linkedinurl,
             image,
@@ -44,9 +46,10 @@ router.post('/', adminRequired, async (req, res, next) => {
         });
         const newUser = await user.create({
             email: email,
-            name: fname,
+            lastName: lname,
+            firstName: fname,
             hash: await hash(pass),
-            recoveryHash: await hash(recover_pass),
+            recoveryHash: await hash(recover),
             image: image,
             RoleId: roleid,
             address1: address1,
@@ -54,7 +57,7 @@ router.post('/', adminRequired, async (req, res, next) => {
             zip: zip,
             linkedinurl: linkedinurl
         });
-        res.header('Location', `api/user/v1/?id=${newUser.id}`);
+        res.header('Location', `api/v1/user/?id=${newUser.id}`);
         res.statusCode = 201;
         res.send({ response: 'user created' });
     } catch (error) {
