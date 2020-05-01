@@ -12,7 +12,7 @@ router.use(`/comment/v${CommentVersion}`, Comment);
 const { router: PostFollow, version: PostFollowVersion } = require('./postfollow');
 router.use(`/postfollow/v${PostFollowVersion}`, PostFollow);
 const { router: Post, version: PostVersion } = require('./post');
-router.use(`/post/v${PostVersion}`, Post);
+router.use(`/v${PostVersion}/post`, Post);
 const { router: Reply, version: ReplyVersion } = require('./reply');
 router.use(`/reply/v${ReplyVersion}`, Reply);
 
