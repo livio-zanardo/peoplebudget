@@ -29,7 +29,7 @@ router.post('/', async (req, res, next) => {
             votes: votes
         });
 
-        res.header('Location', `api/post/v1/?id=${newPost.id}`);
+        res.header('Location', `api/v1/post/?id=${newPost.id}`);
         res.statusCode = 201;
         res.send({ response: 'post created' });
     } catch (error) {
@@ -164,7 +164,7 @@ router.post('/create-post', async (req, res, next) => {
             votes: votes
         });
 
-        res.header('Location', `api/post/v1/?id=${newPost.id}`);
+        res.header('Location', `api/v1/post/?id=${newPost.id}`);
         res.statusCode = 201;
         res.send({ response: 'post created' });
     } catch (error) {
