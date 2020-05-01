@@ -1,11 +1,31 @@
+/**
+ * @module routes/reply
+ */
 const reply = require('../models/reply');
-const router = require('express').Router();
 const { hash } = require('../helpers/hash');
 const { customValidator } = require('../helpers/validator');
 const { alreadyExists } = require('../helpers/database');
 const { ClientError, ServerError } = require('../helpers/error');
 const pagination = require('../helpers/pagination');
 
+/**
+ * Express router to handle reply authentification.
+ * @type {object}
+ * @const
+ * @namespace replyRouter
+ */
+const router = require('express').Router();
+
+
+/**
+ * Reply API Controller.
+ * @name reply/versionnumber[POST]
+ * @memberof module:routes/reply~replyRouter
+ * @method
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} controller - Express controller.
+ */
 router.post('/', async (req, res, next) => {
     const validationError = customValidator(req.body, {
         commentId: null,
@@ -31,6 +51,15 @@ router.post('/', async (req, res, next) => {
         next(error);
     }
 });
+/**
+ * Reply API Controller.
+ * @name reply/versionnumber/reply[POST]
+ * @memberof module:routes/reply~replyRouter
+ * @method
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} controller - Express controller.
+ */
 router.post('/reply/', async (req, res, next) => {
     const validationError = customValidator(req.body, {
         commentid: null,
@@ -56,6 +85,15 @@ router.post('/reply/', async (req, res, next) => {
         next(error);
     }
 });
+/**
+ * Reply API Controller.
+ * @name reply/versionnumber[GET]
+ * @memberof module:routes/reply~replyRouter
+ * @method
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} controller - Express controller.
+ */
 router.get('/', async (req, res, next) => {
     let results;
     try {
@@ -86,6 +124,15 @@ router.get('/', async (req, res, next) => {
         next(error);
     }
 });
+/**
+ * Reply API Controller.
+ * @name reply/versionnumber[PUT]
+ * @memberof module:routes/reply~replyRouter
+ * @method
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} controller - Express controller.
+ */
 router.put('/', async (req, res, next) => {
     let result = null;
     try {
@@ -99,6 +146,15 @@ router.put('/', async (req, res, next) => {
         next(error);
     }
 });
+/**
+ * Reply API Controller.
+ * @name reply/versionnumber[DELETE]
+ * @memberof module:routes/reply~replyRouter
+ * @method
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} controller - Express controller.
+ */
 router.delete('/', async (req, res, next) => {
     try {
         let result = null;
