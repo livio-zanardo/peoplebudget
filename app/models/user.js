@@ -65,5 +65,5 @@ const user = DB.define(
     }
 );
 // One role has many users 1:M
-role.hasMany(user);
+// role.hasMany(user);
 module.exports = user;

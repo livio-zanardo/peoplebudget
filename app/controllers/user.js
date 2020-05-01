@@ -7,10 +7,10 @@ const { alreadyExists } = require('../helpers/database');
 const { ClientError } = require('../helpers/error');
 const pagination = require('../helpers/pagination');
 
-router.post('/', adminRequired, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     const validationError = customValidator(req.body, {
         email: { type: 'email', nullable: false },
-        roleid: { type: 'alpha', nullable: false },
+        roleid: { nullable: false },
         linkedinurl: { nullable: true },
         image: { nullable: true },
         address1: { nullable: false },
@@ -19,7 +19,7 @@ router.post('/', adminRequired, async (req, res, next) => {
         fname: { nullable: false, min: 2, max: 15 },
         lname: { nullable: false, min: 2, max: 15 },
         zip: { type: 'numeric', nullable: false },
-        pass: { type: 'password', nullable: false },
+        pass: {  nullable: false },
         recover: { nullable: false, max: 30 }
     });
     if (validationError) {
