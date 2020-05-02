@@ -35,7 +35,9 @@ router.post(`/register`, async (req, res, next) => {
         fname: null,
         lname: null,
         pass: null,
-        recover_pass: null
+        recover_pass: null,
+        address1: null,
+        address2: null
     });
 
     // throw error is validation fails
@@ -46,7 +48,7 @@ router.post(`/register`, async (req, res, next) => {
 
     // destructure user input
     const {
-        body: { email, fname, lname, pass, recover_pass }
+        body: { email, fname, lname, pass, recover_pass, address1, address2 }
     } = req;
 
     try {
@@ -61,7 +63,9 @@ router.post(`/register`, async (req, res, next) => {
             firstName: fname,
             lastName: lname,
             hash: await hash(pass),
-            recoveryHash: await hash(recover_pass)
+            recoveryHash: await hash(recover_pass),
+            address1: address1,
+            address2: address2
         });
 
         // send response

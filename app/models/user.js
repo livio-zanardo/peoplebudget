@@ -13,7 +13,11 @@ const role = require('./role');
 const user = DB.define(
     'User',
     {
-        name: {
+        firstName: {
+            type: DataTypes.STRING(50),
+            allowNull: false
+        },
+        lastName: {
             type: DataTypes.STRING(50),
             allowNull: false
         },
