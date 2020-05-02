@@ -3,3 +3,6 @@
 /keys
 /out
 /docs
+package-lock.json
+test.js
+/view\node_modules
