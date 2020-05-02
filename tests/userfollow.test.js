@@ -14,7 +14,7 @@ const testUserFollow = {
 };
 
 const testJsonDataResponse = {
-    id: "",
+    id: '',
     followedUserId: "11",
     followingUserId: "15"
 };
@@ -39,7 +39,7 @@ describe("userfollow API", () => {
         it("should give error missing param 'followedUserId'", async (done) => {
             const testUserFollowBad = { followingUserId: testUserFollow.followingUserId };
             request(app)
-                .post("/api/v1/userfollow/")
+                .post('/api/v1/userfollow/')
                 .send(testUserFollowBad)
                 .then(({ body, statusCode }) => {
             expect(statusCode).toEqual(400);
@@ -51,7 +51,38 @@ describe("userfollow API", () => {
             'ClientError');
             done();
         });
-    });
+        });
+
+        it('should create a new userfollow', async (done) => {
+            request(app)
+                .post('/api/v1/userfollow/follow/')
+                .send(testUserFollow)
+                .then(({ body, header, statusCode }) => {
+            testUserFollowID = header.location.split("=")[1];
+            testJsonDataResponse.id = parseInt(testUserFollowID);
+            expect(statusCode).toEqual(201);
+            expect(body).toHaveProperty('response');
+            expect(body.response).toBe('userfollow created');
+            done();
+            });
+        });
+
+        it("should give error missing param 'followedUserId'", async (done) => {
+            const testUserFollowBad = { followingUserId: testUserFollow.followingUserId };
+            request(app)
+                .post('/api/v1/userfollow/follow/')
+                .send(testUserFollowBad)
+                .then(({ body, statusCode }) => {
+            expect(statusCode).toEqual(400);
+            expect(body).toHaveProperty('error');
+            expect(body.error).toBe(
+                "Missing paramater 'followedUserId' .");
+            expect(body).toHaveProperty('type');
+            expect(body.type).toBe(
+            'ClientError');
+            done();
+        });
+        });
     
 
     
@@ -62,9 +93,14 @@ describe("userfollow API", () => {
             expect(statusCode).toEqual(200);
             expect(body).toHaveProperty("response");
             expect(body.response).toStrictEqual({
-                count: 1,
+                count: 2,
                 maxPages: 1,
                 rows: [
+                {
+                    followedUserId: 11,
+                    followingUserId: 15,
+                    id: testJsonDataResponse.id-1
+                },
                 {
                     followedUserId: 11,
                     followingUserId: 15,
