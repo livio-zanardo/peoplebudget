@@ -30,7 +30,7 @@ router.post('/', async (req, res, next) => {
             commentbody: commentbody
         });
 
-        res.header('Location', `api/comment/v1/?id=${newComment.id}`);
+        res.header('Location', `api/v1/comment/?id=${newComment.id}`);
         res.statusCode = 201;
         res.send({ response: 'comment created' });
     } catch (error) {
