@@ -18,7 +18,7 @@ const dbEnv = () => {
         case 'dev':
             return `${process.env.DB}`;
         default:
-            return 'dev';
+            return `${process.env.DB}`;
     }
 };
 
