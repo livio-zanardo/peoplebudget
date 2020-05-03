@@ -85,6 +85,7 @@ const customValidator = (body, params) => {
                         }
                         break;
                     case 'password':
+                        console.log(body[key], process.env.PASSWORDRULE)
                         if (!validator.matches(body[key], process.env.PASSWORDRULE)) {
                             return new ClientError(
                                 400,
