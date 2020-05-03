@@ -52,8 +52,8 @@ router.post('/', async (req, res, next) => {
  */
 router.post('/reply', async (req, res, next) => {
     const validationError = customValidator(req.body, {
-        commentid: { type: 'numeric' },
-        replybody: null // decide max char limit
+        commentId: { type: 'numeric' },
+        replyBody: null // decide max char limit
     });
     if (validationError) {
         next(validationError);
@@ -125,6 +125,7 @@ router.get('/', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
     let result = null;
     try {
+        console.log(req.body, req.query.id);
         result = await Reply.update({ ...req.body }, { where: { id: req.query.id } });
         if (result.length === 1 && result[0] === 0) {
             next(new ClientError(400, `reply with id[${req.query.id}] does not exist`));
@@ -158,7 +159,7 @@ router.delete('/', async (req, res, next) => {
             res.statusCode = 200;
             res.send({ response: `reply with id[${req.body.id}] deleted` });
         } else {
-            result = await reply.destroy({
+            result = await Reply.destroy({
                 where: { id: req.body.id }
             });
             if (!result) {
