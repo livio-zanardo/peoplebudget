@@ -19,7 +19,7 @@ router.post('/', async (req, res, next) => {
         fname: { nullable: false, min: 2, max: 15 },
         lname: { nullable: false, min: 2, max: 15 },
         zip: { type: 'numeric', nullable: false },
-        pass: {  nullable: false },
+        pass: { nullable: false },
         recover: { nullable: false, max: 30 }
     });
     if (validationError) {
@@ -67,7 +67,7 @@ router.post('/', async (req, res, next) => {
         next(error);
     }
 });
-router.get('/', adminRequired, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     let results;
     try {
         if (req.query.hasOwnProperty('id')) {
@@ -103,17 +103,17 @@ router.get('/', adminRequired, async (req, res, next) => {
         next(error);
     }
 });
-router.put('/', adminRequired, async (req, res, next) => {
+router.put('/', async ({ body, query: { id } }, res, next) => {
     let result = null;
     try {
         result = await user.update(
-            { ...req.body.user },
+            { ...body },
             {
-                where: { id: req.body.id }
+                where: { id: id }
             }
         );
         if (result.length === 1 && result[0] === 0) {
-            next(new ClientError(400, `id ${req.body.id} doesn't exist`));
+            next(new ClientError(400, `Id ${id} not found or No changes were made`));
             return;
         }
         res.send({ response: 'user info updated' });
@@ -121,27 +121,27 @@ router.put('/', adminRequired, async (req, res, next) => {
         next(error);
     }
 });
-router.delete('/', adminRequired, async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
     try {
         let result = null;
-        if (!Array.isArray(req.body.id)) {
+        if (Array.isArray(req.body.id)) {
             result = await user.destroy({
                 where: { id: req.body.id }
             });
             if (!result) {
-                next(new ClientError(400, `id ${req.body.id} doesn't exist`));
+                next(new ClientError(400, `IDs [${req.body.id.join(' , ')}] don't exist`));
                 return;
             }
-            res.send(`User ${req.body.id}`); // Tell User
+            res.send({ response: `Users [${req.body.id.join(' , ')}] deleted` });
         } else {
             result = await user.destroy({
                 where: { id: req.body.id }
             });
             if (!result) {
-                next(new ClientError(400, `ids [${req.body.id.join(' , ')}] don't exist`));
+                next(new ClientError(400, `ID ${req.body.id} doesn't exist`));
                 return;
             }
-            res.send({ response: 'users deleted' });
+            res.send({ response: `User ${req.body.id} deleted` });
         }
     } catch (error) {
         next(error);
