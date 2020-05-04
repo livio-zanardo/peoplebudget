@@ -1,84 +1,75 @@
-const request = require("supertest");
-const mysql = require("mysql2/promise");
-const app = require("../app");
-const comment = require("../models/comment");
+const request = require('supertest');
+const app = require('../app/app');
+const Comment = require('../app/models/comment');
 
-const cleaningUpDatabase = async done => {
-  console.log("Deleting all test data...");
-  const connection = await mysql.createConnection({
-    host: process.env.DBHOST,
-    user: process.env.DBROOTUSER,
-    password: process.env.DBROOTPW,
-    database: `${process.env.DB}_test`
-  });
-  await connection.execute(`DELETE FROM comments`);
-  await connection.end();
-  done();
+// npx cross-env NODE_ENV=test jest tests/comment.test.js --testTimeout=10000 --runInBand --detectOpenHandles
+
+const prepareDatabase = (model) => async () => await model.destroy({ where: {} });
+
+const testJson = {
+    userId: 1,
+    postId: 1,
+    commentBody: 'Hello'
 };
-let testCommentsID = null;
-const testJsonData = {
-  userid: 1,
-  postid: 1,
-  commentBody: "Hello"
-};
-const testJsonDataResponse = {
-  id: "",
-  userid: 1,
-  postid: 1,
-  commentBody: "Hello"
-};
-describe("Comments CRUD API", () => {
-  beforeAll(cleaningUpDatabase);
-  it("should create a comment", async done => {
-    const res = await request(app)
-      .post("/api/comment/v1/")
-      .send(testJsonData);
-    testCommentsID = parseInt(res.header.location.split("=")[1]);
-    testJsonDataResponse.id = testCommentsID;
-    expect(res.statusCode).toEqual(201);
-    expect(res.body).toHaveProperty("response");
-    expect(res.body.response).toBe("comment created");
-    done();
-  });
-  it("should return all comments", async done => {
-    const res = await request(app).get(`/api/comment/v1/`);
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty("response");
-    expect(res.body.response.rows).toStrictEqual([testJsonDataResponse]);
-    done();
-  }); //Worked on
-  it("should return one comment", async done => {
-    const res = await request(app).get(`/api/comment/v1?id=${testCommentsID}`);
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty("response");
-    expect(res.body.response).toStrictEqual(testJsonDataResponse);
-    done();
-  });
-  it("should update fields of the user model based on keys in the request json file", async done => {
-    const res = await request(app)
-      .put(`/api/user/v1/`)
-      .send({
-        id: testCommentsID,
-        user: {
-          email: "newTestUser001@gmail.com",
-          firstName: "nameLast",
-          lastName: "nameFirst"
-        }
-      });
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty("response");
-    expect(res.body.response).toBe("user info updated");
-    done();
-  });
-  // TODO: Add PUT test case for roles changes
-  it("should delete one user", async done => {
-    const res = await request(app)
-      .delete(`/api/user/v1`)
-      .send({ id: [testCommentsID] });
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty("response");
-    expect(res.body.response).toBe("users deleted");
-    done();
-  });
-  // TODO: Add DELETE test case for deleting single use w/ no array
+describe('Comment API', () => {
+    beforeAll(prepareDatabase(Comment));
+    afterEach(prepareDatabase(Comment));
+    it('should create a comment', async (done) => {
+        const { body, statusCode } = await request(app).post('/api/v1/comment').send(testJson);
+        expect(statusCode).toEqual(201);
+        expect(body).toHaveProperty('response');
+        expect(body.response).toBe('comment created');
+        done();
+    });
+    it('should return a specific comment via ID', async (done) => {
+        const comment = await Comment.create({
+            ...testJson
+        });
+        delete comment.dataValues.createdAt;
+        delete comment.dataValues.updatedAt;
+        const { body, statusCode } = await request(app).get(`/api/v1/comment?id=${comment.id}`);
+        expect(statusCode).toEqual(200);
+        expect(body).toHaveProperty('response');
+        expect(body.response).toStrictEqual(comment.dataValues);
+        done();
+    });
+    it('should return all comments from a specified user', async (done) => {
+        const comment = await Comment.create({
+            ...testJson
+        });
+        delete comment.dataValues.createdAt;
+        delete comment.dataValues.updatedAt;
+        const response = {
+            count: 1,
+            rows: [comment.dataValues],
+            maxPages: 1
+        };
+        const res = await request(app).get(`/api/v1/comment?userId=${comment.id}`);
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toHaveProperty('response');
+        expect(res.body.response).toStrictEqual(response);
+        done();
+    });
+    it('Should update commendBody', async (done) => {
+        const comment = await Comment.create({
+            ...testJson
+        });
+        const res = await request(app).put(`/api/v1/comment?id=${comment.id}`).send({
+            commentBody: 'updated'
+        });
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toHaveProperty('response');
+        expect(res.body.response).toBe('The comment has been updated');
+        done();
+    });
+    it('should delete one user', async (done) => {
+        const comment = await Comment.create({
+            ...testJson
+        });
+        const res = await request(app).delete(`/api/v1/comment`).send({ id: comment.id });
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toHaveProperty('response');
+        expect(res.body.response).toBe('The comment has been deleted');
+        done();
+    });
 });

@@ -1,21 +1,11 @@
 /**
  * @module routes/reply
  */
-const reply = require('../models/reply');
-const { hash } = require('../helpers/hash');
+const Reply = require('../models/reply');
 const { customValidator } = require('../helpers/validator');
-const { alreadyExists } = require('../helpers/database');
-const { ClientError, ServerError } = require('../helpers/error');
+const { ClientError } = require('../helpers/error');
 const pagination = require('../helpers/pagination');
-
-/**
- * Express router to handle reply authentification.
- * @type {object}
- * @const
- * @namespace replyRouter
- */
 const router = require('express').Router();
-
 
 /**
  * Reply API Controller.
@@ -28,23 +18,23 @@ const router = require('express').Router();
  */
 router.post('/', async (req, res, next) => {
     const validationError = customValidator(req.body, {
-        commentId: null,
-        replyBody: null
+        commentId: { type: 'numeric' },
+        replyBody: null // decide max char limit
     });
     if (validationError) {
         next(validationError);
         return;
     }
     const {
-        body: { commentid, replybody }
+        body: { commentId, replyBody }
     } = req;
     try {
-        const newReply = await reply.create({
-            commentId: commentid,
-            replyBody: replybody
+        console.log(req.body);
+        const reply = await Reply.create({
+            commentId,
+            replyBody
         });
-        const { createdAt } = newReply;
-        res.header('Location', `api/reply/v1/?id=${newReply.id}`);
+        res.header('Location', `api/v1/reply?id=${reply.id}`);
         res.statusCode = 201;
         res.send({ response: 'reply posted' });
     } catch (error) {
@@ -60,25 +50,24 @@ router.post('/', async (req, res, next) => {
  * @param {string} path - Express path
  * @param {callback} controller - Express controller.
  */
-router.post('/reply/', async (req, res, next) => {
+router.post('/reply', async (req, res, next) => {
     const validationError = customValidator(req.body, {
-        commentid: null,
-        replybody: null
+        commentId: { type: 'numeric' },
+        replyBody: null // decide max char limit
     });
     if (validationError) {
         next(validationError);
         return;
     }
     const {
-        body: { commentid, replybody }
+        body: { commentId, replyBody }
     } = req;
     try {
-        const newReply = await reply.create({
-            commentId: commentid,
-            replyBody: replybody
+        const reply = await Reply.create({
+            commentId,
+            replyBody
         });
-        const { createdAt } = newReply;
-        res.header('Location', `api/reply/v1/?id=${newReply.id}`);
+        res.header('Location', `api/v1/reply?id=${reply.id}`);
         res.statusCode = 201;
         res.send({ response: 'reply posted' });
     } catch (error) {
@@ -95,10 +84,10 @@ router.post('/reply/', async (req, res, next) => {
  * @param {callback} controller - Express controller.
  */
 router.get('/', async (req, res, next) => {
-    let results;
+    let results = null;
     try {
         if (req.query.hasOwnProperty('id')) {
-            results = await reply.findOne({
+            results = await Reply.findOne({
                 where: { id: req.query.id },
                 attributes: {
                     exclude: ['updatedAt', 'createdAt']
@@ -110,7 +99,7 @@ router.get('/', async (req, res, next) => {
             }
         } else {
             results = await pagination(
-                reply,
+                Reply,
                 { limit: req.query.limit, currentPage: req.query.page },
                 {
                     attributes: {
@@ -136,12 +125,13 @@ router.get('/', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
     let result = null;
     try {
-        result = await reply.update({ ...req.body.reply }, { where: { id: req.body.id } });
+        console.log(req.body, req.query.id);
+        result = await Reply.update({ ...req.body }, { where: { id: req.query.id } });
         if (result.length === 1 && result[0] === 0) {
-            next(new ClientError(400, `reply with id[${req.body.id}] does not exist`));
+            next(new ClientError(400, `reply with id[${req.query.id}] does not exist`));
             return;
         }
-        res.send({ response: `reply with id[${req.body.id}] updated` });
+        res.send({ response: `reply with id[${req.query.id}] updated` });
     } catch (error) {
         next(error);
     }
@@ -159,7 +149,7 @@ router.delete('/', async (req, res, next) => {
     try {
         let result = null;
         if (!Array.isArray(req.body.id)) {
-            result = await reply.destroy({
+            result = await Reply.destroy({
                 where: { id: req.body.id }
             });
             if (!result) {
@@ -169,7 +159,7 @@ router.delete('/', async (req, res, next) => {
             res.statusCode = 200;
             res.send({ response: `reply with id[${req.body.id}] deleted` });
         } else {
-            result = await reply.destroy({
+            result = await Reply.destroy({
                 where: { id: req.body.id }
             });
             if (!result) {

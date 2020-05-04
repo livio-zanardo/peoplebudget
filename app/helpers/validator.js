@@ -3,7 +3,7 @@
  */
 
 const validator = require('validator');
-const { ClientError, ServerError } = require('../helpers/error');
+const { ClientError } = require('../helpers/error');
 
 /**
  * This will validate an object's keys
@@ -12,6 +12,7 @@ const { ClientError, ServerError } = require('../helpers/error');
  *  - max: specifies the maximum length of the input
  *  - type: (alpha, alphanumeric, numeric, email, password)
  *  - nullable: specifies whether the field can be empty
+ *  - array: specifies whether the field can be a list
  * @name customValidator
  * @function
  * @memberof module:validator
@@ -46,14 +47,17 @@ const customValidator = (body, params) => {
             }
             // check types
             if (params[key] && params[key].type) {
-                switch (typeof body[key]) {
-                    case 'object':
-                        return new ClientError(
-                            400,
-                            `The '${key}' can not be type '${typeof body[key]}'.`
-                        );
-                    default:
-                        break;
+                if (
+                    typeof body[key] === 'object' &&
+                    !params[key].array &&
+                    !Array.isArray(body[key])
+                ) {
+                    return new ClientError(
+                        400,
+                        `The '${key}' can not be type '${typeof body[key]}'.`
+                    );
+                } else {
+                    return false;
                 }
                 switch (params[key].type) {
                     case 'alphanumeric':
@@ -85,7 +89,7 @@ const customValidator = (body, params) => {
                         }
                         break;
                     case 'password':
-                        console.log(body[key], process.env.PASSWORDRULE)
+                        console.log(body[key], process.env.PASSWORDRULE);
                         if (!validator.matches(body[key], process.env.PASSWORDRULE)) {
                             return new ClientError(
                                 400,

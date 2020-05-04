@@ -3,8 +3,9 @@ const { hash } = require('../app/helpers/hash');
 const request = require('supertest');
 const app = require('../app/app');
 const User = require('../app/models/user');
+const Role = require('../app/models/role');
 
-const prepareDatabase = (model) => async () => model.destroy({ where: {} });
+const prepareDatabase = (model) => async () => await model.destroy({ where: {} });
 
 const testJson = {
     fname: 'test',
@@ -26,7 +27,10 @@ dbPostEntryId = null;
 // npx cross-env NODE_ENV=test jest tests/user.test.js --testTimeout=10000 --runInBand --detectOpenHandles
 
 describe('Reply API', () => {
-    beforeAll(prepareDatabase(User));
+    beforeAll(async () => {
+        await prepareDatabase(User);
+        await Role.create({ role: 1 });
+    });
     afterEach(prepareDatabase(User));
     it('Can create a new user', async (done) => {
         const { body, statusCode } = await request(app).post('/api/v1/user').send(testJson);
