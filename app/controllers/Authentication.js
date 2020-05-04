@@ -35,9 +35,10 @@ router.post(`/register`, async (req, res, next) => {
         fname: null,
         lname: null,
         pass: null,
-        recover_pass: null,
         address1: null,
-        address2: null
+        address2: null,
+        recover: null,
+        securityQuestion: null
     });
 
     // throw error is validation fails
@@ -48,7 +49,20 @@ router.post(`/register`, async (req, res, next) => {
 
     // destructure user input
     const {
-        body: { email, fname, lname, pass, recover_pass, address1, address2 }
+        body: {
+            email,
+            fname,
+            lname,
+            pass,
+            recover,
+            securityQuestion,
+            roleid,
+            linkedinurl,
+            image,
+            address1,
+            address2,
+            zip
+        }
     } = req;
 
     try {
@@ -60,12 +74,17 @@ router.post(`/register`, async (req, res, next) => {
         // create new user
         await user.create({
             email: email,
-            firstName: fname,
             lastName: lname,
+            firstName: fname,
             hash: await hash(pass),
-            recoveryHash: await hash(recover_pass),
+            recoveryHash: await hash(recover),
+            securityQuestion: securityQuestion,
+            image: image,
+            RoleId: roleid,
             address1: address1,
-            address2: address2
+            address2: address2,
+            zip: zip,
+            linkedinurl: linkedinurl
         });
 
         // send response
@@ -109,7 +128,7 @@ router.post(`/login`, async (req, res) => {
                 id: aUser.id,
                 email: aUser.email,
                 // role: aUser.role,
-                role: 'contributer', // testing user role logic
+                role: 'admin', // testing user role logic
                 exp: Math.floor(Date.now() / 1000) + 60 * 15 // 15 min expiration
             });
             res.cookie('token', token, { maxAge: 900000, httpOnly: true });
