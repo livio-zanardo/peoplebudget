@@ -5,7 +5,7 @@ const app = require('../app/app');
 const User = require('../app/models/user');
 const Role = require('../app/models/role');
 
-const prepareDatabase = (model) => async () => model.destroy({ where: {} });
+const prepareDatabase = (model) => async () => await model.destroy({ where: {} });
 
 const testJson = {
     fname: 'test',

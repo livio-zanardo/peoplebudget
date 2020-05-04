@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../app/app');
 const Reply = require('../app/models/reply');
 
-const prepareDatabase = (model) => async () => model.destroy({ where: {} });
+const prepareDatabase = (model) => async () => await model.destroy({ where: {} });
 
 const testJson = {
     commentId: 1,

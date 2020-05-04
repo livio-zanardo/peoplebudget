@@ -2,15 +2,15 @@ const { DB } = require('../database/database');
 const { DataTypes } = require('sequelize');
 
 const comment = DB.define('Comment', {
-    userid: {
+    userId: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    postid: {
+    postId: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    commentbody: {
+    commentBody: {
         type: DataTypes.STRING(150),
         allowNull: false
     }

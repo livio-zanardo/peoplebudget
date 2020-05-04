@@ -1,36 +1,29 @@
-const comment = require('../models/comment');
+const Comment = require('../models/comment');
 const router = require('express').Router();
-const { hash } = require('../helpers/hash');
 const { customValidator } = require('../helpers/validator');
-const { alreadyExists } = require('../helpers/database');
-const { ClientError, ServerError } = require('../helpers/error');
+const { ClientError } = require('../helpers/error');
 const pagination = require('../helpers/pagination');
 
 router.post('/', async (req, res, next) => {
     const validationError = customValidator(req.body, {
-        userid: null,
-        postid: null,
-        commentbody: null
+        userId: { type: 'numeric' },
+        postId: { type: 'numeric' },
+        commentBody: null
     });
     if (validationError) {
         next(validationError);
         return;
     }
     const {
-        body: { userid, postid, commentbody }
+        body: { userId, postId, commentBody }
     } = req;
     try {
-        // await alreadyExists(user, {
-        //   email: req.body.email
-        // });
-
-        const newComment = await comment.create({
-            userid: userid,
-            postid: postid,
-            commentbody: commentbody
+        const comment = await Comment.create({
+            userId,
+            postId,
+            commentBody
         });
-
-        res.header('Location', `api/v1/comment/?id=${newComment.id}`);
+        res.header('Location', `api/v1/comment/?id=${comment.id}`);
         res.statusCode = 201;
         res.send({ response: 'comment created' });
     } catch (error) {
@@ -38,31 +31,42 @@ router.post('/', async (req, res, next) => {
     }
 });
 router.get('/', async (req, res, next) => {
-    let results;
+    let results = null;
     try {
+        const {
+            query: { id, userId }
+        } = req;
         if (req.query.hasOwnProperty('id')) {
-            results = await comment.findOne({
-                where: { id: req.query.id },
+            results = await Comment.findOne({
+                where: { id },
                 attributes: {
                     exclude: ['createdAt', 'updatedAt']
                 }
             });
             if (!results) {
-                next(new ClientError(400, `id ${req.query.id}doesn't exist`));
+                next(new ClientError(400, `id ${req.query.id} doesn't exist`));
                 return;
             }
-        } else if (req.query.hasOwnProperty('userid')) {
-            results = await comment.findAll({
-                where: {
-                    userid: req.query.userid
+            res.send({ response: results });
+        } else if (req.query.hasOwnProperty('userId')) {
+            results = await pagination(
+                Comment,
+                {
+                    limit: req.query.limit,
+                    currentPage: req.query.page,
+                    where: { userId },
+                    order: [['createdAt', 'DESC']]
                 },
-                order: [['createdAt', 'DESC']],
-                attributes: {
-                    exclude: ['createdAt', 'updatedAt', 'userid']
+                {
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt', 'userid']
+                    }
                 }
-            });
+            );
+            res.send({ response: results });
+        } else {
+            res.send({ response: 'Please specify comment ID or user ID' });
         }
-        res.send({ response: results });
     } catch (error) {
         next(error);
     }
@@ -70,8 +74,7 @@ router.get('/', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
     let result = null;
     const validationError = customValidator(req.body, {
-        id: null,
-        commentbody: null
+        commentBody: { nullable: false }
     });
     if (validationError) {
         next(validationError);
@@ -79,16 +82,19 @@ router.put('/', async (req, res, next) => {
     }
     try {
         const {
-            body: { id, commentbody }
+            body: { commentBody },
+            query: { id }
         } = req;
-        result = await comment.update(
-            { commentbody },
+        result = await Comment.update(
+            { commentBody },
             {
-                where: { id: req.body.id }
+                where: { id }
             }
         );
         if (result.length === 1 && result[0] === 0) {
-            next(new ClientError(400, `id '${req.body.id}' doesn't exist`));
+            next(
+                new ClientError(400, `id '${req.body.id}' doesn't exist or no changes were made.`)
+            );
             return;
         }
         res.send({ response: 'The comment has been updated' });
@@ -99,7 +105,7 @@ router.put('/', async (req, res, next) => {
 router.delete('/', async (req, res, next) => {
     let result = null;
     const validationError = customValidator(req.body, {
-        id: null
+        id: { type: 'numeric', array: true }
     });
     if (validationError) {
         next(validationError);
@@ -107,16 +113,17 @@ router.delete('/', async (req, res, next) => {
     }
     try {
         const {
-            body: { id, postid, commentbody }
+            body: { id }
         } = req;
-        result = await comment.destroy({
-            where: { id: req.body.id }
+        console.warn(id);
+        result = await Comment.destroy({
+            where: { id }
         });
-        if (result.length === 1 && result[0] === 0) {
-            next(new ClientError(400, `id '${req.body.id}' doesn't exist`));
+        if (result === 0) {
+            next(new ClientError(400, `id '${id}' doesn't exist`));
             return;
         }
-        res.send({ response: 'The comment has been deleted successfully' });
+        res.send({ response: 'The comment has been deleted' });
     } catch (error) {
         next(error);
     }
