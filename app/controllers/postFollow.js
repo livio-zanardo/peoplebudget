@@ -1,8 +1,7 @@
 const postfollow = require('../models/postFollow');
 const router = require('express').Router();
 const { customValidator } = require('../helpers/validator');
-const { alreadyExists } = require('../helpers/database');
-const { ClientError, ServerError } = require('../helpers/error');
+const { ClientError } = require('../helpers/error');
 const pagination = require('../helpers/pagination');
 
 router.post('/', async (req, res, next) => {
