@@ -35,9 +35,9 @@ router.post(`/register`, async (req, res, next) => {
         fname: null,
         lname: null,
         pass: null,
-        recover: null,
         address1: null,
         address2: null,
+        recover: null,
         securityQuestion: null
     });
 
