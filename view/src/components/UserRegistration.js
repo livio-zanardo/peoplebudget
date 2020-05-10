@@ -1,6 +1,14 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Redirect } from 'react-router'
+
+import {
+    HOST,
+    PORT,
+    BASE_API_URL,
+    PROTOCOL,
+    SIGNUP_ENDPOINT } from '../constants';
 
 
 const UserRegistration = () => {
@@ -15,6 +23,7 @@ const UserRegistration = () => {
     const [securityQuestion, setSecurityQuestion] = useState('');
     const [password, setPassword] = useState('');
     const [recoveryPassword, setRecoveryPassword] = useState('');
+    const [signedUp, setSignedUp] = useState(false);
 
     const handleOnSubmit = () => {
         const requestBody = {
@@ -31,17 +40,25 @@ const UserRegistration = () => {
         };
         axios({
             method: 'post',
-            url: 'http://localhost:4012/api/v1/auth/register',
+            url: `${PROTOCOL}${HOST}:${PORT}${BASE_API_URL}${SIGNUP_ENDPOINT}`,
             data: requestBody
         })
             .then((res) => {
-                console.log(res)
+                if(res.status === 201) {
+                    setSignedUp(true);
+                }
             })
             .catch((err) => {
+                //TODO: Add returning of the error message to the client
                 console.log(err)
             });
     }
 
+    if(signedUp) {
+        return(
+            <Redirect to="/" />
+        )
+    }
     return(
         <Form className="signup-form">
             <h3>Sign Up</h3>
