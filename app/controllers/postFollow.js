@@ -69,6 +69,17 @@ router.get('/', async (req, res, next) => {
                 next(new ClientError(400, `id '${req.query.id}' doesn't exist`));
                 return;
             }
+        } else if (req.query.hasOwnProperty('post')) {
+            results = await postfollow.findAll({
+                where: { followedPostId: req.query.post },
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'followedPostId']
+                }
+            });
+            if (!results) {
+                next(new ClientError(400, `Post id '${req.query.post}' doesn't exist`));
+                return;
+            }
         } else {
             results = await pagination(
                 postfollow,
