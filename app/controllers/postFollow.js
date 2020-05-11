@@ -1,8 +1,7 @@
 const postfollow = require('../models/postFollow');
 const router = require('express').Router();
 const { customValidator } = require('../helpers/validator');
-const { alreadyExists } = require('../helpers/database');
-const { ClientError, ServerError } = require('../helpers/error');
+const { ClientError } = require('../helpers/error');
 const pagination = require('../helpers/pagination');
 
 router.post('/', async (req, res, next) => {
@@ -68,6 +67,17 @@ router.get('/', async (req, res, next) => {
             });
             if (!results) {
                 next(new ClientError(400, `id '${req.query.id}' doesn't exist`));
+                return;
+            }
+        } else if (req.query.hasOwnProperty('post')) {
+            results = await postfollow.findAll({
+                where: { followedPostId: req.query.post },
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'followedPostId']
+                }
+            });
+            if (!results) {
+                next(new ClientError(400, `Post id '${req.query.post}' doesn't exist`));
                 return;
             }
         } else {
