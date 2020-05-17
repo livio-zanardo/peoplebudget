@@ -7,3 +7,13 @@
   border-width:1px;
   border-style:solid;
 }
+
+.login-form {
+  width: 100%;
+  max-width: 450px;
+  padding: 100px;
+  margin: auto;
+  height: auto;
+  border-width:1px;
+  border-style:solid;
+}

@@ -16,7 +16,7 @@ const swaggerDocument = require('../swagger/swagger.json');
 // Express middleware
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({credentials: true, origin: process.env.ALLOWED_ORIGIN}));
 if (!process.env.NODE_ENV === 'dev') app.use(compression());
 app.use('/api', router);
 if (process.env.NODE_ENV === 'dev') {

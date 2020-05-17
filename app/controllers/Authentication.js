@@ -120,7 +120,6 @@ router.post(`/login`, async (req, res) => {
         });
         // check hash
         const passMatch = await compare(pass, aUser.hash);
-        console.log(passMatch);
 
         if (passMatch) {
             // create jwt token
@@ -132,7 +131,7 @@ router.post(`/login`, async (req, res) => {
                 exp: Math.floor(Date.now() / 1000) + 60 * 15 // 15 min expiration
             });
             res.cookie('token', token, { maxAge: 900000, httpOnly: true });
-            res.send({ response: 'Login Successful!' });
+            res.send({ response: 'Login Successful!'});
         } else {
             next(new ClientError(400, 'Bad Username/Password.'));
         }

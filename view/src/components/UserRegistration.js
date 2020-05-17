@@ -5,7 +5,7 @@ import { Redirect } from 'react-router'
 
 import {
     HOST,
-    PORT,
+    API_PORT,
     BASE_API_URL,
     PROTOCOL,
     SIGNUP_ENDPOINT } from '../constants';
@@ -40,7 +40,7 @@ const UserRegistration = () => {
         };
         axios({
             method: 'post',
-            url: `${PROTOCOL}${HOST}:${PORT}${BASE_API_URL}${SIGNUP_ENDPOINT}`,
+            url: `${PROTOCOL}${HOST}:${API_PORT}${BASE_API_URL}${SIGNUP_ENDPOINT}`,
             data: requestBody
         })
             .then((res) => {
