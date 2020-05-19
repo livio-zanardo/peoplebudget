@@ -8,7 +8,7 @@ import {
     PORT,
     BASE_API_URL,
     PROTOCOL,
-    SIGNUP_ENDPOINT } from '../constants';
+    SIGNUP_ENDPOINT } from '../constants/constants';
 
 
 const UserRegistration = () => {
