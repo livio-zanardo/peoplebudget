@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import style from './index.module.css';
 
 const Input = (props) => {
-    const [searchTerm, setSearchTerm] = useState('');
+    const [input, setInput] = useState('');
 
     const onChangeHandler = (event) => {
-        setSearchTerm(event.target.value);
+        setInput(event.target.value);
     };
 
     return (
@@ -17,7 +17,7 @@ const Input = (props) => {
                 className={`${style.input}`}
                 name={`${props.name}`}
                 id={`${props.name}`}
-                value={searchTerm}
+                value={input}
                 type={`${props.type}`}
                 placeholder={props.placeHolder}
                 onChange={onChangeHandler}
