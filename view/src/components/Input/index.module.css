@@ -1,0 +1,37 @@
+.container {
+    background-color: white;
+    width: 100%;
+    height: auto;
+    margin: 40px 0px; /* TB RL */
+    padding: 5px 30px; /* TB RL */
+    border: none;
+    border-radius: 0.9em;
+    box-shadow: 0px 5px 6px 1px rgba(0, 0, 0, 0.2); /* X Y Blr Sprd Clr */
+}
+
+.label {
+    color: rgb(120, 120, 120, 1);
+    display: none;
+    margin: 0px 0px 0px 0px; /* T R B L */
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.input {
+    width: 100%;
+    height: auto;
+    /*margin: 0px 0px 4px 0px; /* T R B L */
+    margin: 0px 0px 1.5em 0px; /* T R B L */
+    border: none;
+    outline: none;
+    color: rgba(120, 120, 120, 1) /*rgb(238, 150, 35, 1)*/;
+    font-weight: 500;
+    caret-color: rgb(120, 120, 120, 1) /*rgb(238, 150, 35, 1)*/;
+}
+
+.input::placeholder {
+    color: rgb(120, 120, 120, 1);
+    font-size: 20px;
+    font-weight: 400;
+    padding: 0px 0px; /* TB RL */
+}
