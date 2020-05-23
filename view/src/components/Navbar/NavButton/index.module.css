@@ -3,18 +3,19 @@
 }
 
 .links:hover {
-    color: rgba(0, 0, 0, 1) !important;
+    color: rgb(184, 86, 6) !important;
     cursor: pointer;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+    /* text-shadow: 1px 1px 3px rgba(0, 0, 0, 1); */
     animation-name: linkHover;
     animation-duration: .25s;
 }
 
 @keyframes linkHover {
     from {
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0);
+        /* text-shadow: 1px 1px 3px rgba(0, 0, 0, 0); */
     }
     to {
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+        /* text-shadow: 1px 1px 3px rgba(0, 0, 0, 1); */
     }
+    
 }
