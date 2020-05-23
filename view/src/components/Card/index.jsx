@@ -3,19 +3,20 @@ import React from 'react';
 const Card = ({
     children,
     radius = '0',
-    width = '0',
-    height = '0',
+    width = 'fit-content',
+    height = 'fit-content',
     top = '0',
     bottom = '0',
     left = '0',
     right = '0',
     shadow,
-    border
+    border,
+    customClassName
 }) => {
     return (
         <div
             className={`p-1 ${shadow ? 'shadow' : ''}
-             ${border ? 'border' : ''}`}
+             ${border ? 'border' : ''} ${customClassName ? customClassName : ''}`}
             style={{
                 backgroundColor: 'white',
                 borderRadius: radius,
@@ -25,7 +26,6 @@ const Card = ({
                 bottom: bottom,
                 left: left,
                 right: right,
-                position: 'relative'
             }}
         >
             {children}
