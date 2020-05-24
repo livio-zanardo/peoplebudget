@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import Input from '../components/Input/index';
 import Button from '../components/Button/index';
 import { useHistory } from 'react-router-dom';
+import Navbar from '../components/Navbar/index';
 
 const Login = () => {
 
@@ -23,7 +24,7 @@ const Login = () => {
                     <img src="https://via.placeholder.com/400x1200" className="w-100 vh-100" />
                 </div>
                 <div className="col-sm-8 ">
-                    <Navbar/>
+                    <Navbar options={[{ text: 'home', link: '/', auth: 0 }, { text: 'register', link: '/register', auth: 0 }]}/>
                     <div
                         className=""
                         style={{ position: 'relative', top: '25vh', bottom: '50vh', left: '10vh' }}
@@ -37,26 +38,26 @@ const Login = () => {
                             <div className="row">
                                 <div className="col pb-3">
                                     {' '}
-                                    <input
+                                    <Input
                                         className="form-control"
                                         type="email"
-                                        placeholder="Email"
+                                        placeHolder="Email"
                                     />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col pb-3">
                                     {' '}
-                                    <input
+                                    <Input
                                         className="form-control"
                                         type="password"
-                                        placeholder="Password"
+                                        placeHolder="Password"
                                     />
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-4 mr-auto align-self-end">
-                                    <button className="btn btn-block btn-primary">Login</button>
+                                <div className="col-4 ml-auto align-self-end">
+                                <Button className="btn btn-block btn-primary" onClick={handleClickEvent}>login</Button>
                                 </div>
                             </div>
                         </div>

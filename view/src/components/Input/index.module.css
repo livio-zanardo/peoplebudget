@@ -26,7 +26,8 @@
     outline: none;
     color: rgba(120, 120, 120, 1) /*rgb(238, 150, 35, 1)*/;
     font-weight: 500;
-    caret-color: rgb(255, 255, 255) /*rgb(238, 150, 35, 1)*/;
+    background-color: rgba(0, 0, 0, 0);
+    caret-color: rgb(120, 120, 120, 1) /*rgb(238, 150, 35, 1)*/;
 }
 
 .input::placeholder {
