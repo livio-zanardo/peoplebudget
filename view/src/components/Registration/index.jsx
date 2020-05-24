@@ -20,7 +20,7 @@ const Registration = ()=>{
                 <div className="row">
                     <div className="col text-center">
                         <h1>People Budget</h1>
-                        <p>A civic enagement process for educating Miamians on budgeting</p>
+                        <p><b>A civic enagement process for educating Miamians on budgeting</b></p>
                     </div>
                 </div>
                 <Link color="white" to="/register">
