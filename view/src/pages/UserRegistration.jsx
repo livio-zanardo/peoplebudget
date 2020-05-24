@@ -77,7 +77,7 @@ const UserRegistration = () => {
                     <div className="col mt-5">
             <h3>Sign Up</h3>
             <FormGroup className="col-4 mr-auto">
-            <Button type="button" className="btn btn-info" href="https://www.linkedin.com/home" onClick={handleOnSubmit}>Linkedin</Button>
+                <a href="https://www.linkedin.com/home"><Button className="btn btn-info">Linkedin</Button></a>
                 </FormGroup>
             <div className="row mx-auto">
                 <FormGroup className="col-md-5 ">
