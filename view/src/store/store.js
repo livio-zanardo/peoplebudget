@@ -52,7 +52,25 @@ const getState = ({ getStore, getActions, setStore }) => {
                 { text: 'dashboard', link: '/dashboard', auth: 3 },
                 { text: 'profile', link: '/profile', auth: 1 }
             ],
-            auth: 0 // 0 unauthenticated, 1 logged in, 2 contributer, 3 admin
+            projects: [
+                {
+                    id: 1,
+                    title: "Awesome project",
+                    author: "Mike",
+                    description: "Awesome Project description",
+                    votes: 100,
+                    avatar: "../../../public/assets/images/project-avatar.jpg"
+                },
+                {
+                    id: 2,
+                    title: "Another Awesome Project",
+                    author: "John",
+                    description: "Another Awesome project Description",
+                    votes:50,
+                    avatar: "../../../public/assets/images/project-avatar.jpg"
+                }
+            ],
+            auth: 3 // 0 unauthenticated, 1 logged in, 2 contributer, 3 admin
         },
         actions: {
             // Use getActions to call a function within a fuction
@@ -67,6 +85,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             getMenus: () => {
                 return getStore().menus.filter((menu, index) => getStore().auth >= menu.auth);
+            },
+
+            getProjects: () => {
+                return getStore().projects
             }
         }
     };
