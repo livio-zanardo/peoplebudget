@@ -7,7 +7,7 @@ const Overview = () => {
             <div className="col">
                 <div className="row">
                     <div className="col"></div>
-                    <div className="col-7">
+                    <div className="col-12">
                         <img src={image} alt="" />
                     </div>
                 </div>

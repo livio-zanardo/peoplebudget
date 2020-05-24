@@ -3,7 +3,7 @@
 }
 
 .links:hover {
-    color: rgb(184, 86, 6) !important;
+    color: rgb(255, 145, 56) !important;
     cursor: pointer;
     /* text-shadow: 1px 1px 3px rgba(0, 0, 0, 1); */
     animation-name: linkHover;
