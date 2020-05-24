@@ -3,7 +3,9 @@
     color: #ffffff;
     width: 100%;
     height: auto;
-    padding: 5px;
+    padding: 10px;
+    padding-left: 100px;
+    padding-right: 100px;
     border-radius: 50px;
     font-size: 150%;
     border: none;

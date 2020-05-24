@@ -3,7 +3,6 @@ import Input from '../components/Input/index';
 import Button from '../components/Button/index';
 import { useHistory } from 'react-router-dom';
 
-
 const Login = () => {
 
     const [value, setValue] = useState('');
@@ -27,14 +26,14 @@ const Login = () => {
                     <div className="col-sm-auto  ml-5"><h1 className='text-capitalize'>welcome back,</h1></div>
                 </div>
                 <div className="row">
-                    <div className="col-sm-8 border ml-5 mt-5 p-3">
+                    <div className="col-sm-8 border ml-5 mt-2 p-3">
                     <form ref={nameForm}>
                         <div className="row">
                             <div className="col pb-2">
                                 {' '}
                                 
                                 <Input name = {'email'}
-                                className="form-control" type="email" placeholder="email" />
+                                className="form-control" type="email" placeHolder="Email" />
                             </div>
                         </div>
                         <div className="row">
@@ -44,13 +43,13 @@ const Login = () => {
                                     name={'password'}
                                     className="form-control"
                                     type="password"
-                                    placeholder="password"
+                                    placeHolder="Password"
                                 />
                             </div>
                         </div>
                         </form>
                         <div className="row">
-                            <div className="col mr-auto">
+                            <div className="col-sm-auto ml-auto">
                                 <Button className="btn btn-block btn-primary" onClick={handleClickEvent}>login</Button>
                             </div>
                         </div>
