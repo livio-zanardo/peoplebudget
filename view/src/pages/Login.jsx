@@ -41,7 +41,7 @@ const Login = () => {
                                     <Input
                                         className="form-control"
                                         type="email"
-                                        placeHolder="Email"
+                                        placeholder="Email"
                                     />
                                 </div>
                             </div>
@@ -51,7 +51,7 @@ const Login = () => {
                                     <Input
                                         className="form-control"
                                         type="password"
-                                        placeHolder="Password"
+                                        placeholder="Password"
                                     />
                                 </div>
                             </div>

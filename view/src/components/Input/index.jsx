@@ -19,7 +19,7 @@ const Input = (props) => {
                 id={`${props.name}`}
                 value={input}
                 type={`${props.type}`}
-                placeholder={props.placeHolder}
+                placeholder={props.placeholder}
                 onChange={onChangeHandler}
             ></input>
         </div>

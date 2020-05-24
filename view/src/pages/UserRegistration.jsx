@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Form, FormGroup, Label } from 'reactstrap';
 import { Redirect } from 'react-router'
-
+import Input from '../components/Input/index';
+import Button from '../components/Button/index';
 import {
     HOST,
     PORT,
@@ -60,57 +61,61 @@ const UserRegistration = () => {
         )
     }
     return(
-        <Form className="signup-form">
+        <Form className="signup-form col-sm-7">
             <h3>Sign Up</h3>
-            <FormGroup>
+            <div className="row mx-auto">
+                <FormGroup className="col-md-5 ">
                 <Label>First Name</Label>
                 <Input type="text"
                        placeholder="First Name"
                        name="first-name"
                        onChange={e => setFirstName(e.target.value)}/>
             </FormGroup>
-            <FormGroup>
-                <Label>Last Name</Label>
+            <FormGroup className="col-md-5 ">
+            <Label>Last Name</Label>
                 <Input type="text"
                        placeholder="Last Name"
                        name="last-name"
                        onChange={e => setLastName(e.target.value)}/>
             </FormGroup>
-            <FormGroup>
+            </div>
+            <FormGroup className="col-md-8">
                 <Label>Email</Label>
                 <Input type="email"
                        placeholder="Email"
                        name="email"
                        onChange={e => setEmail(e.target.value)}/>
             </FormGroup>
-            <FormGroup>
+            <FormGroup className="col-md-8">
                 <Label>Linkedin</Label>
                 <Input type="text"
                        placeholder="Linkedin"
                        name="linkedin"
                        onChange={e => setLinkedin(e.target.value)}/>
             </FormGroup>
-            <FormGroup>
+            <FormGroup className="col-md-9">
                 <Label>Address</Label>
                 <Input type="text"
                        placeholder="address"
                        name="address"
                        onChange={e => setAddress1(e.target.value)}/>
             </FormGroup>
-            <FormGroup>
+            <div className="row mx-auto">
+            <FormGroup className="col-md-4">
                 <Label>Additional Address</Label>
                 <Input type="text"
                        placeholder="additional address"
                        name="additional-address"
                        onChange={e => setAddress2(e.target.value)}/>
             </FormGroup>
-            <FormGroup>
+            <FormGroup className="col-md-2">
                 <Label>Zip Code</Label>
                 <Input type="text"
-                       placeholder="Zip Code"
+                       placeholder="12345"
                        name="zip"
                        onChange={e => setZip(e.target.value)}/>
             </FormGroup>
+            </div>
             <FormGroup>
                 <Label>Password</Label>
                 <Input type="password"
@@ -133,8 +138,8 @@ const UserRegistration = () => {
                        onChange={e => setSecurityQuestion(e.target.value)}/>
             </FormGroup>
 
-            <FormGroup>
-                <Button onClick={handleOnSubmit}>Sign Up</Button>
+            <FormGroup className="col-5 ml-auto align-self-end">
+                <Button className="btn btn-block btn-primary" onClick={handleOnSubmit}>Sign Up</Button>
             </FormGroup>
         </Form>
     )
