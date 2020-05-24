@@ -1,36 +1,49 @@
 import React from 'react';
+import Navbar from '../components/Navbar/index.jsx'
 
 const Login = () => {
     return (
-        <div className="row" style={{ height: '100%' }}>
-            <div className="col-sm-4 border bg-light p-0">
-                <img src="https://via.placeholder.com/250x700" className="img-fluid" />
-            </div>
-            <div className="col-sm-8 ">
-                <div className="row  mt-5">
-                    <div className="col-sm-auto  ml-5"><h1 className='text-capitalize'>welcome back,</h1></div>
+        <div className="container-fluid">
+            <div className="row" style={{ height: '100%' }}>
+                <div className="col-sm-4 border-0 bg-light p-0">
+                    <img src="https://via.placeholder.com/400x1200" className="w-100 vh-100" />
                 </div>
-                <div className="row">
-                    <div className="col-sm-8 border ml-5 mt-5 p-3">
-                        <div className="row">
-                            <div className="col pb-2">
-                                {' '}
-                                <input className="form-control" type="email" placeholder="email" />
+                <div className="col-sm-8 ">
+                    <Navbar/>
+                    <div
+                        className=""
+                        style={{ position: 'relative', top: '25vh', bottom: '50vh', left: '10vh' }}
+                    >
+                        <div className="col-sm-8 border-0 ml-5 mt-5 p-3">
+                            <div className="row  mt-5">
+                                <div className="col-sm-auto  ml-5 mb-4">
+                                    <h1 className="text-capitalize">Welcome back!</h1>
+                                </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="col pb-2">
-                                {' '}
-                                <input
-                                    className="form-control"
-                                    type="password"
-                                    placeholder="password"
-                                />
+                            <div className="row">
+                                <div className="col pb-3">
+                                    {' '}
+                                    <input
+                                        className="form-control"
+                                        type="email"
+                                        placeholder="Email"
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="col mr-auto">
-                                <button className="btn btn-block btn-primary">login</button>
+                            <div className="row">
+                                <div className="col pb-3">
+                                    {' '}
+                                    <input
+                                        className="form-control"
+                                        type="password"
+                                        placeholder="Password"
+                                    />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-4 mr-auto align-self-end">
+                                    <button className="btn btn-block btn-primary">Login</button>
+                                </div>
                             </div>
                         </div>
                     </div>
