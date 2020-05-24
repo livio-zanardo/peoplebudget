@@ -1,0 +1,54 @@
+.home {
+    padding: 0px 0px !important;
+}
+
+.getStarted {
+    position: relative;
+    background-image: url('../../src/miamiMap.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 0;
+    padding-top: 56.49%; /* (img-height / img-width * container-width) */
+    /* (913 / 1616 * 100) */
+}
+
+.card {
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+/* Media Queries: To Control the Size of Components */
+@media screen and (max-width: 350px) {
+    .card {
+        width: 80vw !important;
+        font-size: 3vw;
+    }
+    .card h1 {
+        font-size: 4vw;
+    }
+}
+/*If screen size 500x or less use theses sytles*/
+@media screen and (max-width: 500px) {
+    .card {
+        width: 60vw !important;
+        font-size: 2vw;
+    }
+    .card h1 {
+        font-size: 4vw;
+    }
+}
+
+/*If screen size 501px or more use theses sytles*/
+@media screen and (min-width: 501px) {
+    .card {
+        width: 350px !important;
+    }
+}
+
+/*If screen size 900px or more use theses sytles*/
+@media screen and (min-width: 900px) {
+    .card {
+        width: 350px !important;
+    }
+}
