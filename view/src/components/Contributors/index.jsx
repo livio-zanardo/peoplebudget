@@ -15,7 +15,7 @@ const Contributor = () => {
                     <p className='text-center' style={{color: '#DCDCDC', fontSize:'120%'}}>Top Contributors of City of Miami</p>
                     <div className="row">
                         <div className="col-auto mx-auto">
-                            <div className="row">{contributorArr([1, 2, 3, 4, 5 ,6, 7, 8])}</div>
+                            <div className="row">{contributorArr([1, 2, 3, 4])}</div>
                         </div>
                     </div>
                 </div>
