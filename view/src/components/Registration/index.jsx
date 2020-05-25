@@ -7,9 +7,9 @@ import { registration, card } from './index.module.css';
 
 const Registration = () => {
     return (
-        <div className={`row  ${registration}`}>
-            <div className="col-12">
-                <img src={mapImg} alt="Map of Miami" />
+        <div className={`row`} style={{margin: 'auto'}}>
+            <div className='col p-0'>
+                <img className="w-100 h-100" src={mapImg} alt="Map of Miami" />
             </div>
             <Card
                 customClassName={card}
@@ -19,7 +19,7 @@ const Registration = () => {
                 border
                 shadow
             >
-                <div className="mx-auto p-3" style={{ width: 'auto' }}>
+                <div className="mx-auto p-3" >
                     <div className="row">
                         <div className="col text-center">
                             <h1>People Budget</h1>

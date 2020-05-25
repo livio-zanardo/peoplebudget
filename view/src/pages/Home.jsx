@@ -13,10 +13,10 @@ const Home = () => {
     return (
         <div className={`p-0 container-fluid`}>
             <Navbar options={getMenus()} />
-            <Registration />
-            <Overview />
-            <Contributor />
-            <Info />
+            <Registration /> 
+            <Overview /> 
+            <Contributor /> 
+             <Info />
         </div>
     );
 };

@@ -10,14 +10,14 @@ const Contributor = () => {
     };
     return (
         <>
-            <div className="row">
+            <div className="row" style={{margin: 'auto'}}>
                 <div className="col p-4" style={{backgroundColor: '#084652'}}>
-                    <p className='text-center' style={{color: '#DCDCDC', fontSize:'120%'}}>Top Contributors of City of Miami</p>
-                    <div className="row">
-                        <div className="col-auto mx-auto">
-                            <div className="row">{contributorArr([1, 2, 3, 4])}</div>
-                        </div>
-                    </div>
+                     <p className='text-center' style={{color: '#DCDCDC', fontSize:'120%'}}>Top Contributors of City of Miami</p> 
+                     <div className="row">
+                         <div className="col-auto mx-auto"> 
+                            <div className="row">{contributorArr([1, 2, 3, 4])}</div> 
+                        </div> 
+                    </div> 
                 </div>
             </div>
         </>
