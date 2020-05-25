@@ -6,6 +6,7 @@ import Button from '../components/Button';
 import Card from '../components/Card';
 import map from '../../src/miamiMap.png';
 import { home, card, getStarted } from './Home.module.css';
+import Info from '../components/Info Section/Info';
 
 const Home = () => {
     const {
@@ -38,6 +39,7 @@ const Home = () => {
                         </Link>
                     </div>
                 </Card>
+                <Info/>
             </div>
         </div>
     );
