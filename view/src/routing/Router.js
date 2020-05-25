@@ -6,6 +6,7 @@ import Profile from '../pages/Profile';
 import MapView from '../pages/MapView';
 import UserRegistration from '../pages/UserRegistration';
 import ProjectsList from "../components/ProjectsList";
+import ProjectDetails from "../components/ProjectDetailes";
 
 const RouterComponent = () => {
     return (
@@ -17,6 +18,7 @@ const RouterComponent = () => {
                 <Route path="/proposals" component={MapView} />
                 <Route path="/register" component={UserRegistration} />
                 <Route path="/dashboard" component={ProjectsList} />
+                <Route path="/dashboard-details" component={ProjectDetails} />
             </Switch>
         </Router>
     );

@@ -59,7 +59,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     author: "Mike",
                     description: "Awesome Project description",
                     votes: 100,
-                    avatar: "../../../public/assets/images/project-avatar.jpg"
+                    avatar: "../../../public/assets/images/project-avatar.jpg",
+                    details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a sollicitudin ex. Etiam nec lacus a mauris blandit tempor non id urna. In sollicitudin tortor mi, id lobortis ante tincidunt in. Donec ornare consectetur molestie. Fusce posuere mi ac tellus maximus consectetur. Proin tempus tincidunt porta. Donec eu imperdiet ipsum. Donec ac dictum enim, id convallis turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at ullamcorper mi, a sollicitudin ipsum. Donec non neque non enim fermentum mollis id in turpis."
                 },
                 {
                     id: 2,
@@ -67,9 +68,20 @@ const getState = ({ getStore, getActions, setStore }) => {
                     author: "John",
                     description: "Another Awesome project Description",
                     votes:50,
-                    avatar: "../../../public/assets/images/project-avatar.jpg"
+                    avatar: "../../../public/assets/images/project-avatar.jpg",
+                    details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a sollicitudin ex. Etiam nec lacus a mauris blandit tempor non id urna. In sollicitudin tortor mi, id lobortis ante tincidunt in. Donec ornare consectetur molestie. Fusce posuere mi ac tellus maximus consectetur. Proin tempus tincidunt porta. Donec eu imperdiet ipsum. Donec ac dictum enim, id convallis turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at ullamcorper mi, a sollicitudin ipsum. Donec non neque non enim fermentum mollis id in turpis."
+                },
+                {
+                    id: 3,
+                    title: "Fantastic Project",
+                    author: "Kyle",
+                    description: "Fantastic project Description",
+                    votes:20,
+                    avatar: "../../../public/assets/images/project-avatar.jpg",
+                    details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a sollicitudin ex. Etiam nec lacus a mauris blandit tempor non id urna. In sollicitudin tortor mi, id lobortis ante tincidunt in. Donec ornare consectetur molestie. Fusce posuere mi ac tellus maximus consectetur. Proin tempus tincidunt porta. Donec eu imperdiet ipsum. Donec ac dictum enim, id convallis turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at ullamcorper mi, a sollicitudin ipsum. Donec non neque non enim fermentum mollis id in turpis."
                 }
             ],
+            selectedProjectId: 1,
             auth: 3 // 0 unauthenticated, 1 logged in, 2 contributer, 3 admin
         },
         actions: {
@@ -89,6 +101,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             getProjects: () => {
                 return getStore().projects
+            },
+
+            changeProjectId: (id) => {
+              getStore().selectedProjectId = id;
+            },
+
+            getProject: () => {
+              return getStore().projects.filter((project, index) => getStore().selectedProjectId == project.id);
             }
         }
     };
