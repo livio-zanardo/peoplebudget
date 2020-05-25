@@ -27,7 +27,7 @@ const Login = () => {
                     <Navbar options={[{ text: 'home', link: '/', auth: 0 }, { text: 'register', link: '/register', auth: 0 }]}/>
                     <div
                         className=""
-                        style={{ position: 'relative', top: '25vh', bottom: '50vh', left: '10vh' }}
+                        style={{ position: 'relative', top: '5vh', bottom: '50vh', left: '1vh' }}
                     >
                         <div className="col-sm-8 border-0 ml-5 mt-5 p-3">
                             <div className="row  mt-5">
@@ -57,7 +57,7 @@ const Login = () => {
                             </div>
                             <div className="row">
                                 <div className="col-4 ml-auto align-self-end">
-                                <Button className="btn btn-block btn-primary" onClick={handleClickEvent}>login</Button>
+                                <Button className="btn btn-block btn-primary" onClick={handleClickEvent}>Login</Button>
                                 </div>
                             </div>
                         </div>
