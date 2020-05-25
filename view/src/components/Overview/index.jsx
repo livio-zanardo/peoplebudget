@@ -5,7 +5,7 @@ import image from '../../AirlinesArena.jpg';
 
 const Overview = () => {
     return (
-        <div className="row p-0">
+        <div className="row p-0" style={{margin: 'auto'}}>
             <div className={`  col-4 p-0`}></div>
             <div className="col-8 p-0" style={{ height: '80vh' }}>
                 <img className=" w-100 h-100" src={image} alt="" />

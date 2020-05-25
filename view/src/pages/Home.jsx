@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import Navbar from '../components/Navbar/index';
 import { Context } from '../store/store';
-import Contributor from '../components/Contributors/index';
-import Overview from '../components/Overview';
+import Navbar from '../components/Navbar/index';
 import Registration from '../components/Registration';
+import Overview from '../components/Overview';
+import Contributor from '../components/Contributors/index';
 import Info from '../components/Info Section/Info';
 
 const Home = () => {
@@ -13,10 +13,10 @@ const Home = () => {
     return (
         <div className={`p-0 container-fluid`}>
             <Navbar options={getMenus()} />
-            <Registration />
-            <Overview />
-            <Contributor />
-            <Info />
+            <Registration /> 
+            <Overview /> 
+            <Contributor /> 
+             <Info />
         </div>
     );
 };
