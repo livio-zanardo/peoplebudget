@@ -4,7 +4,6 @@ import { Context } from '../store/store';
 import Contributor from '../components/Contributors/index';
 import Overview from '../components/Overview';
 import Registration from '../components/Registration';
-import { home } from './Home.module.css';
 import Info from '../components/Info Section/Info';
 
 const Home = () => {
@@ -12,7 +11,7 @@ const Home = () => {
         actions: { getMenus }
     } = useContext(Context);
     return (
-        <div className={`${home} container-fluid`}>
+        <div className={`p-0 container-fluid`}>
             <Navbar options={getMenus()} />
             <Registration />
             <Overview />

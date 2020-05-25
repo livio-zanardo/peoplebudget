@@ -1,22 +1,16 @@
-.home {
-    padding: 0px 0px !important;
+.registration {
+    position: relative;
 }
 
-.getStarted {
-    position: relative;
-    background-image: url('../../src/miamiMap.png');
-    background-size: contain;
-    background-repeat: no-repeat;
+.registration img {
     width: 100vw;
-    height: 0;
-    padding-top: 56.49%; /* (img-height / img-width * container-width) */
-    /* (913 / 1616 * 100) */
 }
 
 .card {
     position: absolute;
     transform: translate(-50%, -50%);
 }
+
 
 /* Media Queries: To Control the Size of Components */
 @media screen and (max-width: 350px) {
