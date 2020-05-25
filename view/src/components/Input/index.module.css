@@ -24,7 +24,7 @@
     margin: 0px 0px 2em 0px; /* T R B L */
     border: none;
     outline: none;
-    color: rgba(120, 120, 120, 1) /*rgb(238, 150, 35, 1)*/;
+    color: rgb(0, 0, 0) /*rgb(238, 150, 35, 1)*/;
     font-weight: 500;
     background-color: rgba(0, 0, 0, 0);
     caret-color: rgb(120, 120, 120, 1) /*rgb(238, 150, 35, 1)*/;

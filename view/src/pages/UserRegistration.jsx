@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Form, FormGroup, Label } from 'reactstrap';
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router';
 import Input from '../components/Input/index';
 import Button from '../components/Button/index';
 import { Link } from 'react-router-dom';
@@ -32,16 +32,16 @@ const UserRegistration = () => {
 
     const handleOnSubmit = () => {
         const requestBody = {
-            'fname': firstName,
-            'lname': lastName,
-            'email': email,
-            'linkedinurl': linkedin,
-            'address1': address1,
-            'address2': address2,
-            'zip': zip,
-            'securityQuestion': securityQuestion,
-            'pass': password,
-            'recover': recoveryPassword
+            fname: firstName,
+            lname: lastName,
+            email: email,
+            linkedinurl: linkedin,
+            address1: address1,
+            address2: address2,
+            zip: zip,
+            securityQuestion: securityQuestion,
+            pass: password,
+            recover: recoveryPassword
         };
         axios({
             method: 'post',
@@ -55,123 +55,139 @@ const UserRegistration = () => {
             })
             .catch((err) => {
                 //TODO: Add returning of the error message to the client
-                console.log(err)
+                console.log(err);
             });
-    }
-
-
+    };
 
     if (signedUp) {
         return (
-            <Redirect to="/" />
+        <Redirect to="/" />
         )
     }
-    return(
+    return (
         <div className="container-fluid">
             <div className="row" style={{ height: '100%' }}>
                 <div className="col-sm-4 border-0 bg-light p-0">
                     <img src="https://via.placeholder.com/400x1200" className="w-100 vh-100" />
                 </div>
                 <div className="col-sm-8">
-                    <Navbar options={[{ text: 'home', link: '/', auth: 0 }, { text: 'Login', link: '/login', auth: 0 }]} />
-                    <div className="col mt-5">
-            <h3>Sign Up</h3>
-            <FormGroup className="col-4 mr-auto">
-                <a href="https://www.linkedin.com/home"><Button className="btn btn-info">Linkedin</Button></a>
-                </FormGroup>
-            <div className="row mx-auto">
-                <FormGroup className="col-md-5 ">
-                    
-                <Label>First Name</Label>
-                <Input type="text"
-                       placeholder="First Name"
-                       name="first-name"
-                       onChange={e => setFirstName(e.target.value)}/>
-            </FormGroup>
-            <FormGroup className="col-md-5 ">
-            <Label>Last Name</Label>
-                <Input type="text"
-                       placeholder="Last Name"
-                       name="last-name"
-                       onChange={e => setLastName(e.target.value)}/>
-            </FormGroup>
-            </div>
-            <FormGroup className="col-md-8">
-                <Label>Email</Label>
-                <Input type="email"
-                       placeholder="Email"
-                       name="email"
-                       onChange={e => setEmail(e.target.value)}/>
-            </FormGroup>
-            <FormGroup className="col-md-8">
-                <Label>Linkedin</Label>
-                <Input type="text"
-                       placeholder="Linkedin"
-                       name="linkedin"
-                       onChange={e => setLinkedin(e.target.value)}/>
-            </FormGroup>
-            <FormGroup className="col-md-9">
-                <Label>Address</Label>
-                <Input type="text"
-                       placeholder="address"
-                       name="address"
-                       onChange={e => setAddress1(e.target.value)}/>
-            </FormGroup>
-            <div className="row mx-auto">
-            <FormGroup className="col-md-4">
-                <Label>Additional Address</Label>
-                <Input type="text"
-                       placeholder="additional address"
-                       name="additional-address"
-                       onChange={e => setAddress2(e.target.value)}/>
-            </FormGroup>
-            <FormGroup className="col-md-2">
-                <Label>Zip Code</Label>
-                <Input type="text"
-                       placeholder="12345"
-                       name="zip"
-                       onChange={e => setZip(e.target.value)}/>
-            </FormGroup>
-            </div>
-            <FormGroup className="col-md-5">
-                <Label>Password</Label>
-                <Input type="password"
-                       placeholder="Password"
-                       name="password"
-                       onChange={e => setPassword(e.target.value)}/>
-            </FormGroup>
-            <FormGroup className="col-md-5">
-                <Label>Recovery Password</Label>
-                <Input type="password"
-                       placeholder="Recovery Password"
-                       name="password"
-                       onChange={e => setRecoveryPassword(e.target.value)}/>
-            </FormGroup>
-            <FormGroup className="col-md-5">
-                <Label>Security Question</Label>
-                <Input type="text"
-                       placeholder="Security Question"
-                       name="security-question"
-                       onChange={e => setSecurityQuestion(e.target.value)}/>
-            </FormGroup>
-
-            <FormGroup>
-                            <div class="d-flex justify-content-center">
-                                <div class="col-md-4">
-                                <div class="row">
-                            <Button className="btn btn-block" onClick={handleOnSubmit}>Sign Up</Button>
-                            </div>
-                            <div class="row mt-2 d-flex justify-content-center">
-                                <Link to='/login'>Already a Member?</Link>
-                            </div>
-                            </div>
+                    <Navbar
+                        options={[
+                            { text: 'home', link: '/', auth: 0 },
+                            { text: 'Login', link: '/login', auth: 0 }
+                        ]}
+                    />
+                    <div className="col sm-auto mt-5 border-0 ml-5 mb-4">
+                        <h1>Sign Up</h1>
+                        <FormGroup className="d-flex justify-content-center mt-5">
+                            <div class="row">
+                                <a href="https://www.linkedin.com/home">
+                                    <Button className="btn btn-info">LinkedIn Sign In</Button>
+                                </a>
                             </div>
                         </FormGroup>
+                        <div class="row mt-2 d-flex justify-content-center">
+                            <Link to="/login">Already a Member?</Link>
+                        </div>
+                        <div className="row mx-auto">
+                            <FormGroup className="col-md-5 ">
+                                <Input
+                                    type="text"
+                                    placeholder="First Name"
+                                    name="first-name"
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                />
+                            </FormGroup>
+                            <FormGroup className="col-md-5 ">
+                                <Input
+                                    type="text"
+                                    placeholder="Last Name"
+                                    name="last-name"
+                                    onChange={(e) => setLastName(e.target.value)}
+                                />
+                            </FormGroup>
+                        </div>
+                        <FormGroup className="col-md-8">
+                            <Input
+                                type="email"
+                                placeholder="Email"
+                                name="email"
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </FormGroup>
+                        <FormGroup className="col-md-8">
+                            <Input
+                                type="text"
+                                placeholder="Linkedin Profile URL"
+                                name="linkedin"
+                                onChange={(e) => setLinkedin(e.target.value)}
+                            />
+                        </FormGroup>
+                        <FormGroup className="col-md-9">
+                            <Input
+                                type="text"
+                                placeholder="Main Address"
+                                name="address"
+                                onChange={(e) => setAddress1(e.target.value)}
+                            />
+                        </FormGroup>
+                        <div className="row mx-auto">
+                            <FormGroup className="col-md-4">
+                                <Input
+                                    type="text"
+                                    placeholder="Secondary Address"
+                                    name="additional-address"
+                                    onChange={(e) => setAddress2(e.target.value)}
+                                />
+                            </FormGroup>
+                            <FormGroup className="col-md-2">
+                                <Input
+                                    type="text"
+                                    placeholder="Zip"
+                                    name="zip"
+                                    onChange={(e) => setZip(e.target.value)}
+                                />
+                            </FormGroup>
+                        </div>
+                        <FormGroup className="col-md-5">
+                            <Input
+                                type="password"
+                                placeholder="Password"
+                                name="password"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </FormGroup>
+                        <FormGroup className="col-md-5">
+                            <Input
+                                type="password"
+                                placeholder="Recovery Password"
+                                name="password"
+                                onChange={(e) => setRecoveryPassword(e.target.value)}
+                            />
+                        </FormGroup>
+                        <FormGroup className="col-md-5">
+                            <Input
+                                type="text"
+                                placeholder="Security Question"
+                                name="security-question"
+                                onChange={(e) => setSecurityQuestion(e.target.value)}
+                            />
+                        </FormGroup>
+
+                        <FormGroup>
+                            <div class="d-flex justify-content-center">
+                                    <div class="row">
+                                        <Button className="btn btn-block" onClick={handleOnSubmit}>
+                                            Sign Up
+                                        </Button>
+                                    </div>
+                            </div>
+                        </FormGroup>
+                    </div>
+                </div>
+            </div>
         </div>
-        </div>
-        </div>
-        </div>
-    )
-}
+    );
+};
 
 export default UserRegistration;
