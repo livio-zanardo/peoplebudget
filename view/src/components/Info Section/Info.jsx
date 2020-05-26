@@ -65,7 +65,7 @@ const Info = () => {
                                                         className="d-block"
                                                         style={{
                                                             width: '14px',
-                                                            top: '3vh',
+                                                            top: '2.25vh',
                                                             position: 'relative'
                                                         }}
                                                         src={icon}
@@ -99,7 +99,7 @@ const Info = () => {
                                                         className="d-block"
                                                         style={{
                                                             width: '14px',
-                                                            top: '3vh',
+                                                            top: '2.25vh',
                                                             position: 'relative'
                                                         }}
                                                         src={icon}
