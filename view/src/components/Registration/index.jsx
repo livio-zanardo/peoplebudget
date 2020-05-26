@@ -24,7 +24,7 @@ const Registration = () => {
                         <div className="col text-center">
                             <h1>People Budget</h1>
                             <p>
-                                <b>A civic enagement process for educating Miamians on budgeting</b>
+                                <b>A civic engagement process for educating Miamians on budgeting</b>
                             </p>
                         </div>
                     </div>
