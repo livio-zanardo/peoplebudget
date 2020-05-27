@@ -2,22 +2,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Form, FormGroup, Label } from 'reactstrap';
 import { Redirect } from 'react-router';
-import Input from '../components/Input/index';
+import Input from '../components/Inputv3/index';
 import Button from '../components/Button/index';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
+import Mapimg from '../miamiMapFaded.png';
 
-import {
-    HOST,
-    PORT,
-    BASE_API_URL,
-    PROTOCOL,
-    SIGNUP_ENDPOINT
-} from '../constants/constants';
-
+import { HOST, PORT, BASE_API_URL, PROTOCOL, SIGNUP_ENDPOINT } from '../constants/constants';
 
 const UserRegistration = () => {
-
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -60,15 +53,13 @@ const UserRegistration = () => {
     };
 
     if (signedUp) {
-        return (
-        <Redirect to="/" />
-        )
+        return <Redirect to="/" />;
     }
     return (
         <div className="container-fluid">
             <div className="row" style={{ height: '100%' }}>
-                <div className="col-sm-4 border-0 bg-light p-0">
-                    <img src="https://via.placeholder.com/400x1200" className="w-100 vh-100" />
+                <div className="col-sm-3 border-0 bg-light p-0 vh-100" style={{backgroundImage: `url(${Mapimg})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
+                    <img src={Mapimg} className="w-100 vh-100" />
                 </div>
                 <div className="col-sm-8">
                     <Navbar
@@ -77,20 +68,19 @@ const UserRegistration = () => {
                             { text: 'Login', link: '/login', auth: 0 }
                         ]}
                     />
-                    <div className="col sm-auto mt-5 border-0 ml-5 mb-4">
-                        <h1>Sign Up</h1>
-                        <FormGroup className="d-flex justify-content-center mt-5">
-                            <div class="row">
+                    <div className="col-lg mt-2 pl-3 bg-light p-4 pr-5" style={{ top: '10vh',left: '-40vh', width: '90vw', borderRadius: '2em' }}>
+                        {' '}
+                        {/*form div*/}
+                        <div className="row">
+                            <div className="col h2">Sign Up</div>
+                            <div className="col-3 mr-auto">
                                 <a href="https://www.linkedin.com/home">
-                                    <Button className="btn btn-info">LinkedIn Sign In</Button>
+                                    <Button className="btn btn-info">LinkedIn log in</Button>
                                 </a>
                             </div>
-                        </FormGroup>
-                        <div class="row mt-2 d-flex justify-content-center">
-                            <Link to="/login">Already a Member?</Link>
                         </div>
-                        <div className="row mx-auto">
-                            <FormGroup className="col-md-5 ">
+                        <div className="row mx-auto mt-5">
+                            <FormGroup className="col-sm-5 ">
                                 <Input
                                     type="text"
                                     placeholder="First Name"
@@ -98,7 +88,7 @@ const UserRegistration = () => {
                                     onChange={(e) => setFirstName(e.target.value)}
                                 />
                             </FormGroup>
-                            <FormGroup className="col-md-5 ">
+                            <FormGroup className="col-sm-5 ">
                                 <Input
                                     type="text"
                                     placeholder="Last Name"
@@ -107,36 +97,39 @@ const UserRegistration = () => {
                                 />
                             </FormGroup>
                         </div>
-                        <FormGroup className="col-md-8">
-                            <Input
-                                type="email"
-                                placeholder="Email"
-                                name="email"
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </FormGroup>
-                        <FormGroup className="col-md-8">
-                            <Input
-                                type="text"
-                                placeholder="Linkedin Profile URL"
-                                name="linkedin"
-                                onChange={(e) => setLinkedin(e.target.value)}
-                            />
-                        </FormGroup>
-                        <FormGroup className="col-md-9">
-                            <Input
-                                type="text"
-                                placeholder="Main Address"
-                                name="address"
-                                onChange={(e) => setAddress1(e.target.value)}
-                            />
-                        </FormGroup>
-                        <div className="row mx-auto">
+                        <div className="row mx-auto mt-2">
+                            <FormGroup className="col-md-6">
+                                <Input
+                                    type="email"
+                                    placeholder="Email"
+                                    name="email"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </FormGroup>
                             <FormGroup className="col-md-4">
                                 <Input
                                     type="text"
-                                    placeholder="Secondary Address"
-                                    name="additional-address"
+                                    placeholder="LinkedIn"
+                                    name="linkedIn"
+                                    onChange={(e) => setLinkedin(e.target.value)}
+                                />
+                            </FormGroup>
+                        </div>
+                        <div className="row mx-auto mt-2">
+                            <FormGroup className="col-md-4">
+                                <Input
+                                    type="text"
+                                    placeholder="Address"
+                                    name="address"
+                                    onChange={(e) => setAddress1(e.target.value)}
+                                />
+                            </FormGroup>
+
+                            <FormGroup className="col-md-4">
+                                <Input
+                                    type="text"
+                                    placeholder="Address 2"
+                                    name="address-2"
                                     onChange={(e) => setAddress2(e.target.value)}
                                 />
                             </FormGroup>
@@ -149,38 +142,36 @@ const UserRegistration = () => {
                                 />
                             </FormGroup>
                         </div>
-                        <FormGroup className="col-md-5">
-                            <Input
-                                type="password"
-                                placeholder="Password"
-                                name="password"
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </FormGroup>
-                        <FormGroup className="col-md-5">
-                            <Input
-                                type="password"
-                                placeholder="Recovery Password"
-                                name="password"
-                                onChange={(e) => setRecoveryPassword(e.target.value)}
-                            />
-                        </FormGroup>
-                        <FormGroup className="col-md-5">
-                            <Input
-                                type="text"
-                                placeholder="Security Question"
-                                name="security-question"
-                                onChange={(e) => setSecurityQuestion(e.target.value)}
-                            />
-                        </FormGroup>
-
+                        <div className="row mx-auto mt-2">
+                            <FormGroup className="col-md-5">
+                                <Input
+                                    type="password"
+                                    placeholder="Password"
+                                    name="password"
+                                    onChange={(e) => setRecoveryPassword(e.target.value)}
+                                />
+                            </FormGroup>
+                            <FormGroup className="col-md-5">
+                                <Input
+                                    type="text"
+                                    placeholder="Security Question"
+                                    name="security-question"
+                                    onChange={(e) => setSecurityQuestion(e.target.value)}
+                                />
+                            </FormGroup>
+                        </div>
                         <FormGroup>
-                            <div class="d-flex justify-content-center">
-                                    <div class="row">
+                            <div className="d-flex justify-content-center">
+                                <div className="col-4 mt-2">
+                                    <div className="row">
                                         <Button className="btn btn-block" onClick={handleOnSubmit}>
                                             Sign Up
                                         </Button>
                                     </div>
+                                    <div className="row mt-2 d-flex justify-content-center">
+                                        <Link to="/login">Already a Member?</Link>
+                                    </div>
+                                </div>
                             </div>
                         </FormGroup>
                     </div>
