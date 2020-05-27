@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Form, FormGroup, Label } from 'reactstrap';
 import { Redirect } from 'react-router';
-import Input from '../components/Input/index';
+import Input from '../components/Inputv3/index';
 import Button from '../components/Button/index';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
@@ -67,16 +67,19 @@ const UserRegistration = () => {
                             { text: 'Login', link: '/login', auth: 0 }
                         ]}
                     />
-                    <div className="col mt-2 bg-light rounded" style={{ left: '-40vh'}}> {/*form div*/}
-                        <h2>Sign Up</h2>
-                        <FormGroup className="col-4 mr-auto">
-                            <a href="https://www.linkedin.com/home">
-                                <Button className="btn btn-info">LinkedIn</Button>
-                            </a>
-                        </FormGroup>
-                        <div className="row mx-auto">
-                            <FormGroup className="col-md-5 ">
-                                <Label>First Name</Label>
+                    <div className="col-lg mt-2 pl-3 bg-light rounded p-4 pr-5" style={{ top: '10vh',left: '-40vh', width: '90vw' }}>
+                        {' '}
+                        {/*form div*/}
+                        <div className="row">
+                            <div className="col h2">Sign Up</div>
+                            <div className="col-3 mr-auto">
+                                <a href="https://www.linkedin.com/home">
+                                    <Button className="btn btn-info">LinkedIn log in</Button>
+                                </a>
+                            </div>
+                        </div>
+                        <div className="row mx-auto mt-5">
+                            <FormGroup className="col-sm-5 ">
                                 <Input
                                     type="text"
                                     placeholder="First Name"
@@ -84,8 +87,7 @@ const UserRegistration = () => {
                                     onChange={(e) => setFirstName(e.target.value)}
                                 />
                             </FormGroup>
-                            <FormGroup className="col-md-5 ">
-                                <Label>Last Name</Label>
+                            <FormGroup className="col-sm-5 ">
                                 <Input
                                     type="text"
                                     placeholder="Last Name"
@@ -94,9 +96,8 @@ const UserRegistration = () => {
                                 />
                             </FormGroup>
                         </div>
-                        <div className="row mx-auto">
+                        <div className="row mx-auto mt-2">
                             <FormGroup className="col-md-6">
-                                <Label>Email</Label>
                                 <Input
                                     type="email"
                                     placeholder="Email"
@@ -105,7 +106,6 @@ const UserRegistration = () => {
                                 />
                             </FormGroup>
                             <FormGroup className="col-md-4">
-                                <Label>Linkedin</Label>
                                 <Input
                                     type="text"
                                     placeholder="LinkedIn"
@@ -114,9 +114,8 @@ const UserRegistration = () => {
                                 />
                             </FormGroup>
                         </div>
-                        <div className="row mx-auto">
+                        <div className="row mx-auto mt-2">
                             <FormGroup className="col-md-5">
-                                <Label>Address</Label>
                                 <Input
                                     type="text"
                                     placeholder="Address"
@@ -126,7 +125,6 @@ const UserRegistration = () => {
                             </FormGroup>
 
                             <FormGroup className="col-md-4">
-                                <Label>Address 2</Label>
                                 <Input
                                     type="text"
                                     placeholder="Address 2"
@@ -135,7 +133,6 @@ const UserRegistration = () => {
                                 />
                             </FormGroup>
                             <FormGroup className="col-md-2">
-                                <Label>Zip Code</Label>
                                 <Input
                                     type="text"
                                     placeholder="Zip"
@@ -144,9 +141,8 @@ const UserRegistration = () => {
                                 />
                             </FormGroup>
                         </div>
-                        <div className="row mx-auto">
+                        <div className="row mx-auto mt-2">
                             <FormGroup className="col-md-5">
-                                <Label>Recovery Password</Label>
                                 <Input
                                     type="password"
                                     placeholder="Recovery Password"
@@ -155,7 +151,6 @@ const UserRegistration = () => {
                                 />
                             </FormGroup>
                             <FormGroup className="col-md-5">
-                                <Label>Security Question</Label>
                                 <Input
                                     type="text"
                                     placeholder="Security Question"
@@ -164,16 +159,15 @@ const UserRegistration = () => {
                                 />
                             </FormGroup>
                         </div>
-
                         <FormGroup>
-                            <div class="d-flex justify-content-center">
-                                <div class="col-md-4">
-                                    <div class="row">
+                            <div className="d-flex justify-content-center">
+                                <div className="col-4 mt-2">
+                                    <div className="row">
                                         <Button className="btn btn-block" onClick={handleOnSubmit}>
                                             Sign Up
                                         </Button>
                                     </div>
-                                    <div class="row mt-2 d-flex justify-content-center">
+                                    <div className="row mt-2 d-flex justify-content-center">
                                         <Link to="/login">Already a Member?</Link>
                                     </div>
                                 </div>

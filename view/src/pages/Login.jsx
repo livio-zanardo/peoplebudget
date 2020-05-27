@@ -1,11 +1,10 @@
 import React, { useState, useRef } from 'react';
-import Input from '../components/Input/index';
+import Input from '../components/Inputv2/index';
 import Button from '../components/Button/index';
 import { useHistory } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
 
 const Login = () => {
-
     const [value, setValue] = useState('');
     const nameForm = useRef(null);
 
@@ -14,7 +13,7 @@ const Login = () => {
     const handleClickEvent = () => {
         const form = nameForm.current;
         //alert(`${form['email'].value} ${form['password'].value}`);
-        history.push("/proposals");
+        history.push('/proposals');
     };
 
     return (
@@ -24,7 +23,12 @@ const Login = () => {
                     <img src="https://via.placeholder.com/400x1200" className="w-100 vh-100" />
                 </div>
                 <div className="col-sm-8 ">
-                    <Navbar options={[{ text: 'home', link: '/', auth: 0 }, { text: 'register', link: '/register', auth: 0 }]}/>
+                    <Navbar
+                        options={[
+                            { text: 'home', link: '/', auth: 0 },
+                            { text: 'register', link: '/register', auth: 0 }
+                        ]}
+                    />
                     <div
                         className=""
                         style={{ position: 'relative', top: '5vh', bottom: '50vh', left: '1vh' }}
@@ -36,9 +40,10 @@ const Login = () => {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col pb-3">
+                                <div className="col-sm-8 pb-3">
                                     {' '}
                                     <Input
+                                        name="email"
                                         className="form-control"
                                         type="email"
                                         placeholder="Email"
@@ -46,18 +51,24 @@ const Login = () => {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col pb-3">
+                                <div className="col-sm-8 pb-3">
                                     {' '}
                                     <Input
+                                        name="password"
                                         className="form-control"
                                         type="password"
                                         placeholder="Password"
                                     />
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col-4 ml-auto align-self-end">
-                                <Button className="btn btn-block btn-primary" onClick={handleClickEvent}>Login</Button>
+                            <div className="row justify-content-center ml-0">
+                                <div className="col-4 ml-auto ">
+                                    <Button
+                                        className="btn btn-block active"
+                                        onClick={handleClickEvent}
+                                    >
+                                        Login
+                                    </Button>
                                 </div>
                             </div>
                         </div>

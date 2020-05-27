@@ -4,10 +4,10 @@
     width: 100%;
     height: auto;
     padding: 10px;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 25px;
+    padding-right: 25px;
     border-radius: 50px;
-    font-size: 150%;
+    font-size: 1.3em;
     border: none;
     font-weight: 700;
     box-sizing: border-box;
