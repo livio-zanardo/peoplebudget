@@ -8,13 +8,8 @@ import { card, imageContainer, container } from './index.module.css';
 const Registration = () => {
     return (
         <div className={`row p-0`} style={{ margin: 'auto' }}>
-            <div className={`${imageContainer} col-12 p-0`} style={{ position: 'relative' }}>
-                <img
-                    className="w-100"
-                    style={{ position: 'relative' }}
-                    src={mapImg}
-                    alt="Map of Miami"
-                />
+            <div className={`${imageContainer} col-12 p-0`} style={{ position: 'relative', backgroundImage: `url(${mapImg})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
+        
             </div>
             <div className={`col-5 ${container} my-auto`} style={{ position: 'relative', height: '0px' }}>
                 ."
