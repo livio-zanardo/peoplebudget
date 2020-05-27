@@ -6,6 +6,7 @@ import Input from '../components/Inputv3/index';
 import Button from '../components/Button/index';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
+import Mapimg from '../miamiMap_crop.png';
 
 import { HOST, PORT, BASE_API_URL, PROTOCOL, SIGNUP_ENDPOINT } from '../constants/constants';
 
@@ -58,7 +59,7 @@ const UserRegistration = () => {
         <div className="container-fluid">
             <div className="row" style={{ height: '100%' }}>
                 <div className="col-sm-4 border-0 bg-light p-0">
-                    <img src="https://via.placeholder.com/400x1200" className="w-100 vh-100" />
+                    <img src={Mapimg} className="w-100 vh-100" />
                 </div>
                 <div className="col-sm-8">
                     <Navbar
@@ -67,7 +68,7 @@ const UserRegistration = () => {
                             { text: 'Login', link: '/login', auth: 0 }
                         ]}
                     />
-                    <div className="col-lg mt-2 pl-3 bg-light rounded p-4 pr-5" style={{ top: '10vh',left: '-40vh', width: '90vw' }}>
+                    <div className="col-lg mt-2 pl-3 bg-light p-4 pr-5" style={{ top: '10vh',left: '-40vh', width: '90vw', borderRadius: '2em' }}>
                         {' '}
                         {/*form div*/}
                         <div className="row">
@@ -115,7 +116,7 @@ const UserRegistration = () => {
                             </FormGroup>
                         </div>
                         <div className="row mx-auto mt-2">
-                            <FormGroup className="col-md-5">
+                            <FormGroup className="col-md-4">
                                 <Input
                                     type="text"
                                     placeholder="Address"
@@ -145,7 +146,7 @@ const UserRegistration = () => {
                             <FormGroup className="col-md-5">
                                 <Input
                                     type="password"
-                                    placeholder="Recovery Password"
+                                    placeholder="Password"
                                     name="password"
                                     onChange={(e) => setRecoveryPassword(e.target.value)}
                                 />

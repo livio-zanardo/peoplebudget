@@ -3,6 +3,7 @@ import Input from '../components/Inputv2/index';
 import Button from '../components/Button/index';
 import { useHistory } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
+import Mapimg from '../miamiMap_crop.png';
 
 const Login = () => {
     const [value, setValue] = useState('');
@@ -20,7 +21,7 @@ const Login = () => {
         <div className="container-fluid">
             <div className="row" style={{ height: '100%' }}>
                 <div className="col-sm-4 border-0 bg-light p-0">
-                    <img src="https://via.placeholder.com/400x1200" className="w-100 vh-100" />
+                    <img src={Mapimg} className="w-100 vh-100" />
                 </div>
                 <div className="col-sm-8 ">
                     <Navbar
@@ -61,8 +62,8 @@ const Login = () => {
                                     />
                                 </div>
                             </div>
-                            <div className="row justify-content-center ml-0">
-                                <div className="col-4 ml-auto ">
+                            <div className="row">
+                                <div className="col-4 ml-auto" style={{left: '-33%'}}>
                                     <Button
                                         className="btn btn-block active"
                                         onClick={handleClickEvent}
