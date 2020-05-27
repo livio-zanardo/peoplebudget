@@ -5,7 +5,7 @@ import Button from '../Button/index';
 import mapImg from '../../miamiMap.png';
 import { card, imageContainer, container } from './index.module.css';
 
-const Registration = () => {
+const GetStarted = () => {
     return (
         <div className={`row p-0`} style={{ margin: 'auto' }}>
             <div className={`${imageContainer} col-12 p-0`} style={{ position: 'relative', backgroundImage: `url(${mapImg})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
@@ -49,4 +49,4 @@ const Registration = () => {
         </div>
     );
 };
-export default Registration;
+export default GetStarted;
