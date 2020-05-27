@@ -7,10 +7,10 @@ const Overview = () => {
     return (
         <div className="row p-0" style={{margin: 'auto'}}>
             <div className={`  col-4 p-0`}></div>
-            <div className="col-8 p-0" style={{ height: '80vh' }}>
-                <img className=" w-100 h-100" src={image} alt="" />
+            <div className="col-8 p-0" style={{ height: '80vh',backgroundImage: `url(${image})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
+                
             </div>
-            <div style={{ position: 'relative', height: '0px' }}>
+            <div style={{ position: 'relative', height: '0px'}}>
                 .
                 <Card
                     customClassName={cardPosition}
