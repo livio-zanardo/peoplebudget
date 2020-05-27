@@ -16,7 +16,7 @@
     .card {
         width: 80vw !important;
         top: -16vh !important;
-        font-size: 0.8em;
+        font-size: 4vh;
     }
     .card h1 {
         font-size: 2em;
@@ -33,9 +33,9 @@
     }
     .card {
         width: 25vw !important;
-        height: 30vh;
+        height: 50vh !important;
         top: -30vh !important;
-        font-size: 1.5em;
+        font-size: 3vh;
     }
     .card h1 {
         font-size: 2em;

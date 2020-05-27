@@ -17,8 +17,8 @@ const Registration = () => {
                 />
             </div>
             <div className={`col-5 ${container} my-auto`} style={{ position: 'relative', height: '0px' }}>
-                .
-                <Card customClassName={`${card}`} left="50vw" sidePadding="4em" centerPadding="4em" radius="2em" border shadow>
+                ."
+                <Card customClassName={`${card}`} left="50vw" radius="2em" border shadow>
                     <div className="p-3">
                         <div className="row">
                             <div className="col text-center">
