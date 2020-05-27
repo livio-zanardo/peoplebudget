@@ -4,6 +4,7 @@ import { Form, FormGroup, Label } from 'reactstrap';
 import { Redirect } from 'react-router';
 import Input from '../components/Inputv3/index';
 import Button from '../components/Button/index';
+import { button } from '../components/Button/index.module.css';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
 import Mapimg from '../miamiMapFaded.png';
@@ -58,7 +59,14 @@ const UserRegistration = () => {
     return (
         <div className="container-fluid">
             <div className="row" style={{ height: '100%' }}>
-                <div className="col-sm-3 border-0 bg-light p-0 vh-100" style={{backgroundImage: `url(${Mapimg})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
+                <div
+                    className="col-sm-3 border-0 bg-light p-0 vh-100"
+                    style={{
+                        backgroundImage: `url(${Mapimg})`,
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat'
+                    }}
+                >
                     <img src={Mapimg} className="w-100 vh-100" />
                 </div>
                 <div className="col-sm-9">
@@ -68,7 +76,10 @@ const UserRegistration = () => {
                             { text: 'Login', link: '/login', auth: 0 }
                         ]}
                     />
-                    <div className="col-lg mt-2 pl-3 bg-light p-4 pr-5" style={{ top: '10vh',left: '-40vh', width: '90vw', borderRadius: '2em' }}>
+                    <div
+                        className="col-lg mt-2 pl-3 bg-light p-4 pr-5"
+                        style={{ top: '10vh', left: '-40vh', width: '90vw', borderRadius: '2em' }}
+                    >
                         {' '}
                         {/*form div*/}
                         <div className="row">
@@ -164,7 +175,19 @@ const UserRegistration = () => {
                             <div className="d-flex justify-content-center">
                                 <div className="col-4 mt-2">
                                     <div className="row">
-                                        <Button className="btn btn-block" onClick={handleOnSubmit}>
+                                        {/* <Button className={` btn btn-block`}>
+                                            Sign Up
+                                        </Button> */}
+                                        <Button
+                                            color="#ee9623"
+                                            radius=".6em"
+                                            sidePadding="1em"
+                                            centerPadding=".4em"
+                                            width="15vw"
+                                            height="6vh"
+                                            onClick={handleOnSubmit}
+                                            shadow
+                                        >
                                             Sign Up
                                         </Button>
                                     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Input from '../components/Inputv2/index';
 import Button from '../components/Button/index';
+import { button } from '../components/Button/index.module.css';
 import { useHistory } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
 import Mapimg from '../miamiMapFaded.png';
@@ -64,12 +65,25 @@ const Login = () => {
                             </div>
                             <div className="row">
                                 <div className="col-4 ml-auto" style={{left: '-33%'}}>
-                                    <Button
+                                    {/* <Button
                                         className="btn btn-block active"
                                         onClick={handleClickEvent}
                                     >
                                         Login
-                                    </Button>
+                                    </Button> */}
+                                    
+                                    <Button
+                                            color="#ee9623"
+                                            radius=".6em"
+                                            sidePadding="1em"
+                                            centerPadding=".4em"
+                                            width="15vw"
+                                            height="6vh"
+                                            onClick={handleClickEvent}
+                                            shadow
+                                        >
+                                            Get Started
+                                        </Button>
                                 </div>
                             </div>
                         </div>

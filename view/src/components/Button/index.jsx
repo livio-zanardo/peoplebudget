@@ -20,7 +20,7 @@ const Button = ({
 }) => {
     return (
         <button
-            className={`${button} ${shadow ? style.shadow : ''}
+            className={`${button} ${shadow ? style.buttonShadow : ''}
         ${border ? 'border' : ''} ${customClassName ? customClassName : ''}`}
             style={{
                 backgroundColor: color,

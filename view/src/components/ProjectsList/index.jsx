@@ -1,8 +1,11 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import { Context } from '../../store/store';
 
+export const Projects = () => {
 
-const ProjectsList = () => {
+}
+
+export const ProjectsList = (props) => {
     const {
         actions: { getProjects, getProject, changeProjectId }
     } = useContext(Context);
@@ -14,44 +17,50 @@ const ProjectsList = () => {
         setId(project.id);
         changeProjectId(id);
         setSelectedProject(getProject());
-    }
-    const projectList = projects.map((project, index) =>
-            <a  className="list-group-item list-group-item-action" onClick={(e) => onClickHandler(e, project)}>
-                <div className="media">
-                    <img className="align-self-start mr-3" src={project.avatar} alt="avatar"></img>
-                        <div className="media-body">
-                            <a><h3 className="mt-2">{project.title}</h3></a>
-                            <h5 className="mt-2"> Author: {project.author}</h5>
-                            <p>{project.description}</p>
-                            <span className="badge badge-pill badge-primary">Votes: {project.votes}</span>
-                        </div>
+    };
+    const projectList = projects.map((project, index) => (
+        <a
+            className="list-group-item list-group-item-action"
+            onClick={(e) => onClickHandler(e, project)}
+        >
+            <div className="media">
+                <img className="align-self-start mr-3" src={project.avatar} alt="avatar"></img>
+                <div className="media-body">
+                    <a>
+                        <h3 className="mt-2">{project.title}</h3>
+                    </a>
+                    <h5 className="mt-2"> Author: {project.author}</h5>
+                    <p>{project.description}</p>
+                    <span className="badge badge-pill badge-primary">Votes: {project.votes}</span>
                 </div>
-            </a>
-    );
+            </div>
+        </a>
+    ));
 
     return (
         <div className="container">
-            <div className="row" >
+            <div className="row">
                 <div className="col-md-6">
                     <ul className="list-group">
-                        <li className="list-group-item">
-                            {projectList}
-                        </li>
+                        <li className="list-group-item">{projectList}</li>
                     </ul>
                 </div>
+            </div>
+        </div>
+    );
+};
 
-                <div className="col-md-6">
-                    <div className="media">
-                        <div className="media-body">
-                            <h3 className="mt-2">{selectedProject.title}</h3>
-                            <p>{selectedProject.details}</p>
-                        </div>
+export const ProjectDetails = (props) => {
+    return (
+        <div className="row">
+            <div className="col-md-6">
+                <div className="media">
+                    <div className="media-body">
+                        <h3 className="mt-2">{props.selectedProject.title}</h3>
+                        <p>{props.selectedProject.details}</p>
                     </div>
                 </div>
             </div>
         </div>
-
-    )
+    );
 };
-
-export default ProjectsList;
