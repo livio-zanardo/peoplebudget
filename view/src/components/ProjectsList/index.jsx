@@ -7,13 +7,13 @@ const ProjectsList = () => {
         actions: { getProjects, getProject, changeProjectId }
     } = useContext(Context);
     const projects = getProjects();
-    const [selectedProject] = getProject();
+    const [[selectedProject], setSelectedProject] = useState(getProject());
     const [id, setId] = useState(1);
 
     const onClickHandler = (event, project) => {
         setId(project.id);
-        changeProjectId(id)
-        console.log(getProject())
+        changeProjectId(id);
+        setSelectedProject(getProject());
     }
     const projectList = projects.map((project, index) =>
             <a  className="list-group-item list-group-item-action" onClick={(e) => onClickHandler(e, project)}>
