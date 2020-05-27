@@ -5,6 +5,8 @@ const Card = ({
     radius = '0',
     width = 'fit-content',
     height = 'fit-content',
+    sidePadding = '0',
+    centerPadding = '0',
     top = '0',
     bottom = '0',
     left = '0',
@@ -22,10 +24,14 @@ const Card = ({
                 borderRadius: radius,
                 width: width,
                 height: height,
+                paddingLeft: sidePadding,
+                paddingRight: sidePadding,
+                paddingTop: centerPadding,
+                paddingBottom: centerPadding,
                 top: top,
                 bottom: bottom,
                 left: left,
-                right: right,
+                right: right
             }}
         >
             {children}

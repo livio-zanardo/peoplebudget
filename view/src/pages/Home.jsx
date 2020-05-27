@@ -1,25 +1,26 @@
 import React, { useContext } from 'react';
-import Navbar from '../components/Navbar/index';
 import { Context } from '../store/store';
-import Contributor from '../components/Contributors/index';
+import Navbar from '../components/Navbar/index';
+import GetStarted from '../components/GetStarted';
 import Overview from '../components/Overview';
-import Registration from '../components/Registration';
-import { home } from './Home.module.css';
+import Contributor from '../components/Contributors/index';
 import Info from '../components/Info Section/Info';
 import Footer from '../components/Footer/Footer';
+
 
 const Home = () => {
     const {
         actions: { getMenus }
     } = useContext(Context);
     return (
-        <div className={`${home} container-fluid`}>
+        <div className={`p-0 container-fluid`}>
             <Navbar options={getMenus()} />
-            <Registration />
-            <Overview />
-            <Contributor />
+            <GetStarted /> 
+            <Overview /> 
+            <Contributor /> 
             <Info />
             <Footer />
+
         </div>
     );
 };
