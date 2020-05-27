@@ -7,7 +7,6 @@ import Contributor from '../components/Contributors/index';
 import Info from '../components/Info Section/Info';
 import Footer from '../components/Footer/Footer';
 
-
 const Home = () => {
     const {
         actions: { getMenus }
@@ -20,7 +19,6 @@ const Home = () => {
             <Contributor /> 
             <Info />
             <Footer />
-
         </div>
     );
 };
