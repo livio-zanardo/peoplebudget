@@ -3,7 +3,7 @@ import Input from '../components/Inputv2/index';
 import Button from '../components/Button/index';
 import { useHistory } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
-import Mapimg from '../miamiMap_crop.png';
+import Mapimg from '../miamiMapFaded.png';
 
 const Login = () => {
     const [value, setValue] = useState('');
@@ -20,10 +20,10 @@ const Login = () => {
     return (
         <div className="container-fluid">
             <div className="row" style={{ height: '100%' }}>
-                <div className="col-sm-4 border-0 bg-light p-0">
-                    <img src={Mapimg} className="w-100 vh-100" />
+                <div className="col-sm-3 border-0 bg-light p-0 vh-100" style={{backgroundImage: `url(${Mapimg})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
+                    {/* <img src={Mapimg} className="w-100 vh-100"  /> */}
                 </div>
-                <div className="col-sm-8 ">
+                <div className="col-sm-9 ">
                     <Navbar
                         options={[
                             { text: 'home', link: '/', auth: 0 },
