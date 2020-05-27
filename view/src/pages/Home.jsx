@@ -6,6 +6,7 @@ import Overview from '../components/Overview';
 import Registration from '../components/Registration';
 import { home } from './Home.module.css';
 import Info from '../components/Info Section/Info';
+import Footer from '../components/Footer/Footer';
 
 const Home = () => {
     const {
@@ -18,6 +19,7 @@ const Home = () => {
             <Overview />
             <Contributor />
             <Info />
+            <Footer />
         </div>
     );
 };
