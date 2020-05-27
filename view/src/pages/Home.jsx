@@ -5,6 +5,7 @@ import Registration from '../components/Registration';
 import Overview from '../components/Overview';
 import Contributor from '../components/Contributors/index';
 import Info from '../components/Info Section/Info';
+import Footer from '../components/Footer/Footer'
 
 const Home = () => {
     const {
@@ -16,7 +17,8 @@ const Home = () => {
             <Registration /> 
             <Overview /> 
             <Contributor /> 
-             <Info />
+            <Info />
+            <Footer/>
         </div>
     );
 };
