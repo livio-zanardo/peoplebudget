@@ -1,13 +1,6 @@
-const HOST = 'localhost';
-const PORT = 7000;
-const BASE_API_URL = '/api/v1/auth'
-const PROTOCOL = 'http://'
-const SIGNUP_ENDPOINT = '/register'
-
-module.exports = {
-    HOST,
-    PORT,
-    BASE_API_URL,
-    PROTOCOL,
-    SIGNUP_ENDPOINT
-}
+export const HOST = 'localhost';
+export const PORT = 7000;
+export const BASE_API_URL = '/api/v1/auth'
+export const PROTOCOL = 'http://'
+export const SIGNUP_ENDPOINT = '/register'
+export const MAP_KEY= 'AIzaSyCW__lBoiLllAr0oq3Q_Wypizv_wb_D_R0'

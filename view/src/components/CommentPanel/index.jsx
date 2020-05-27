@@ -2,38 +2,34 @@ import React from 'react';
 
 const CommentPanel = (props) => {
     return (
-        <div className="container-fluid">
-            <div className="row">
-                <div className="col">
-                    <div
-                        className="rounded"
-                        style={{
-                            overflowY: 'scroll',
-                            height: '80vh',
-                            boxShadow: 'inset 0 0 10px #000000'
-                        }}
-                    >
-                        <CommentBubble />
-                        <CommentBubble />
-                        <CommentBubble />
-                        <CommentBubble />
-                        <CommentBubble />
-                        <CommentBubble />
-                        <CommentBubble />
-                        <CommentBubble />
-                        <CommentBubble />
-                    </div>
-                    <div className="" style={{ height: '20vh' }}>
-                        <ProjectVote upVotes={80} downVotes={20} />
-                        <CommentSubmission />
-                    </div>
+        <div className="row">
+            <div className="col p-0">
+                <div
+                    className=""
+                    style={{
+                        overflowY: 'scroll',
+                        height: '75vh',
+                        boxShadow: 'inset 0 0 10px #000000'
+                    }}
+                >
+                    <CommentBubble />
+                    <CommentBubble />
+                    <CommentBubble />
+                    <CommentBubble />
+                    <CommentBubble />
+                    <CommentBubble />
+                    <CommentBubble />
+                    <CommentBubble />
+                    <CommentBubble />
+                </div>
+                <div className="" style={{ height: '20vh' }}>
+                    <ProjectVote upVotes={80} downVotes={20} />
+                    <CommentSubmission />
                 </div>
             </div>
         </div>
     );
 };
-
-export default CommentPanel;
 
 export const CommentBubble = (props) => {
     return (
@@ -57,7 +53,7 @@ export const ProjectVote = ({ upVotes, downVotes }) => {
                 <div className="row">
                     <div className="col-1 p-0">
                         <button className="btn">
-                            <i class="material-icons">thumb_up</i>
+                            <i className="material-icons">thumb_up</i>
                         </button>
                         <div
                             className="text-center"
@@ -79,7 +75,7 @@ export const ProjectVote = ({ upVotes, downVotes }) => {
                     </div>
                     <div className="col-1 p-0">
                         <button className="btn">
-                            <i class="material-icons">thumb_down</i>
+                            <i className="material-icons">thumb_down</i>
                         </button>
                         <div
                             className="text-center"
@@ -147,3 +143,5 @@ export const CommentSubmission = (props) => {
         </div>
     );
 };
+
+export default CommentPanel;
