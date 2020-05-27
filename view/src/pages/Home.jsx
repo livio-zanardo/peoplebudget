@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Context } from '../store/store';
 import Navbar from '../components/Navbar/index';
-import Registration from '../components/Registration';
+import GetStarted from '../components/GetStarted';
 import Overview from '../components/Overview';
 import Contributor from '../components/Contributors/index';
 import Info from '../components/Info Section/Info';
@@ -14,7 +14,7 @@ const Home = () => {
     return (
         <div className={`p-0 container-fluid`}>
             <Navbar options={getMenus()} />
-            <Registration /> 
+            <GetStarted /> 
             <Overview /> 
             <Contributor /> 
             <Info />
