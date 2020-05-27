@@ -8,12 +8,14 @@ const ProjectDetails = () => {
     } = useContext(Context);
     const projects = getProjects();
     const history = useHistory();
+    const [selectedProject] = getProject();
+    const [id, setId] = useState(1);
 
     const onClickHandler = () => {
         history.push("/dashboard");
     }
     const projectList = projects.map((project, index) =>
-        <a className="list-group-item list-group-item-action" onClick={(e) => onClickHandler(e, project)}>
+        <a href="/dashboard-details" className="list-group-item list-group-item-action" onClick={(e) => onClickHandler(e, project)}>
             <div className="media">
                 <div className="media-body">
                     <a><h3 className="mt-2">{project.title}</h3></a>
@@ -30,7 +32,7 @@ const ProjectDetails = () => {
             <div className="row">
                 <ul className="list-group">
                     <li className="list-group-item">
-                        {projectList[0]}
+                        {selectedProject.title}
                     </li>
                 </ul>
             </div>
