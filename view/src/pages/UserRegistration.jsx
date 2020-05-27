@@ -61,7 +61,7 @@ const UserRegistration = () => {
                 <div className="col-sm-3 border-0 bg-light p-0 vh-100" style={{backgroundImage: `url(${Mapimg})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
                     <img src={Mapimg} className="w-100 vh-100" />
                 </div>
-                <div className="col-sm-8">
+                <div className="col-sm-9">
                     <Navbar
                         options={[
                             { text: 'home', link: '/', auth: 0 },
