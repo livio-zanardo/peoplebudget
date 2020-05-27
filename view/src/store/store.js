@@ -55,30 +55,33 @@ const getState = ({ getStore, getActions, setStore }) => {
             projects: [
                 {
                     id: 1,
-                    title: "Awesome project",
-                    author: "Mike",
-                    description: "Awesome Project description",
+                    title: 'Awesome project',
+                    author: 'Mike',
+                    description: 'Awesome Project description',
                     votes: 100,
-                    avatar: "../../../public/assets/images/project-avatar.jpg",
-                    details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a sollicitudin ex. Etiam nec lacus a mauris blandit tempor non id urna. In sollicitudin tortor mi, id lobortis ante tincidunt in. Donec ornare consectetur molestie. Fusce posuere mi ac tellus maximus consectetur. Proin tempus tincidunt porta. Donec eu imperdiet ipsum. Donec ac dictum enim, id convallis turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at ullamcorper mi, a sollicitudin ipsum. Donec non neque non enim fermentum mollis id in turpis."
+                    avatar: '../../../public/assets/images/project-avatar.jpg',
+                    details:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a sollicitudin ex. Etiam nec lacus a mauris blandit tempor non id urna. In sollicitudin tortor mi, id lobortis ante tincidunt in. Donec ornare consectetur molestie. Fusce posuere mi ac tellus maximus consectetur. Proin tempus tincidunt porta. Donec eu imperdiet ipsum. Donec ac dictum enim, id convallis turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at ullamcorper mi, a sollicitudin ipsum. Donec non neque non enim fermentum mollis id in turpis.'
                 },
                 {
                     id: 2,
-                    title: "Another Awesome Project",
-                    author: "John",
-                    description: "Another Awesome project Description",
-                    votes:50,
-                    avatar: "../../../public/assets/images/project-avatar.jpg",
-                    details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a sollicitudin ex. Etiam nec lacus a mauris blandit tempor non id urna. In sollicitudin tortor mi, id lobortis ante tincidunt in. Donec ornare consectetur molestie. Fusce posuere mi ac tellus maximus consectetur. Proin tempus tincidunt porta. Donec eu imperdiet ipsum. Donec ac dictum enim, id convallis turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at ullamcorper mi, a sollicitudin ipsum. Donec non neque non enim fermentum mollis id in turpis."
+                    title: 'Another Awesome Project',
+                    author: 'John',
+                    description: 'Another Awesome project Description',
+                    votes: 50,
+                    avatar: '../../../public/assets/images/project-avatar.jpg',
+                    details:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a sollicitudin ex. Etiam nec lacus a mauris blandit tempor non id urna. In sollicitudin tortor mi, id lobortis ante tincidunt in. Donec ornare consectetur molestie. Fusce posuere mi ac tellus maximus consectetur. Proin tempus tincidunt porta. Donec eu imperdiet ipsum. Donec ac dictum enim, id convallis turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at ullamcorper mi, a sollicitudin ipsum. Donec non neque non enim fermentum mollis id in turpis.'
                 },
                 {
                     id: 3,
-                    title: "Fantastic Project",
-                    author: "Kyle",
-                    description: "Fantastic project Description",
-                    votes:20,
-                    avatar: "../../../public/assets/images/project-avatar.jpg",
-                    details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a sollicitudin ex. Etiam nec lacus a mauris blandit tempor non id urna. In sollicitudin tortor mi, id lobortis ante tincidunt in. Donec ornare consectetur molestie. Fusce posuere mi ac tellus maximus consectetur. Proin tempus tincidunt porta. Donec eu imperdiet ipsum. Donec ac dictum enim, id convallis turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at ullamcorper mi, a sollicitudin ipsum. Donec non neque non enim fermentum mollis id in turpis."
+                    title: 'Fantastic Project',
+                    author: 'Kyle',
+                    description: 'Fantastic project Description',
+                    votes: 20,
+                    avatar: '../../../public/assets/images/project-avatar.jpg',
+                    details:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a sollicitudin ex. Etiam nec lacus a mauris blandit tempor non id urna. In sollicitudin tortor mi, id lobortis ante tincidunt in. Donec ornare consectetur molestie. Fusce posuere mi ac tellus maximus consectetur. Proin tempus tincidunt porta. Donec eu imperdiet ipsum. Donec ac dictum enim, id convallis turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at ullamcorper mi, a sollicitudin ipsum. Donec non neque non enim fermentum mollis id in turpis.'
                 }
             ],
             selectedProjectId: 1,
@@ -100,15 +103,17 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             getProjects: () => {
-                return getStore().projects
+                return getStore().projects;
             },
 
             changeProjectId: (id) => {
-              getStore().selectedProjectId = id;
+                getStore().selectedProjectId = id;
             },
 
             getProject: () => {
-              return getStore().projects.filter((project, index) => getStore().selectedProjectId == project.id);
+                return getStore().projects.filter(
+                    (project, index) => getStore().selectedProjectId == project.id
+                );
             }
         }
     };

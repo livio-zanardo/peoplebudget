@@ -1,10 +1,7 @@
 import React from 'react';
-import style, { button } from './index.module.css';
 
-const Button = ({
-    onClick,
+const Card = ({
     children,
-    color = 'white',
     radius = '0',
     width = 'fit-content',
     height = 'fit-content',
@@ -19,28 +16,27 @@ const Button = ({
     customClassName
 }) => {
     return (
-        <button
-            className={`${button} ${shadow ? style.shadow : ''}
-        ${border ? 'border' : ''} ${customClassName ? customClassName : ''}`}
+        <div
+            className={`p-1 ${shadow ? 'shadow' : ''}
+             ${border ? 'border' : ''} ${customClassName ? customClassName : ''}`}
             style={{
-                backgroundColor: color,
+                backgroundColor: 'white',
+                borderRadius: radius,
                 width: width,
                 height: height,
                 paddingLeft: sidePadding,
                 paddingRight: sidePadding,
                 paddingTop: centerPadding,
                 paddingBottom: centerPadding,
-                borderRadius: radius,
                 top: top,
                 bottom: bottom,
                 left: left,
                 right: right
             }}
-            onClick={onClick}
         >
-            {children ? children : 'Default'}
-        </button>
+            {children}
+        </div>
     );
 };
 
-export default Button;
+export default Card;
