@@ -1,45 +1,61 @@
-.registration {
-    position: relative;
-
-}
-
 .card {
     position: absolute;
     transform: translate(-50%, -50%);
 }
 
-
 /* Media Queries: To Control the Size of Components */
-@media screen and (max-width: 350px) {
+/* Device: iPhone 6/7/8 */
+
+@media screen and (max-width: 375px) {
+    .imageContainer {
+        width: 100vw;
+    }
+    .imageContainer img {
+        height: 100% !important;
+    }
     .card {
         width: 80vw !important;
-        font-size: 3vw;
+        top: -16vh !important;
+        font-size: 0.8em;
     }
     .card h1 {
-        font-size: 4vw;
-    }
-}
-/*If screen size 500x or less use theses sytles*/
-@media screen and (max-width: 500px) {
-    .card {
-        width: 90vw !important;
-        font-size: 2vw;
-    }
-    .card h1 {
-        font-size: 4vw;
+        font-size: 2em;
     }
 }
 
-/*If screen size 501px or more use theses sytles*/
-@media screen and (min-width: 501px) {
+@media screen and (min-width: 376px) and (max-width: 3000px) {
+    .imageContainer {
+        height: 60vh;
+        overflow: hidden;
+    }
+    .imageContainer img {
+        position: relative;
+    }
     .card {
-        width: 350px !important;
+        width: 25vw !important;
+        height: 30vh;
+        top: -30vh !important;
+        font-size: 1.5em;
+    }
+    .card h1 {
+        font-size: 2em;
     }
 }
 
-/*If screen size 900px or more use theses sytles*/
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 3001px) {
+    .imageContainer {
+        height: 50vh;
+        overflow: hidden;
+    }
+    .imageContainer img {
+        height: 100 !important;
+    }
     .card {
-        width: 350px !important;
+        width: 25vw !important;
+        top: -25vh !important;
+        font-size: 3em;
+    }
+    .card h1 {
+        font-size: 2em;
     }
 }
