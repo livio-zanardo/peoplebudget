@@ -1,48 +1,12 @@
-.overview {
-    position: relative;
-    background-image: url('../../AirlinesArena.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
-    /* (img-height / img-width * container-width) */
-    /* (913 / 1616 * 100) */
-}
+
 .cardPosition {
-    position: absolute;
+    position: relative;
     /* transform: translate(-50%, -50%); */
+
+    /* min-height: 100% !important; */
+    /* height: 80vh; */
+    max-height: 250px !important;
+    top: -55vh !important;
 }
 
-/* Media Queries: To Control the Size of Components */
-@media screen and (max-width: 350px) {
-    .card {
-        width: 80vw !important;
-        font-size: 3vw;
-    }
-    .card h1 {
-        font-size: 4vw;
-    }
-}
-/*If screen size 500x or less use theses sytles*/
-@media screen and (max-width: 500px) {
-    .card {
-        width: 90vw !important;
-        font-size: 2vw;
-    }
-    .card h1 {
-        font-size: 4vw;
-    }
-}
 
-/*If screen size 501px or more use theses sytles*/
-@media screen and (min-width: 501px) {
-    .card {
-        width: 350px !important;
-    }
-}
-
-/*If screen size 900px or more use theses sytles*/
-@media screen and (min-width: 900px) {
-    .card {
-        width: 350px !important;
-    }
-}
