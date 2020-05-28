@@ -12,12 +12,18 @@ const GetStarted = () => {
         
             </div>
             <div className={`col-5 ${container} my-auto`} style={{ position: 'relative', height: '0px' }}>
-                ."
+                
                 <Card customClassName={`${card}`} left="50vw" radius="2em" border shadow>
                     <div className="p-3">
                         <div className="row">
                             <div className="col text-center">
-                                <h1>People Budget</h1>
+                                <h1
+                                        style={{
+                                            color: '#104953',
+                                            marginTop: '0px',
+                                            marginBottom: '10px'
+                                        }}
+                                    ><b>People Budget</b></h1>
                                 <hr style={{ width: '100%', borderTop: '2px solid #ee9623' }} />
                                 <p>
                                     <b>
