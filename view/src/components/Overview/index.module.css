@@ -1,0 +1,12 @@
+
+.cardPosition {
+    position: relative;
+    /* transform: translate(-50%, -50%); */
+
+    /* min-height: 100% !important; */
+    /* height: 80vh; */
+    max-height: 250px !important;
+    top: -55vh !important;
+}
+
+

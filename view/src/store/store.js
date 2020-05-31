@@ -52,7 +52,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 { text: 'dashboard', link: '/dashboard', auth: 3 },
                 { text: 'profile', link: '/profile', auth: 1 }
             ],
-            auth: 0 // 0 unauthenticated, 1 logged in, 2 contributer, 3 admin
+            auth: 3 // 0 unauthenticated, 1 logged in, 2 contributer, 3 admin
         },
         actions: {
             // Use getActions to call a function within a fuction
