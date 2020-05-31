@@ -1,12 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-import Style from './index.module.css';
-
-const Button = (props) => {
-    return (
-        <button className={`${Style.Button} ${Style.buttonShadow} `} onClick={props.onClick}>
-            { props.children ? props.children : 'Default'}
-=======
 import style, { button } from './index.module.css';
 
 const Button = ({
@@ -47,13 +39,8 @@ const Button = ({
             onClick={onClick}
         >
             {children ? children : 'Default'}
->>>>>>> ad1da6da832c26071ad4e27af97049fbafbfa146
         </button>
     );
 };
 
-<<<<<<< HEAD
 export default Button;
-=======
-export default Button;
->>>>>>> ad1da6da832c26071ad4e27af97049fbafbfa146
