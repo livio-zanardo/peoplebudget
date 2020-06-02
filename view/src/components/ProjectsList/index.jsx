@@ -1,66 +1,118 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import Button from '../Button/index';
 import { Context } from '../../store/store';
-
-export const Projects = () => {
-
-}
+import { hideScrollBar } from './index.module.css';
 
 export const ProjectsList = (props) => {
-    const {
-        actions: { getProjects, getProject, changeProjectId }
-    } = useContext(Context);
-    const projects = getProjects();
-    const [[selectedProject], setSelectedProject] = useState(getProject());
-    const [id, setId] = useState(1);
-
-    const onClickHandler = (event, project) => {
-        setId(project.id);
-        changeProjectId(id);
-        setSelectedProject(getProject());
+    const selectProject = (id) => {
+        props.setProjectId(id);
+        props.setViewList((viewList) => !viewList);
     };
-    const projectList = projects.map((project, index) => (
-        <a
-            className="list-group-item list-group-item-action"
-            onClick={(e) => onClickHandler(e, project)}
-        >
-            <div className="media">
-                <img className="align-self-start mr-3" src={project.avatar} alt="avatar"></img>
-                <div className="media-body">
-                    <a>
-                        <h3 className="mt-2">{project.title}</h3>
-                    </a>
-                    <h5 className="mt-2"> Author: {project.author}</h5>
-                    <p>{project.description}</p>
-                    <span className="badge badge-pill badge-primary">Votes: {project.votes}</span>
-                </div>
-            </div>
-        </a>
-    ));
-
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-6">
-                    <ul className="list-group">
-                        <li className="list-group-item">{projectList}</li>
-                    </ul>
-                </div>
+        <div className={`row`}>
+            <div
+                className={`${hideScrollBar} pl-4 pr-4`}
+                style={{
+                    overflowY: 'auto',
+                    height: '95vh',
+                    boxShadow: 'inset 0 5px 5px -5px #000000'
+                }}
+            >
+                {props.getProjects().map((project) => {
+                    return (
+                        <div
+                            key={project.id}
+                            className="row border mt-2 mb-3 rounded shadow"
+                            style={{ backgroundColor: 'rgba(255,255,255,1)' }}
+                            onClick={() => selectProject(project.id)}
+                        >
+                            <div className="col-12 text-center">
+                                {' '}
+                                <h2>{project.title}</h2>{' '}
+                            </div>
+
+                            <div
+                                className="col-12"
+                                style={{ fontSize: '1.75rem', fontStyle: 'italic' }}
+                            >
+                                {project.description}
+                            </div>
+                            <div
+                                className="col-12"
+                                style={{ fontSize: '1.75rem', fontStyle: 'italic' }}
+                            >
+                                Author: {project.author}
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
 };
 
 export const ProjectDetails = (props) => {
+    const { title, author, details, description } = props.getProject();
     return (
-        <div className="row">
-            <div className="col-md-6">
-                <div className="media">
-                    <div className="media-body">
-                        <h3 className="mt-2">{props.selectedProject.title}</h3>
-                        <p>{props.selectedProject.details}</p>
+        <div className={`row`}>
+            <div
+                className={`${hideScrollBar} pl-4 pr-4`}
+                style={{
+                    overflowY: 'auto',
+                    height: '95vh',
+                    boxShadow: 'inset 0 5px 5px -5px #000000',
+                    backgroundColor: 'rgba(255,255,255,1)'
+                }}
+            >
+                <div className="row pt-4">
+                    <div className="col-auto">
+                        <Button
+                            color="red"
+                            radius=".25em"
+                            centerPadding=".25em"
+                            sidePadding=".25em"
+                            onClick={() => {
+                                props.setProjectId(null);
+                                props.setViewList((viewList) => !viewList);
+                            }}
+                        >
+                            Back
+                        </Button>
+                    </div>
+                    <div className="col-8 text-center">
+                        <h2>{title}</h2>
+                    </div>
+                    <div className="col-12" style={{ fontSize: '1.75rem', fontStyle: 'italic' }}>
+                        {description}
+                    </div>
+                    <div className="col-12" style={{ fontSize: '1.75rem', fontStyle: 'italic' }}>
+                        Author: {author}
+                    </div>
+                    <div className="col-12" style={{ fontSize: '1.5rem' }}>
+                        {details}
                     </div>
                 </div>
             </div>
         </div>
+    );
+};
+
+export const Projects = (props) => {
+    const {
+        actions: { getProjects, getProject, changeProjectId }
+    } = useContext(Context);
+    const [projectId, setProjectId] = useState(null);
+
+    changeProjectId(projectId);
+    // console.log(projectId, getProject(), getProjects());
+
+    return (
+        <>
+            {!getProject() ? (
+                <ProjectsList getProjects={getProjects} setProjectId={setProjectId} {...props} />
+            ) : (
+                <ProjectDetails getProject={getProject} setProjectId={setProjectId} {...props} />
+            )}
+        </>
     );
 };

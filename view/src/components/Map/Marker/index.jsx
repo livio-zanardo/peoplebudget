@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Context } from '../../../store/store';
 import { bob, open, close, marker, pointer } from './index.module.css';
 
 const Marker = (props) => {
+    const {
+        actions: { changeProjectId }
+    } = useContext(Context);
     const [markerLable, enableMarkerLable] = useState(true);
     const markerLableHidden = {
         visibility: 'hidden',
@@ -65,7 +69,7 @@ const Marker = (props) => {
                                 }}
                             >
                                 <i
-                                    onClick={() => alert('do something')}
+                                    onClick={() => changeProjectId(1)}
                                     className={`material-icons ${pointer}`}
                                     style={{
                                         color: 'white',

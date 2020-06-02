@@ -3,11 +3,17 @@ import GoogleMapReact from 'google-map-react';
 import { MAP_KEY } from '../../constants/constants';
 
 const Map = (props) => {
-    console.log(process.env.MAPS);
     return (
-        // Important! Always set the container height explicitly
-        <div style={{ height: '97vh', width: '100%' }}>
-            <GoogleMapReact
+        <div className="row">
+            <div
+                className={`p-0`}
+                style={{
+                    width: '100%',
+                    height: '95vh',
+                    boxShadow: 'inset 0 5px 5px -5px #000000, inset 0 -5px 5px -5px #000000'
+                }}
+            >
+                <GoogleMapReact
                 bootstrapURLKeys={{ key: MAP_KEY }}
                 defaultCenter={{
                     lat: 25.77,
@@ -17,6 +23,7 @@ const Map = (props) => {
             >
                 {props.children}
             </GoogleMapReact>
+            </div>
         </div>
     );
 };

@@ -84,7 +84,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a sollicitudin ex. Etiam nec lacus a mauris blandit tempor non id urna. In sollicitudin tortor mi, id lobortis ante tincidunt in. Donec ornare consectetur molestie. Fusce posuere mi ac tellus maximus consectetur. Proin tempus tincidunt porta. Donec eu imperdiet ipsum. Donec ac dictum enim, id convallis turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at ullamcorper mi, a sollicitudin ipsum. Donec non neque non enim fermentum mollis id in turpis.'
                 }
             ],
-            selectedProjectId: 1,
+            selectedProjectId: null,
             auth: 3 // 0 unauthenticated, 1 logged in, 2 contributer, 3 admin
         },
         actions: {
@@ -97,24 +97,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
             },
-
-            getMenus: () => {
-                return getStore().menus.filter((menu, index) => getStore().auth >= menu.auth);
-            },
-
-            getProjects: () => {
-                return getStore().projects;
-            },
-
-            changeProjectId: (id) => {
-                getStore().selectedProjectId = id;
-            },
-
-            getProject: () => {
-                return getStore().projects.filter(
-                    (project, index) => getStore().selectedProjectId == project.id
-                );
-            }
+            getMenus: () => getStore().menus.filter((menu, index) => getStore().auth >= menu.auth),
+            changeProjectId: (id) => (getStore().selectedProjectId = id),
+            getProject: () =>
+                getStore().selectedProjectId
+                    ? getStore().projects.find(elem => elem.id === getStore().selectedProjectId)
+                    : null,
+            getProjects: () => getStore().projects
         }
     };
 };

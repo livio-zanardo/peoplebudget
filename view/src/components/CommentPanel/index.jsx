@@ -1,15 +1,16 @@
 import React from 'react';
+import { hideScrollBar } from './index.module.css';
 
 const CommentPanel = (props) => {
     return (
         <div className="row">
             <div className="col p-0">
                 <div
-                    className=""
+                    className={`${hideScrollBar}`}
                     style={{
-                        overflowY: 'scroll',
-                        height: '75vh',
-                        boxShadow: 'inset 0 0 10px #000000'
+                        overflowY: 'auto',
+                        height: '80vh',
+                        boxShadow: 'inset 0 5px 5px -5px #000000'
                     }}
                 >
                     <CommentBubble />
@@ -22,8 +23,8 @@ const CommentPanel = (props) => {
                     <CommentBubble />
                     <CommentBubble />
                 </div>
-                <div className="" style={{ height: '20vh' }}>
-                    <ProjectVote upVotes={80} downVotes={20} />
+                <div className="" style={{ height: '15vh' }}>
+                    {/* <ProjectVote upVotes={80} downVotes={20} /> */}
                     <CommentSubmission />
                 </div>
             </div>
@@ -33,14 +34,21 @@ const CommentPanel = (props) => {
 
 export const CommentBubble = (props) => {
     return (
-        <div className="row border rounded m-2 mb-4">
-            <div className="col-12">
+        <div
+            className="row rounded shadow m-2 mb-3"
+            style={{ backgroundColor: 'rgba(255,255,255,1)' }}
+        >
+            <div className="col-auto text-capitalize" style={{ fontSize: '1.5rem' }}>
+                name
+            </div>
+            <div className="col-auto text-capitalize" style={{ fontSize: '1.5rem' }}>
+                Feb-28-2020
+            </div>
+            <div className="col-12" style={{ fontSize: '1.25rem' }}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo dolorem ut
                 accusantium consequatur corrupti saepe aliquam exercitationem repellat eos possimus
                 tempore, qui numquam deserunt sapiente quos sed cum. Iure, accusantium.
             </div>
-            <div className="col-6 text-capitalize">name</div>
-            <div className="col-6 text-capitalize">date</div>
         </div>
     );
 };
@@ -128,18 +136,20 @@ export const ProjectVote = ({ upVotes, downVotes }) => {
 
 export const CommentSubmission = (props) => {
     return (
-        <div className="row ml-2 mr-2">
-            <textarea
-                className="form-control"
-                cols="30"
-                rows="3"
-                placeholder="Enter comment here..."
-            ></textarea>
-            <input
-                type="button"
-                className="mt-2 form-control btn-secondary"
-                defaultValue="Add Comment"
-            />
+        <div className="row ml-2 mr-2" style={{ backgroundColor: 'rgba(255,255,255,1)' }}>
+            <div className="col border shadow p-2">
+                <textarea
+                    className="form-control"
+                    cols="30"
+                    rows="2"
+                    placeholder="Enter comment here..."
+                ></textarea>
+                <input
+                    type="button"
+                    className="mt-2 form-control btn-secondary"
+                    defaultValue="Add Comment"
+                />
+            </div>
         </div>
     );
 };
