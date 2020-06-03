@@ -1,5 +1,5 @@
 .imageContainer {
-    height: 83vh;
+    height: 86vh;
     overflow: hidden;
     top: -0.5em;
     left: 0.5em;
@@ -19,4 +19,16 @@
     border-width: thick;
     border-color: rgba(33, 82, 88, 0.671)
     
+}
+
+.hr{
+    height:1px;
+    color:gray;
+    background-color:gray;
+}
+
+.or{
+    color: gray;
+    font-weight: bolder;
+    font-size: 1.3em;
 }

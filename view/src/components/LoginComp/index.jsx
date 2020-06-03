@@ -6,7 +6,7 @@ import { Form, FormGroup, Label } from 'reactstrap';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import Card from '../Card/index';
-import { card, imageContainer, container } from './index.module.css';
+import { card, imageContainer, container, hr, or} from './index.module.css';
 import Mapimg from '../../miamiMap.png';
 
 const LoginComp = () => {
@@ -51,13 +51,21 @@ const LoginComp = () => {
                                 </Link>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col text-center pb-3">
-                                    ---OR---
+                            <div className="row w-75 mx-auto">
+                                <div className="col text-left pb-3">
+                                    <div>
+                                        <hr className={`${hr}`}></hr>
+                                    </div>    
+                                </div>
+                                <div className={`${or}`}>OR</div>
+                                <div className="col text-left pb-3">
+                                    <div>
+                                        <hr className={`${hr}`}></hr>
+                                    </div>                                  
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col-sm-9 pb-3 ml-5">
+                            <div className="row w-100 mx-auto">
+                                <div className="col-sm-10 pb-3 ml-5">
                                     {' '}
                                     <Input
                                         name="email"
@@ -67,8 +75,8 @@ const LoginComp = () => {
                                     />
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col-sm-9 pb-3 ml-5">
+                            <div className="row w-100 mx-auto">
+                                <div className="col-sm-10 pb-3 ml-5">
                                     {' '}
                                     <Input
                                         name="password"
