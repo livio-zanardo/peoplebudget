@@ -12,18 +12,19 @@ import Mapimg from '../../miamiMap.png';
 const LoginComp = () => {
 
     return (
-        <div className={`row`} style={{ margin: 'auto' }}>
+        <div className={`row`} style={{ margin: 'auto'}}>
         <Card
             customClassName={`${card}`}
             height="40vw"
-            radius="2em"
+            radius="4em"
             width="84vw"
             border-style
+            shadow
         >
             <div className="row">
             <div className={`${imageContainer} col`}
-                    style={{position: 'relative', backgroundImage: `url(${Mapimg})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', 
-                    borderRadius: '2em'}}>
+                    style={{position: 'relative', mixBlendMode: `multiply`,backgroundImage: `url(${Mapimg})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', 
+                    borderRadius: '4em'}}>
 
                 </div>
                 <div className="col ml-5"
@@ -98,6 +99,13 @@ const LoginComp = () => {
                                     >
                                         Login
                                     </Button>
+                                </Link>
+                                </div>
+                            </div>
+                            <div className="row mt-3">
+                                <div className="col text-center">
+                                <Link to="/register" style={{color:'grey'}}>
+                                    Already a member?
                                 </Link>
                                 </div>
                             </div>

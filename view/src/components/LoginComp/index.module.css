@@ -1,8 +1,8 @@
 .imageContainer {
-    height: 86vh;
+    height: 40vw;
     overflow: hidden;
-    top: -0.5em;
-    left: 0.5em;
+    top: -0.55em;
+    left: 0.4em;
 
 }
 
@@ -17,7 +17,7 @@
     min-height: 100% !important;
     border-style: solid;
     border-width: thick;
-    border-color: rgba(33, 82, 88, 0.671)
+    border-color: rgba(30, 80, 80, 0.6)
     
 }
 
