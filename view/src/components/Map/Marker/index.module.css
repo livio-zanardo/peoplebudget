@@ -1,0 +1,51 @@
+@keyframes bobAnimation {
+    from {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes openAnimation {
+    from {
+        transform: scale(0);
+        visibility: hidden;
+    }
+    to {
+        transform: scale(1);
+        visibility: visible;
+    }
+}
+
+.bob {
+    animation: bobAnimation 3.5s infinite;
+}
+
+.open {
+    animation: openAnimation 0.5s;
+}
+
+.close {
+    animation: openAnimation 0.5s reverse;
+}
+
+.marker {
+    width: '250px';
+    height: '250px';
+    padding: '3px';
+    color: 'black';
+    background-color: 'white';
+    font-size: '2rem';
+    top: '-29vh';
+    left: '-12vh';
+    position: 'absolute';
+    z-index: '2';
+}
+
+.pointer {
+    cursor: pointer;
+}

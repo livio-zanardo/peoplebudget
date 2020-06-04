@@ -1,0 +1,22 @@
+.links {
+    color: rgba(0, 0, 0, 1);
+}
+
+.links:hover {
+    color: rgb(255, 145, 56) !important;
+    cursor: pointer;
+    /* text-shadow: 1px 1px 3px rgba(0, 0, 0, 1); */
+    animation-name: linkHover;
+    animation-duration: .25s;
+    text-decoration: none;
+}
+
+@keyframes linkHover {
+    from {
+        /* text-shadow: 1px 1px 3px rgba(0, 0, 0, 0); */
+    }
+    to {
+        /* text-shadow: 1px 1px 3px rgba(0, 0, 0, 1); */
+    }
+    
+}
