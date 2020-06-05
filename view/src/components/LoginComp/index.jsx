@@ -1,9 +1,6 @@
 import React, { useState, useRef } from 'react';
 import Input from '../Inputv2/index';
 import Button from '../Button/index';
-import axios from 'axios';
-import { Form, FormGroup, Label } from 'reactstrap';
-import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import Card from '../Card/index';
 import { card, imageContainer, container, hr, or} from './index.module.css';
@@ -89,7 +86,7 @@ const LoginComp = () => {
                             </div>
                             <div className="row">
                                 <div className="col text-center">
-                                <Link color="white" to="/register">
+                                <Link color="white" to="/proposals">
                                     <Button
                                         color="#ee9623"
                                         radius="5em"
