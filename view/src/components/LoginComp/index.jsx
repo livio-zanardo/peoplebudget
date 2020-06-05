@@ -7,7 +7,7 @@ import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import Card from '../Card/index';
 import { card, imageContainer, container, hr, or} from './index.module.css';
-import Mapimg from '../../miamiMap.png';
+import Mapimg from '../../AirlinesArena.jpg';   
 
 const LoginComp = () => {
 
@@ -47,7 +47,7 @@ const LoginComp = () => {
                                         centerPadding=".4em"
                                         shadow
                                     >
-                                        Sign up with LinkedIn
+                                        Sign in with LinkedIn
                                     </Button>
                                 </Link>
                                 </div>
@@ -105,7 +105,7 @@ const LoginComp = () => {
                             <div className="row mt-3">
                                 <div className="col text-center">
                                 <Link to="/register" style={{color:'grey'}}>
-                                    Already a member?
+                                    Not a member?
                                 </Link>
                                 </div>
                             </div>
