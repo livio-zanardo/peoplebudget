@@ -7,7 +7,7 @@ import Button from '../components/Button/index';
 import { button } from '../components/Button/index.module.css';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
-import Mapimg from '../miamiMapFaded.png';
+import Mapimg from '../Media/Images/miamiMapFaded.png';
 
 import { HOST, PORT, BASE_API_URL, PROTOCOL, SIGNUP_ENDPOINT } from '../constants/constants';
 

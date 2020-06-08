@@ -2,7 +2,7 @@ import React from 'react';
 import Card from '../Card/index';
 import { Link } from 'react-router-dom';
 import Button from '../Button/index';
-import mapImg from '../../miamiMap.png';
+import mapImg from '../../Media/Images/miamiMap.png';
 import { card, imageContainer, container } from './index.module.css';
 
 const GetStarted = () => {

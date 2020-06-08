@@ -4,7 +4,7 @@ import Button from '../components/Button/index';
 import { button } from '../components/Button/index.module.css';
 import { useHistory } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
-import Mapimg from '../miamiMapFaded.png';
+import Mapimg from '../Media/Images/miamiMapFaded.png';
 
 const Login = () => {
     const [value, setValue] = useState('');
