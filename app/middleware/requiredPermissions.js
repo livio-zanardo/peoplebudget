@@ -2,6 +2,7 @@
  * @module permissions
  */
 const { decode } = require('../helpers/jwt');
+const { ClientError } = require('../helpers/error');
 
 /**
  *  this middleware Can be used to set permissions for end points
@@ -14,9 +15,13 @@ const { decode } = require('../helpers/jwt');
  * @param {Function} next
  */
 const adminRequired = async (req, res, next) => {
-    const decoded = await decode(req.cookies.token);
-    if (decoded && decoded.role === 'admin') next();
-    else res.status(403).send({ response: 'Access denied!' });
+    try {
+        const decoded = await decode(req.cookies.token);
+        if (decoded && decoded.role === 'admin') next();
+        else res.status(403).send({ response: 'Access denied!' });
+    } catch (err) {
+        next(new ClientError(401, 'Token Expired!'));
+    }
 };
 
 /**
