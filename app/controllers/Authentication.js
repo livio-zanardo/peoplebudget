@@ -136,7 +136,7 @@ router.post(`/login`, async (req, res, next) => {
                 id: aUser.id,
                 email: aUser.email,
                 role: 'admin', // testing user role logic
-                exp: Math.floor(Date.now() / 1000) + 60 // * 15 // 15 min expiration
+                exp: Math.floor(Date.now() / 1000) + 60 * 15
             });
             res.cookie('token', token, { maxAge: 900000, httpOnly: true });
             res.cookie(
@@ -209,7 +209,7 @@ router.post(`/refresh`, adminRequired, async (req, res, next) => {
             id: decoded.id,
             email: decoded.email,
             role: decoded.role, // testing user role logic
-            exp: Math.floor(Date.now() / 1000) + 60 // * 15 // 15 min expiration
+            exp: Math.floor(Date.now() / 1000) + 60 * 15 // 15 min expiration
         });
         res.cookie('token', token, { maxAge: 900000, httpOnly: true });
         res.cookie(
@@ -225,4 +225,30 @@ router.post(`/refresh`, adminRequired, async (req, res, next) => {
         next(error);
     }
 });
+
+router.get('/test', async (req, res, next) => {
+    try {
+        const decoded = await decode(req.cookies.token);
+        if (!decoded) {
+            next(new ClientError(401, 'Token invalid.'));
+            return;
+        }
+
+        if (decoded.exp <= Date.now() / 1000) {
+            next(new ClientError(401, 'Token Expired'));
+            return;
+        }
+        const now = Date.now();
+        res.send({
+            exp: `${decoded.exp}, ${new Date(decoded.exp * 1000).toUTCString()}`,
+            currentTime: `${now}, ${new Date(now).toUTCString()}`,
+            ms: `${decoded.exp * 1000 - now}`,
+            s: `${(decoded.exp * 1000 - now) / 1000}`,
+            mins: `${(new Date(decoded.exp * 1000) - new Date(now)) / 1000 / 60}`
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
 module.exports = { router, version: 1 };
