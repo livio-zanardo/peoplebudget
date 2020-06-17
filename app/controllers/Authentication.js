@@ -105,6 +105,7 @@ router.post(`/register`, async (req, res, next) => {
  * @param {callback} controller - Express controller.
  */
 router.post(`/login`, async (req, res, next) => {
+    console.log(req.body)
     try {
         // destructure body
         const {

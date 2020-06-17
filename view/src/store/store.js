@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import axios from 'axios';
 export const Context = React.createContext(null);
 
 export const injectContext = (PassedComponent) => {
@@ -85,23 +85,54 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             ],
             selectedProjectId: null,
-            auth: 3 // 0 unauthenticated, 1 logged in, 2 contributer, 3 admin
+            auth: 3, // 0 unauthenticated, 1 logged in, 2 contributer, 3 admin
+            api: axios.create({
+                baseURL: 'http://localhost:3000',
+                withCredentials: true
+            }),
+            loggedIn: false, //login status
+            loginAt: null, // time in MS
+            exp: null, // when to try a refresh
+            refreshInterval: null
         },
         actions: {
-            // Use getActions to call a function within a fuction
-            exampleFunction: () => {
-                getActions().changeColor(0, 'green');
+            register: () => {},
+            login: async (email, pass) => {
+                try {
+                    const api = await getStore().api.post('/api/v1/auth/login', { email, pass });
+                    if (api.status === 200) {
+                        getStore().loggedIn = true;
+                        getStore().loginAt = Date.now();
+                        getStore().exp = Date.now() + 900000; // + 14 minutes
+                        const refreshInterval = setInterval(async () => {
+                            const api = await getStore().api.post('/api/v1/auth/refresh');
+                            console.log('session refreshed');
+                        }, 840000);
+                        getStore().refreshInterval = refreshInterval;
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
             },
-            loadSomeData: () => {
-                /**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+            logout: async () => {
+                try {
+                    const api = await getStore().api.post('/api/v1/auth/logout');
+                    if (api.status === 200) {
+                        clearInterval(getStore().refreshInterval);
+                        getStore().refreshInterval = null;
+                        getStore().loggedIn = true;
+                        getStore().loginAt = null;
+                        getStore().exp = null;
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
             },
             getMenus: () => getStore().menus.filter((menu, index) => getStore().auth >= menu.auth),
             changeProjectId: (id) => (getStore().selectedProjectId = id),
             getProject: () =>
                 getStore().selectedProjectId
-                    ? getStore().projects.find(elem => elem.id === getStore().selectedProjectId)
+                    ? getStore().projects.find((elem) => elem.id === getStore().selectedProjectId)
                     : null,
             getProjects: () => getStore().projects
         }

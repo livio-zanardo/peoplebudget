@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const router = require('./controllers/router');
 const cors = require('cors');
+const corsOptions = { origin: 'http://localhost:3001', credentials: true };
 const compression = require('compression');
 const { errorHandler } = require('./middleware/error.handler');
 // Swagger API documentation
@@ -16,7 +17,7 @@ const swaggerDocument = require('../swagger/swagger.json');
 // Express middleware
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 if (!process.env.NODE_ENV === 'dev') app.use(compression());
 app.use('/api', router);
 if (process.env.NODE_ENV === 'dev') {
