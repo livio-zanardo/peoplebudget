@@ -8,7 +8,7 @@ const { alreadyExists } = require('../helpers/database');
 const { ClientError } = require('../helpers/error');
 
 // testing it
-const { adminRequired } = require('../middleware/requiredPermissions');
+const { checkPermissions } = require('../middleware/requiredPermissions');
 
 /**
  * Express router to handle user authentication.
@@ -56,7 +56,6 @@ router.post(`/register`, async (req, res, next) => {
             pass,
             recover,
             securityQuestion,
-            roleid,
             linkedinurl,
             image,
             address1,
@@ -66,12 +65,10 @@ router.post(`/register`, async (req, res, next) => {
     } = req;
 
     try {
-        // check if user already exists
         await alreadyExists(user, {
             email: email
         });
 
-        // create new user
         await user.create({
             email: email,
             lastName: lname,
@@ -80,14 +77,13 @@ router.post(`/register`, async (req, res, next) => {
             recoveryHash: await hash(recover),
             securityQuestion: securityQuestion,
             image: image,
-            RoleId: roleid,
+            authLevel: 1,
             address1: address1,
             address2: address2,
             zip: zip,
             linkedinurl: linkedinurl
         });
 
-        // send response
         res.statusCode = 201;
         res.send({ response: 'User registered!' });
     } catch (error) {
@@ -105,7 +101,7 @@ router.post(`/register`, async (req, res, next) => {
  * @param {callback} controller - Express controller.
  */
 router.post(`/login`, async (req, res, next) => {
-    console.log(req.body)
+    console.log(req.body);
     try {
         // destructure body
         const {
@@ -136,7 +132,7 @@ router.post(`/login`, async (req, res, next) => {
             const token = await encode({
                 id: aUser.id,
                 email: aUser.email,
-                role: 'admin', // testing user role logic
+                auth: aUser.authLevel, // testing user role logic
                 exp: Math.floor(Date.now() / 1000) + 60 * 15
             });
             res.cookie('token', token, { maxAge: 900000, httpOnly: true });
@@ -163,7 +159,7 @@ router.post(`/login`, async (req, res, next) => {
  * @param {string} path - Express path
  * @param {callback} controller - Express controller.
  */
-router.post(`/logout`, async (req, res, next) => {
+router.post(`/logout`, checkPermissions, async (req, res, next) => {
     try {
         throw new Error('test error');
         res.send('logout');
@@ -181,7 +177,7 @@ router.post(`/logout`, async (req, res, next) => {
  * @param {string} path - Express path
  * @param {callback} controller - Express controller.
  */
-router.post(`/refresh`, adminRequired, async (req, res, next) => {
+router.post(`/refresh`, checkPermissions, async (req, res, next) => {
     try {
         // console.log(req.cookies.refresh_token);
         if (!req.cookies.refresh_token) {
@@ -227,7 +223,7 @@ router.post(`/refresh`, adminRequired, async (req, res, next) => {
     }
 });
 
-router.get('/test', async (req, res, next) => {
+router.get('/test', checkPermissions, async (req, res, next) => {
     try {
         const decoded = await decode(req.cookies.token);
         if (!decoded) {

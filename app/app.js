@@ -19,7 +19,13 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 if (!process.env.NODE_ENV === 'dev') app.use(compression());
+
+(async () => {
+    const { populateAuthLevels } = require('./database/database');
+    process.AUTHLEVELS = await populateAuthLevels();
+})();
 app.use('/api', router);
+
 if (process.env.NODE_ENV === 'dev') {
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     app.use(swStats.getMiddleware({ swaggerSpec: swaggerDocument }));
