@@ -4,7 +4,7 @@ import Input from '../components/Inputv2/index';
 import Button from '../components/Button/index';
 import { useHistory } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
-import Mapimg from '../miamiMapFaded.png';
+import Mapimg from '../Media/Images/miamiMapFaded.png';
 
 const Login = () => {
     const history = useHistory();

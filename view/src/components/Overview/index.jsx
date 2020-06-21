@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from '../Card/index';
 import { cardPosition, overview } from '../Overview/index.module.css';
-import image from '../../AirlinesArena.jpg';
+import image from '../../Media/Images/AirlinesArena.jpg';
 
 const Overview = () => {
     return (
