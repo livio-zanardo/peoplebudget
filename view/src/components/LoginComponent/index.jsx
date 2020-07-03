@@ -9,7 +9,6 @@ import {
     container,
     nav,
     map,
-    right,
     loginForm,
     loginFormHeader,
     loginFormField1,
