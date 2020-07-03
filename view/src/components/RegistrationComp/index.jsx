@@ -153,7 +153,7 @@ const RegistrationComp = () => {
                             </div>
                             <div className="row mt-3">
                                 <div className="col text-center">
-                                    <Link to="/register" style={{ color: 'grey' }}>
+                                    <Link to="/login" style={{ color: 'grey' }}>
                                         Already a member?
                                 </Link>
                                 </div>
