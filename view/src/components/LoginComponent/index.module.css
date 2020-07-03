@@ -59,6 +59,58 @@ Media Queries Devices(Iphone 6/7/8), , (HD Monitor)
     }
 }
 @media screen and (min-width: 767px) and (max-width: 1920px) {
+        .container {
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        grid-template-rows: 0fr 1fr 2fr 1fr;
+    }
+
+    .nav {
+        grid-row: 1 / span 1;
+        grid-column: 1 / span 2;
+        z-index: 4;
+    }
+
+    .map {
+        grid-row: 2 / span 4;
+        background-image: url('../../miamiMapFaded.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        z-index: 4;
+    }
+
+    .loginForm {
+        grid-row: 3 / span 1;
+        grid-column: 2 / span 1;
+        margin: 0px;
+        padding: 0px 40vw 0px 10vw;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+    }
+
+    .loginFormHeader {
+        grid-row: 1 / span 1;
+        grid-column: 1 / span 2;
+    }
+
+    .loginFormField1 {
+        grid-row: 2/ span 1;
+        grid-column: 1/ span 2;
+    }
+
+    .loginFormField2 {
+        grid-row: 3/ span 1;
+        grid-column: 1/ span 2;
+    }
+
+    .loginFormButton {
+        grid-row: 4/ span 1;
+        grid-column: 2/ span 2;
+    }
 }
+
 @media screen and (min-width: 1920px) {
 }
