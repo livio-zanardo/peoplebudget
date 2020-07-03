@@ -5,7 +5,17 @@ import Navbar from '../Navbar/index';
 import Input from '../Inputv2/index';
 import Button from '../Button/index';
 
-import { container, nav, map, right, loginForm } from './index.module.css';
+import {
+    container,
+    nav,
+    map,
+    right,
+    loginForm,
+    loginFormHeader,
+    loginFormField1,
+    loginFormField2,
+    loginFormButton
+} from './index.module.css';
 
 const LoginComponent = (props) => {
     const nameForm = useRef(null);
@@ -30,55 +40,35 @@ const LoginComponent = (props) => {
             </div>
             <div className={`${map}`} />
             <div className={`${loginForm}`}>
-                <div className="row  mt-5">
-                    <div className="col-sm-auto  ml-5 mb-4">
-                        <h1 className="text-capitalize">Welcome back!</h1>
-                    </div>
+                <div className={`${loginFormHeader}`}>
+                    <h1 className="text-capitalize">Welcome back!</h1>
                 </div>
-                <div className="row">
-                    <div className="col-sm-8 pb-3">
-                        {' '}
-                        <Input
-                            name="email"
-                            className="form-control"
-                            type="email"
-                            placeholder="Email"
-                        />
-                    </div>
+                <div className={`${loginFormField1}`}>
+                    {' '}
+                    <Input name="email" className="form-control" type="email" placeholder="Email" />
                 </div>
-                <div className="row">
-                    <div className="col-sm-8 pb-3">
-                        {' '}
-                        <Input
-                            name="password"
-                            className="form-control"
-                            type="password"
-                            placeholder="Password"
-                        />
-                    </div>
+                <div className={`${loginFormField2}`}>
+                    {' '}
+                    <Input
+                        name="password"
+                        className="form-control"
+                        type="password"
+                        placeholder="Password"
+                    />
                 </div>
-                <div className="row">
-                    <div className="col-4 ml-auto" style={{ left: '-33%' }}>
-                        {/* <Button
-                        className="btn btn-block active"
+                <div className={`${loginFormButton}`}>
+                    <Button
+                        color="#ee9623"
+                        radius=".6em"
+                        sidePadding="1em"
+                        centerPadding=".4em"
+                        height="6vh"
+                        width = "100%"
                         onClick={handleClickEvent}
+                        shadow
                     >
-                        Login
-                    </Button> */}
-
-                        <Button
-                            color="#ee9623"
-                            radius=".6em"
-                            sidePadding="1em"
-                            centerPadding=".4em"
-                            width="15vw"
-                            height="6vh"
-                            onClick={handleClickEvent}
-                            shadow
-                        >
-                            Get Started
-                        </Button>
-                    </div>
+                        Get Started
+                    </Button>
                 </div>
             </div>
         </div>
