@@ -1,21 +1,48 @@
 
 .imageContainer {
+    position: relative;
+    background-image: url('../../miamiMap.png');
+    background-size: cover;
+    background-repeat: no-repeat;
     height: 60vh;
     overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-column: 1/13;
+    grid-template-rows: repeat(4, 1fr);
 }
 .card {
-    position: absolute;
+    position: relative;
     transform: translate(-50%, -50%);
-    max-width: 365px;
-    min-height: 100% !important;
-    height: 80vh;
-    max-height: 240px !important;
-    top: -30vh !important;
+    /* max-width: 365px;
+    min-height: 100% !important; */
+    /* height: 300px; */
+    /* max-height: 240px !important; */
+    /* top: -30vh !important; */
     
 }
-.card h1 {
-    font-size: 130%;
+.text h1 {
+    font-size: 20px;
+    text-align: center;
 }
+.text{
+    padding: 1em;
+    text-align: center;
+}
+.wrapper{
+    grid-column: 5/9;
+    align-self: center;
+    justify-self: middle;
+    /* height: auto; */
+    width: auto;
+    grid-row: 1/5;
+}
+
+
+/*.container{
+    position: relative;
+    grid-column: 6/8;
+}*/
 
 /* Media Queries: To Control the Size of Components */
 /* Device: iPhone 6/7/8 */
