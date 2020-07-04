@@ -39,17 +39,11 @@ Media Queries Devices(Iphone 6/7/8), , (HD Monitor)
     }
 
     .loginFormHeader {
-        grid-row: 1 / span 1;
         grid-column: 1 / span 2;
+        text-align: center;
     }
 
-    .loginFormField1 {
-        grid-row: 2/ span 1;
-        grid-column: 1/ span 2;
-    }
-
-    .loginFormField2 {
-        grid-row: 3/ span 1;
+    .loginFormField {
         grid-column: 1/ span 2;
     }
 
@@ -70,7 +64,6 @@ Media Queries Devices(Iphone 6/7/8), , (HD Monitor)
     .nav {
         grid-row: 1 / span 1;
         grid-column: 1 / span 2;
-        z-index: 4;
     }
 
     .map {
@@ -78,7 +71,6 @@ Media Queries Devices(Iphone 6/7/8), , (HD Monitor)
         background-image: url('../../miamiMapFaded.png');
         background-size: cover;
         background-repeat: no-repeat;
-        z-index: 4;
     }
 
     .loginForm {
@@ -87,22 +79,18 @@ Media Queries Devices(Iphone 6/7/8), , (HD Monitor)
         margin: 0px;
         padding: 0px 40vw 0px 10vw;
         display: grid;
+        grid-row-gap: 40px;
+        align-items: center;
         grid-template-columns: 50% 50%;
         grid-template-rows: 1fr 1fr 1fr 1fr;
     }
 
     .loginFormHeader {
-        grid-row: 1 / span 1;
         grid-column: 1 / span 2;
+        text-align: center;
     }
 
-    .loginFormField1 {
-        grid-row: 2/ span 1;
-        grid-column: 1/ span 2;
-    }
-
-    .loginFormField2 {
-        grid-row: 3/ span 1;
+    .loginFormField {
         grid-column: 1/ span 2;
     }
 

@@ -11,8 +11,7 @@ import {
     map,
     loginForm,
     loginFormHeader,
-    loginFormField1,
-    loginFormField2,
+    loginFormField,
     loginFormButton
 } from './index.module.css';
 
@@ -42,11 +41,11 @@ const LoginComponent = (props) => {
                 <div className={`${loginFormHeader}`}>
                     <h1 className="text-capitalize">Welcome back!</h1>
                 </div>
-                <div className={`${loginFormField1}`}>
+                <div className={`${loginFormField}`}>
                     {' '}
                     <Input name="email" className="form-control" type="email" placeholder="Email" />
                 </div>
-                <div className={`${loginFormField2}`}>
+                <div className={`${loginFormField}`}>
                     {' '}
                     <Input
                         name="password"
@@ -62,7 +61,7 @@ const LoginComponent = (props) => {
                         sidePadding="1em"
                         centerPadding=".4em"
                         height="6vh"
-                        width = "100%"
+                        width="100%"
                         onClick={handleClickEvent}
                         shadow
                     >
