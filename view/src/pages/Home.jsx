@@ -13,7 +13,12 @@ const Home = () => {
     } = useContext(Context);
     return (
         <div className={`p-0 container-fluid`}>
-            <Overview />
+            <Navbar options={getMenus()} />
+            <GetStarted /> 
+            <Overview /> 
+            <Contributor /> 
+            <Info />
+            <Footer />
         </div>
     );
 };
