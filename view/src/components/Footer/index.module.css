@@ -1,0 +1,25 @@
+.wrapper > div {
+    background-color: #084652;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+ 
+  }
+  .firstCol {
+    grid-column: 1;
+  }
+  .secondCol { 
+    grid-column: 2;
+  }
+  .thirdCol {
+    grid-column: 3;
+  }
+  .fourthCol {
+    grid-column: 4;
+  }
+  .Copyright {
+    text-align: center;
+}
+
+@media 
