@@ -13,7 +13,12 @@
 }
 .card {
     position: relative;
-    transform: translate(-50%, -50%);
+    /* transform: translate(-50%, -50%); */
+    grid-row: 1/5;
+    grid-column: 5/9;
+    display: grid;
+    size: 1vw;
+    size: 1vh;
     /* max-width: 365px;
     min-height: 100% !important; */
     /* height: 300px; */
@@ -22,21 +27,56 @@
     
 }
 .text h1 {
-    font-size: 20px;
+    font-size: 3vw;
     text-align: center;
+    font-weight: bold;
+    size: 1vw;
+    size: 1vh;
 }
 .text{
     padding: 1em;
     text-align: center;
+    size: 1vw;
+    size: 1vh;
+    /* align-items: flex-end; */
+}
+.text p{
+    size: 1vw;
+    size: 1vh;
 }
 .wrapper{
     grid-column: 5/9;
     align-self: center;
     justify-self: middle;
     /* height: auto; */
-    width: auto;
+    /* width: auto; */
     grid-row: 1/5;
+    size: 1vw;
+    size: 1vh;
 }
+.hr{
+    width: 100%;
+    border-top: 2px solid #000;
+    size: 1vw;
+    size: 1vh;
+}
+.button{
+    text-align: center;
+    size: 1vw;
+    size: 1vh;
+}
+.button *{
+    size: 1vw;
+    size: 1vh;
+}
+/* @media only screen and (min-width: 300px) {
+    .button{
+        /* background-color: aqua; */
+        /* size: 20px;
+    }
+  }  */
+
+
 
 
 /*.container{
