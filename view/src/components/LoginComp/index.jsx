@@ -1,115 +1,100 @@
 import React, { useState, useRef } from 'react';
-import Input from '../Inputv2/index';
+import Input from '../Inputv3/index';
 import Button from '../Button/index';
+import Navbar from '../Navbar/index';
+import axios from 'axios';
+import { Form, FormGroup, Label } from 'reactstrap';
+import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import Card from '../Card/index';
-import { card, imageContainer, container, hr, or} from './index.module.css';
-import Mapimg from '../../AirlinesArena.jpg';   
+import {
+    card,
+    nav,
+    imageContainer,
+    container,
+    wrapper,
+    compContainer,
+    welcome,
+    button,
+    hr,
+    or,
+    linkedinSignIn,
+    lineContainer,
+    input2,
+    signin,
+    linkText
+} from './index.module.css';
 
 const LoginComp = () => {
-
     return (
-        <div className={`row`} style={{ margin: 'auto'}}>
-        <Card
-            customClassName={`${card}`}
-            height="40vw"
-            radius="4em"
-            width="84vw"
-            border-style
-            shadow
-        >
-            <div className="row">
-            <div className={`${imageContainer} col`}
-                    style={{position: 'relative', mixBlendMode: `multiply`,backgroundImage: `url(${Mapimg})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', 
-                    borderRadius: '4em'}}>
-
-                </div>
-                <div className="col ml-5"
-                >
-                    <div className="p-3">
-                        
-                        <div className="row  mt-5">
-                                <div className="col-sm-auto  ml-5 mb-4">
-                                    <h1 className="text-capitalize">Welcome back!</h1>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col text-center pb-3">
-                                <Link color="white" to="/register">
-                                    <Button
-                                      
-                                        color="#ee9623"
-                                        radius="5em"
-                                        sidePadding="3em"
-                                        centerPadding=".4em"
-                                        shadow
-                                    >
-                                        Sign in with LinkedIn
-                                    </Button>
-                                </Link>
-                                </div>
-                            </div>
-                            <div className="row w-75 mx-auto">
-                                <div className="col text-left pb-3">
-                                    <div>
-                                        <hr className={`${hr}`}></hr>
-                                    </div>    
-                                </div>
-                                <div className={`${or}`}>OR</div>
-                                <div className="col text-left pb-3">
-                                    <div>
-                                        <hr className={`${hr}`}></hr>
-                                    </div>                                  
-                                </div>
-                            </div>
-                            <div className="row w-100 mx-auto">
-                                <div className="col-sm-10 pb-3 ml-5">
-                                    {' '}
-                                    <Input
-                                        name="email"
-                                        className="form-control"
-                                        type="email"
-                                        placeholder="Email"
-                                    />
-                                </div>
-                            </div>
-                            <div className="row w-100 mx-auto">
-                                <div className="col-sm-10 pb-3 ml-5">
-                                    {' '}
-                                    <Input
-                                        name="password"
-                                        className="form-control"
-                                        type="password"
-                                        placeholder="Password"
-                                    />
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col text-center">
-                                <Link color="white" to="/proposals">
-                                    <Button
-                                        color="#ee9623"
-                                        radius="5em"
-                                        sidePadding="3em"
-                                        centerPadding=".4em"
-                                        shadow
-                                    >
-                                        Login
-                                    </Button>
-                                </Link>
-                                </div>
-                            </div>
-                            <div className="row mt-3">
-                                <div className="col text-center">
-                                <Link to="/register" style={{color:'grey'}}>
-                                    Not a member?
-                                </Link>
-                                </div>
-                            </div>
+        <div className={`${container}`}>
+            <div className={`${nav}`}>
+                <Navbar
+                    options={[
+                        { text: 'home', link: '/', auth: 0 },
+                        { text: 'register', link: '/register', auth: 0 }
+                    ]}
+                />
+            </div>
+            <div className={`${wrapper}`} border-style shadow>
+                <div className={`${imageContainer}`}></div>
+                <div className={`${compContainer}`}>
+                    <div className={`${welcome}`}>
+                        <h1>welcome back!</h1>
+                    </div>
+                    <div className={`${linkedinSignIn}`}>
+                        <Link to="/login">
+                            <Button
+                                className={`${button}`}
+                                color="#ee7423"
+                                radius="5em"
+                                sidePadding="3em"
+                                centerPadding=".4em"
+                                shadow
+                                width="27rem"
+                            >
+                                Sign in with LinkedIn
+                            </Button>
+                        </Link>
+                    </div>
+                    <div className={`${lineContainer}`}>
+                        <hr className={`${hr}`}></hr>
+                        <div className={`${or}`}>OR</div>
+                        <hr className={`${hr}`}></hr>
+                    </div>
+                    <div className={`${input2}`}>
+                        <Input
+                            name="email"
+                            className="form-control"
+                            type="email"
+                            placeholder="Email"
+                        />
+                        <Input
+                            name="password"
+                            className="form-control"
+                            type="password"
+                            placeholder="Password"
+                        />
+                        <div className={`${signin}`}>
+                            <Link to="/proposals">
+                                <Button
+                                    className={`${button}`}
+                                    color="#ee7423"
+                                    radius="5em"
+                                    sidePadding="3em"
+                                    centerPadding=".4em"
+                                    shadow
+                                >
+                                    Sign In
+                                </Button>
+                            </Link>
+                            <Link className={`${linkText}`} to="/register">
+                                Not a member?
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
-        </Card>
         </div>
     );
 };
