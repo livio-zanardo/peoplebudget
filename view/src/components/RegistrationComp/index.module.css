@@ -1,34 +1,113 @@
-.imageContainer {
-    height: 40vw;
-    overflow: hidden;
-    top: -0.55em;
-    left: 0.4em;
-
+.nav {
+    grid-column: 1/4;
+    padding-bottom: 1.5rem;
 }
 
-.card{
-    position: relative;
-    /* transform: translate(-50%, -50%);
-    max-width: 365px;
-    min-height: 100% !important;
-    height: 80vh;
-    max-height: 240px !important;
-    top: -30vh !important; */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 15fr 1fr;
+    grid-column: 2/ 3;
+    padding-bottom: 4rem;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-radius: 4em;
     min-height: 100% !important;
     border-style: solid;
     border-width: thick;
-    border-color: rgba(30, 80, 80, 0.6)
-    
+    border-color: rgb(08, 46, 52, 0.8);
+    box-shadow: 0px 10px 10px 0px rgb(218, 218, 218);
+    grid-column: 2/3;
 }
 
-.hr{
-    height:1px;
-    color:gray;
-    background-color:gray;
+.imageContainer {
+    overflow: hidden;
+    background-image: url('../../AirlinesArena.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 3em;
+    mix-blend-mode: multiply;
 }
 
-.or{
+.compContainer {
+    display: grid;
+    margin: 2rem 0rem;
+    grid-template-rows: 4.5rem 2rem 3rem 4.5rem 4fr;
+    grid-template-columns: 1fr 1fr 7fr 2fr;
+    row-gap: 0.8rem;
+}
+
+.welcome {
+    text-transform: capitalize;
+    grid-column: 2/ 5;
+}
+
+.button {
+    color: '#ee7423';
+    border-radius: 5em;
+}
+
+.linkedinSignIn {
+    justify-self: center;
+    grid-column: 3/4;
+    text-transform: capitalize;
+}
+
+.card {
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(2, 1fr);
+    border-radius: 4em;
+    min-height: 100% !important;
+    border-style: solid;
+    border-width: thick;
+    border-color: rgb(08, 46, 52, 0.8);
+}
+
+.lineContainer {
+    display: grid;
+    justify-self: center;
+    grid-column: 3/4;
+}
+
+.hr {
+    height: 1px;
+    width: 12rem;
+    background-color: lightgray;
+    grid-row: 3/4;
+}
+
+.or {
     color: gray;
     font-weight: bolder;
     font-size: 1.3em;
+    grid-row: 3/4;
+    padding: 0rem 0.2rem;
+}
+
+.inputContainer {
+    grid-template-columns: 1fr 1fr;
+    display: grid;
+    column-gap: 1rem;
+    grid-column: 3/ 4;
+}
+
+.input2 {
+    display: grid;
+    row-gap: 1rem;
+    grid-column: 3/4;
+}
+
+.signup {
+    display: grid;
+    padding-top: 0.8rem;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.5rem;
+    justify-items: center;
+}
+
+.linkText {
+    color: grey;
 }
