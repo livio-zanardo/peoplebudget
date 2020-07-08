@@ -1,15 +1,13 @@
 import React from 'react';
-import {profileImg, profile} from '../ContributorProfile/index.module.css'
+import { profileImg, profile, profileName } from '../ContributorProfile/index.module.css';
 
-const ProfilePic = ({ image, name, rounded }) => {
+const ProfilePic = ({ image, name }) => {
     return (
         <div className={profile}>
-            <img
-                className={profileImg}
-                alt="avatar"
-                src={image}
-            />
+            <img className={profileImg} alt="avatar" src={image} />
+            <div className={profileName}>{name}</div>
         </div>
+
         // <div className="col-auto p-1 ">
         //     <div className="row m-0">
         //         <div className="col  mx-auto" style={{ maxWidth: '60%' }}>

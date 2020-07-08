@@ -1,3 +1,18 @@
-.profileImg{
-    border-radius: 75px ;
+.profile{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows:  repeat(2, 1fr);
+    justify-content: center;
+}
+
+.profileImg {
+    align-self: center;
+    justify-self: center;
+    border-radius: 6em ;
+    width: 12vh;
+}
+
+.profileName{
+    text-align: center;
+    color:#DCDCDC;
 }
