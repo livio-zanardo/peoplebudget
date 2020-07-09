@@ -3,16 +3,20 @@
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows:  repeat(2, 1fr);
     justify-content: center;
+    padding-left: 7vh;
+    padding-right: 7vh;
+    
 }
 
 .profileImg {
     align-self: center;
     justify-self: center;
     border-radius: 6em ;
-    width: 12vh;
+    width: 11vh;
 }
 
 .profileName{
+    padding-top: 1vh;
     text-align: center;
     color:#DCDCDC;
 }
