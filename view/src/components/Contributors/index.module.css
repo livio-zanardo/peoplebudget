@@ -1,5 +1,5 @@
 .container{
-    height: 35vh;
+    height: 45vh;
     width: 100%;
     overflow: hidden;
     background-color: #084652;
@@ -27,6 +27,62 @@
 .contributor{
 display: inline-block;
 }
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px){
+    .title p{
+        font-size: 1em;
+    }
+    
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .title p {
+        font-size: 1em;
+    }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .title p {
+        font-size: 1.5em;
+    }
+    .contributor{
+        padding-top: 1em;
+    }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px){
+    .title p {
+        font-size: 1.2em;
+    }
+
+} 
+/*Extra large devices (large laptops and desktops, 1200px and up)*/
+@media only screen and (min-width: 1200px){
+    .title p {
+        font-size: 1.4em;
+    }
+    .contributor{
+        padding-top: 2em;
+    }
+}
+@media only screen and (min-width: 1900px){
+    .title {
+        font-size: 2em;
+    }
+    .contributor{
+        padding-top: 3em;
+    }
+}
+@media only screen and (min-width: 3800px){
+    .title p {
+        font-size: 2em;
+    }
+    .contributor{
+        padding-top: 6em;
+    }
+}
+
 
 
 
