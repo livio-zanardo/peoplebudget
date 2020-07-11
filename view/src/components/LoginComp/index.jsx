@@ -51,7 +51,6 @@ const LoginComp = () => {
                                 sidePadding="3em"
                                 centerPadding=".4em"
                                 shadow
-                                width="27rem"
                             >
                                 Sign in with LinkedIn
                             </Button>
