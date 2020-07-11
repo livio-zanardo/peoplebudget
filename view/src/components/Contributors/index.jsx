@@ -2,12 +2,10 @@ import React from 'react';
 import ProfilePic from './ContributorProfile';
 import {
     contributorsGrid,
-    contributor1,
-    contributor2,
-    contributor3,
-    contributor4,
+    contributor,
     container,
-    title
+    title,
+    contributorBox
 } from '../Contributors/index.module.css';
 const faker = require('faker');
 
@@ -24,23 +22,19 @@ const Contributor = () => {
                     <div className={title}>
                         <p>Top Contributors of City of Miami</p>
                     </div>
-                    <div className={contributor1}>{contributorArr([1])}</div>
-                    <div className={contributor2}>{contributorArr([1])}</div>
-                    <div className={contributor3}>{contributorArr([1])}</div>
-                    <div className={contributor4}>{contributorArr([1])}</div>
+                    <div className={contributorBox}>
+                        <div className={contributor}>{contributorArr([1])}</div>
+                        <div className={contributor}>{contributorArr([1])}</div>
+                        <div className={contributor}>{contributorArr([1])}</div>
+                        <div className={contributor}>{contributorArr([1])}</div>
+                        <div className={contributor}>{contributorArr([1])}</div>
+                        <div className={contributor}>{contributorArr([1])}</div>
+                        <div className={contributor}>{contributorArr([1])}</div>
+
+                    </div>
                 </div>
             </div>
 
-            {/* <div className="row" style={{margin: 'auto'}}>
-                <div className="col p-4" style={{backgroundColor: '#084652'}}>
-                     <p className='text-center' style={{color: '#DCDCDC', fontSize:'120%'}}>Top Contributors of City of Miami</p> 
-                     <div className="row">
-                         <div className="col-auto mx-auto"> 
-                            <div className="row">{contributorArr([1, 2, 3, 4,5])}</div> 
-                        </div> 
-                    </div> 
-                </div>
-            </div> */}
         </>
     );
 };
