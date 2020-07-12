@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import Input from '../Inputv2/index';
 import Select from '../Dropdown/index';
-import Button from '../Button/index';
 import axios from 'axios';
 import { Form, FormGroup, Label } from 'reactstrap';
 import { Redirect } from 'react-router';
@@ -11,7 +10,6 @@ import { card, imageContainer, container, hr, or } from './index.module.css';
 import Mapimg from '../../miamiMap.png';
 
 const RegistrationComp = () => {
-
     return (
         <div className={`row`} style={{ margin: 'auto' }}>
             <Card
@@ -23,36 +21,31 @@ const RegistrationComp = () => {
                 shadow
             >
                 <div className="row">
-                    <div className={`${imageContainer} col`}
+                    <div
+                        className={`${imageContainer} col`}
                         style={{
-                            position: 'relative', mixBlendMode: `multiply`, backgroundImage: `url(${Mapimg})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat',
+                            position: 'relative',
+                            mixBlendMode: `multiply`,
+                            backgroundImage: `url(${Mapimg})`,
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat',
                             borderRadius: '4em',
-                            height: "55vw"
-                        }}>
-
-                    </div>
-                    <div className="col ml-5"
-                    >
+                            height: '55vw'
+                        }}
+                    ></div>
+                    <div className="col ml-5">
                         <div className="p-3">
-
                             <div className="row mt-2">
                                 <div className="col-sm-auto  ml-5 mb-4">
-                                    <h1 className="text-capitalize"><b>Welcome</b></h1>
+                                    <h1 className="text-capitalize">
+                                        <b>Welcome</b>
+                                    </h1>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col text-center pb-3">
                                     <Link color="white" to="/register">
-                                        <Button
-
-                                            color="#ee9623"
-                                            radius="5em"
-                                            sidePadding="3em"
-                                            centerPadding=".4em"
-                                            shadow
-                                        >
-                                            Sign up with LinkedIn
-                                    </Button>
+                                        <button className="button">Sign up with LinkedIn</button>
                                     </Link>
                                 </div>
                             </div>
@@ -70,7 +63,7 @@ const RegistrationComp = () => {
                                 </div>
                             </div>
                             <div className="row mx-auto">
-                                <div className="row mx-auto" >
+                                <div className="row mx-auto">
                                     <div className="row w-50 mx-auto">
                                         <div className="col-sm-10 pb-3 ml-5">
                                             {' '}
@@ -93,7 +86,6 @@ const RegistrationComp = () => {
                                             />
                                         </div>
                                     </div>
-
                                 </div>
                                 <div className="row w-100 mx-auto">
                                     <div className="col-sm-10 pb-3 ml-5">
@@ -120,7 +112,7 @@ const RegistrationComp = () => {
                                 <div className="row w-100 mx-auto">
                                     <div className="col-sm-10 pb-3 ml-5">
                                         {' '}
-                                        <Select placeholder="Security Question"/>
+                                        <Select placeholder="Security Question" />
                                     </div>
                                 </div>
                                 <div className="row w-100 mx-auto">
@@ -138,16 +130,7 @@ const RegistrationComp = () => {
                             <div className="row">
                                 <div className="col text-center">
                                     <Link color="white" to="/register">
-                                        <Button
-                                            color="#ee9623"
-                                            radius="5em"
-                                            sidePadding="3em"
-                                            centerPadding=".4em"
-                                            shadow
-                                            height="6vh"
-                                        >
-                                            Sign Up
-                                    </Button>
+                                        <button className="button">Sign Up</button>
                                     </Link>
                                 </div>
                             </div>
@@ -155,7 +138,7 @@ const RegistrationComp = () => {
                                 <div className="col text-center">
                                     <Link to="/login" style={{ color: 'grey' }}>
                                         Already a member?
-                                </Link>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
