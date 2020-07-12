@@ -3,7 +3,7 @@ import Comments from '../components/CommentPanel/index';
 import Map from '../components/Map/index';
 import Marker from '../components/Map/Marker/index';
 import Navbar from '../components/Navbar/index';
-import { Projects } from '../components/ProjectsList/index';
+import ProjectDrawer from '../components/ProjectDrawer/index';
 import { Context } from '../store/store';
 
 const MapView = () => {
@@ -17,7 +17,7 @@ const MapView = () => {
             <div className="row">
                 <div className="col-12 mx-auto" style={{ backgroundColor: 'rgba(0,0,0,.1)' }}>
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col">
                             {viewList ? (
                                 <Map>
                                     <Marker
@@ -38,12 +38,10 @@ const MapView = () => {
                                 <Comments />
                             )}
                         </div>
-                        <div className="col-6">
-                            <Projects setViewList={setViewList} />
-                        </div>
                     </div>
                 </div>
             </div>
+            <ProjectDrawer />
         </div>
     );
 };
