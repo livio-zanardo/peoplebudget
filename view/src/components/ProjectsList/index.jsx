@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react';
-import Button from '../Button/index';
 import { Context } from '../../store/store';
 import { hideScrollBar } from './index.module.css';
 
@@ -66,18 +65,15 @@ export const ProjectDetails = (props) => {
             >
                 <div className="row pt-4">
                     <div className="col-auto">
-                        <Button
-                            color="red"
-                            radius=".25em"
-                            centerPadding=".25em"
-                            sidePadding=".25em"
+                        <button
+                            className="button"
                             onClick={() => {
                                 props.setProjectId(null);
                                 props.setViewList((viewList) => !viewList);
                             }}
                         >
                             Back
-                        </Button>
+                        </button>
                     </div>
                     <div className="col-8 text-center">
                         <h2>{title}</h2>
