@@ -10,7 +10,7 @@ const Info = () => {
             <div className="row">
                 {/*LEFT COL*/}
                 <div className="col-6 mx-auto p-0">
-                    <img style={{ width: '100%', height: '100%', border: '3px solid #ee9623' }} src={map}></img>
+                    <img src={map}></img>
                 </div>
                 {/*RIGHT COL*/}
                 <div className="col-6 mx-auto d-flex justify-content-center">
@@ -29,85 +29,58 @@ const Info = () => {
                             <div className="row">
                                 <div className="col text-center" style={{ margin: '25px' }}>
                                     {/*TITLE*/}
-                                    <h3
-                                        style={{
-                                            color: '#104953',
-                                            marginTop: '25px',
-                                            marginBottom: '10px'
-                                        }}
-                                    >
+                                    <h3>
                                         <b>Current Top Projects Rankings</b>
                                     </h3>
-                                    <hr style={{ width: '100%', borderTop: '2px solid #ee9623' }} />
+                                    <hr className="HeaderHR"/>
                                     {/*LIST OF PROJECTS*/}
 
                                     <div className="row">
                                         <div className="col-10 text-left pl-5">
-                                            <span style={{ top: '1.5vh', position: 'relative' }}>
+                                            <span> {/*Needs to auto-update*/}
                                                 Complete Maintenance on the Metrorail
-                                            </span>
+                                            </span> 
                                         </div>
                                         <div className="col-auto ml-auto pr-5">
                                             <div className="row">
                                                 <div className="col-auto p-0">
-                                                    <p
-                                                        style={{
-                                                            color: '#ee9623',
-                                                            top: '1.5vh',
-                                                            position: 'relative'
-                                                        }}
-                                                    >
+                                                    <p>{/*Needs to be auto-update*/}
                                                         48
                                                     </p>
                                                 </div>
                                                 <div className="col-auto p-0">
                                                     <img
                                                         className="d-block"
-                                                        style={{
-                                                            width: '14px',
-                                                            top: '2.25vh',
-                                                            position: 'relative'
-                                                        }}
                                                         src={icon}
                                                     />
                                                 </div>
                                             </div>
                                         </div>
-                                        <hr style={{ width: '90%', borderColor: '#e2ddda' }} />
+                                        <hr/>
                                     </div>
                                     <div className="row">
                                         <div className="col-10 text-left pl-5">
-                                            <span style={{ top: '1.5vh', position: 'relative' }}>
+                                            <span>{/*Needs to be auto-update*/}
                                                 Remodel Douglas Park Public Bathrooms
                                             </span>
                                         </div>
                                         <div className="col-auto ml-auto pr-5">
                                             <div className="row">
                                                 <div className="col-auto p-0">
-                                                    <p
-                                                        style={{
-                                                            color: '#ee9623',
-                                                            top: '1.5vh',
-                                                            position: 'relative'
-                                                        }}
-                                                    >
+                                                    <p>{/*Needs to be auto-update*/}
                                                         32
                                                     </p>
                                                 </div>
                                                 <div className="col-auto p-0">
                                                     <img
                                                         className="d-block"
-                                                        style={{
-                                                            width: '14px',
-                                                            top: '2.25vh',
-                                                            position: 'relative'
-                                                        }}
+                                                        
                                                         src={icon}
                                                     />
                                                 </div>
                                             </div>
                                         </div>
-                                        <hr style={{ width: '90%', borderColor: '#e2ddda' }} />
+                                        <hr/>
                                     </div>
                                 </div>
                             </div>
