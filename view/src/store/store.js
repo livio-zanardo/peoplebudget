@@ -52,6 +52,39 @@ const getState = ({ getStore, getActions, setStore }) => {
                 { text: 'dashboard', link: '/dashboard', auth: 3 },
                 { text: 'profile', link: '/profile', auth: 1 }
             ],
+            projects: [
+                {
+                    id: 1,
+                    title: 'Awesome project',
+                    author: 'Mike',
+                    description: 'Awesome Project description',
+                    votes: 100,
+                    avatar: '../../../public/assets/images/project-avatar.jpg',
+                    details:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a sollicitudin ex. Etiam nec lacus a mauris blandit tempor non id urna. In sollicitudin tortor mi, id lobortis ante tincidunt in. Donec ornare consectetur molestie. Fusce posuere mi ac tellus maximus consectetur. Proin tempus tincidunt porta. Donec eu imperdiet ipsum. Donec ac dictum enim, id convallis turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at ullamcorper mi, a sollicitudin ipsum. Donec non neque non enim fermentum mollis id in turpis.'
+                },
+                {
+                    id: 2,
+                    title: 'Another Awesome Project',
+                    author: 'John',
+                    description: 'Another Awesome project Description',
+                    votes: 50,
+                    avatar: '../../../public/assets/images/project-avatar.jpg',
+                    details:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a sollicitudin ex. Etiam nec lacus a mauris blandit tempor non id urna. In sollicitudin tortor mi, id lobortis ante tincidunt in. Donec ornare consectetur molestie. Fusce posuere mi ac tellus maximus consectetur. Proin tempus tincidunt porta. Donec eu imperdiet ipsum. Donec ac dictum enim, id convallis turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at ullamcorper mi, a sollicitudin ipsum. Donec non neque non enim fermentum mollis id in turpis.'
+                },
+                {
+                    id: 3,
+                    title: 'Fantastic Project',
+                    author: 'Kyle',
+                    description: 'Fantastic project Description',
+                    votes: 20,
+                    avatar: '../../../public/assets/images/project-avatar.jpg',
+                    details:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a sollicitudin ex. Etiam nec lacus a mauris blandit tempor non id urna. In sollicitudin tortor mi, id lobortis ante tincidunt in. Donec ornare consectetur molestie. Fusce posuere mi ac tellus maximus consectetur. Proin tempus tincidunt porta. Donec eu imperdiet ipsum. Donec ac dictum enim, id convallis turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at ullamcorper mi, a sollicitudin ipsum. Donec non neque non enim fermentum mollis id in turpis.'
+                }
+            ],
+            selectedProjectId: null,
             auth: 3 // 0 unauthenticated, 1 logged in, 2 contributer, 3 admin
         },
         actions: {
@@ -64,10 +97,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
             },
-
-            getMenus: () => {
-                return getStore().menus.filter((menu, index) => getStore().auth >= menu.auth);
-            }
+            getMenus: () => getStore().menus.filter((menu, index) => getStore().auth >= menu.auth),
+            changeProjectId: (id) => (getStore().selectedProjectId = id),
+            getProject: () =>
+                getStore().selectedProjectId
+                    ? getStore().projects.find(elem => elem.id === getStore().selectedProjectId)
+                    : null,
+            getProjects: () => getStore().projects
         }
     };
 };
