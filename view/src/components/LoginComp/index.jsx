@@ -1,8 +1,14 @@
 import React, { useState, useRef } from 'react';
 import Input from '../Inputv3/index';
+import Button from '../Button/index';
 import Navbar from '../Navbar/index';
+import axios from 'axios';
+import { Form, FormGroup, Label } from 'reactstrap';
+import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
+import Card from '../Card/index';
 import {
+    card,
     nav,
     imageContainer,
     container,
@@ -38,11 +44,16 @@ const LoginComp = () => {
                     </div>
                     <div className={`${linkedinSignIn}`}>
                         <Link to="/login">
-                            <button
-                                className="button"
+                            <Button
+                                className={`${button}`}
+                                color="#ee7423"
+                                radius="5em"
+                                sidePadding="3em"
+                                centerPadding=".4em"
+                                shadow
                             >
                                 Sign in with LinkedIn
-                            </button>
+                            </Button>
                         </Link>
                     </div>
                     <div className={`${lineContainer}`}>
@@ -65,11 +76,16 @@ const LoginComp = () => {
                         />
                         <div className={`${signin}`}>
                             <Link to="/proposals">
-                            <button
-                                className="button"
-                            >
-                                Sign in
-                            </button>
+                                <Button
+                                    className={`${button}`}
+                                    color="#ee7423"
+                                    radius="5em"
+                                    sidePadding="3em"
+                                    centerPadding=".4em"
+                                    shadow
+                                >
+                                    Sign In
+                                </Button>
                             </Link>
                             <Link className={`${linkText}`} to="/register">
                                 Not a member?
