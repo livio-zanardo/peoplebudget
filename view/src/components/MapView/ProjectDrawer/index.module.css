@@ -1,0 +1,124 @@
+@keyframes tray-slide {
+    from {
+        right: -50%;
+    }
+    to {
+        right: -0%;
+    }
+}
+
+.tray {
+    right: -0%;
+    height: 100%;
+    width: 50%;
+    /* animation: tray-slide 1s; */
+}
+
+.container {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    padding: 0 2em;
+    border-top-left-radius: 21px;
+    border-bottom-left-radius: 21px;
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+}
+
+.container > header {
+    padding-top: 2em;
+}
+
+.handle {
+    background-color: white;
+    height: 10%;
+    width: 6%;
+    top: 50%;
+    left: -6%;
+    position: absolute;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    box-shadow: -2px 0px 2px 0px rgba(0, 0, 0, 0.6);
+    z-index: 0;
+    min-height: 75px;
+    min-width: 20px;
+}
+.handleSVG {
+    height: 100%;
+    width: 100%;
+}
+
+.handlePolygon {
+    fill: #ee7423;
+    transform: scale(0.4);
+    transform-origin: 20% 40%;
+}
+
+.filter {
+    background-color: #04343e;
+    border-radius: 21px;
+    padding: 0 !important;
+    color: white;
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.6);
+}
+.filter > div > div {
+    padding: 0.1em 1em;
+    margin: 0 auto;
+    text-transform: capitalize;
+}
+.filter > div:first-child {
+    padding: 0.5em 1em;
+    margin: 0 auto;
+}
+
+.filter > div:nth-child(1) > div > div:nth-child(2) {
+    text-align: right;
+    color: #ee7423;
+}
+
+.filter > div:nth-child(2) > div:hover {
+    background-color: #084652;
+}
+
+@keyframes openMenu {
+    from {
+        max-height: 0px;
+    }
+    to {
+        max-height: 300px;
+    }
+}
+
+.filterMenuOpen {
+    /* position: absolute; */
+    visibility: visible;
+    height: auto;
+    padding-bottom: 25px !important;
+    animation: openMenu .5s;
+}
+
+.filterMenuClose {
+    visibility: hidden;
+    max-height: 0px;
+}
+
+.list {
+    border-radius: 100px;
+    background-color: #f4f4f4;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+}
+/* Small devices (portrait tablets and large phones, 600px and up)   */
+@media only screen and (min-width: 600px) {
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+}
