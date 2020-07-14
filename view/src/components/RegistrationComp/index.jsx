@@ -1,22 +1,18 @@
 import React, { useState, useRef } from 'react';
 import Input from '../Inputv3/index';
 import Select from '../Dropdown/index';
-import Button from '../Button/index';
 import Navbar from '../Navbar/index';
 import axios from 'axios';
 import { Form, FormGroup, Label } from 'reactstrap';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
-import Card from '../Card/index';
 import {
-    card,
     nav,
     imageContainer,
     container,
     wrapper,
     compContainer,
     welcome,
-    button,
     hr,
     or,
     linkedinSignIn,
@@ -46,17 +42,7 @@ const RegistrationComp = () => {
                     </div>
                     <div className={`${linkedinSignIn}`}>
                         <Link to="/register">
-                            <Button
-                                className={`${button}`}
-                                color="#ee7423"
-                                radius="5em"
-                                sidePadding="3em"
-                                centerPadding=".4em"
-                                shadow
-                                width="27rem"
-                            >
-                                Sign up with LinkedIn
-                            </Button>
+                            <button className="button">Sign up with LinkedIn</button>
                         </Link>
                     </div>
                     <div className={`${lineContainer}`}>
@@ -100,16 +86,7 @@ const RegistrationComp = () => {
                         />
                         <div className={`${signup}`}>
                             <Link to="/register">
-                                <Button
-                                    className={`${button}`}
-                                    color="#ee7423"
-                                    radius="5em"
-                                    sidePadding="3em"
-                                    centerPadding=".4em"
-                                    shadow
-                                >
-                                    Sign Up
-                                </Button>
+                                <button className="button">Sign Up</button>
                             </Link>
                             <Link className={`${linkText}`} to="/login">
                                 Already a member?
