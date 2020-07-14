@@ -1,7 +1,6 @@
 import React from 'react';
 import Card from '../Card/index';
 import { Link } from 'react-router-dom';
-import Button from '../Button/index';
 import mapImg from '../../miamiMap.png';
 import { card, imageContainer, container } from './index.module.css';
 
@@ -36,16 +35,11 @@ const GetStarted = () => {
                         <div className="row">
                             <div className="col text-center">
                                 <Link color="white" to="/register">
-                                    <Button
-                                      
-                                        color="#ee9623"
-                                        radius="5em"
-                                        sidePadding="1em"
-                                        centerPadding=".4em"
-                                        shadow
-                                    >
+                                <button
+                                className="button"
+                            >
                                         Get Started
-                                    </Button>
+                                    </button>
                                 </Link>
                             </div>
                         </div>

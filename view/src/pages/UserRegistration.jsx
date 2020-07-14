@@ -1,13 +1,5 @@
 import React, { useState, useRef } from 'react';
-import Input from '../components/Inputv2/index';
-import Button from '../components/Button/index';
-import axios from 'axios';
-import { Form, FormGroup, Label } from 'reactstrap';
-import { Redirect } from 'react-router';
-import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
-import Mapimg from '../miamiMapFaded.png';
 import RegistrationComp from '../components/RegistrationComp';
 
 const Register = () => {

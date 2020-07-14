@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import Input from '../Inputv2/index';
 import Select from '../Dropdown/index';
-import Button from '../Button/index';
 import axios from 'axios';
 import { Form, FormGroup, Label } from 'reactstrap';
 import { Redirect } from 'react-router';
@@ -43,16 +42,11 @@ const RegistrationComp = () => {
                             <div className="row">
                                 <div className="col text-center pb-3">
                                     <Link color="white" to="/register">
-                                        <Button
-
-                                            color="#ee9623"
-                                            radius="5em"
-                                            sidePadding="3em"
-                                            centerPadding=".4em"
-                                            shadow
-                                        >
+                                    <button
+                                className="button"
+                            >
                                             Sign up with LinkedIn
-                                    </Button>
+                                    </button>
                                     </Link>
                                 </div>
                             </div>
@@ -138,16 +132,11 @@ const RegistrationComp = () => {
                             <div className="row">
                                 <div className="col text-center">
                                     <Link color="white" to="/register">
-                                        <Button
-                                            color="#ee9623"
-                                            radius="5em"
-                                            sidePadding="3em"
-                                            centerPadding=".4em"
-                                            shadow
-                                            height="6vh"
-                                        >
+                                    <button
+                                className="button"
+                            >
                                             Sign Up
-                                    </Button>
+                                    </button>
                                     </Link>
                                 </div>
                             </div>
