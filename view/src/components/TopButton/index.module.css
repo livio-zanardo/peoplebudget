@@ -1,20 +1,25 @@
 .button {
+    display: grid;
     width: 35px;
     height: 35px;
-    border: solid 1px rgb(200, 200, 200);
-    border-radius: 25px;
-    background-color: rgb(255, 255, 255);
-    font-size: 1.3em;
-    font-weight: 700;
+    border: solid 1px  rgb(7, 67, 80);
+    border-radius: 200em;
+    background-color: rgb(7, 67, 80);
     box-sizing: border-box;
     position: fixed;
-    right: 15px;
+    right: 10px;
     bottom: 15px;
     z-index: 1000;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
 }
+.button a{
+   justify-self: center;
+   align-self: center;
 
-.button a img {
-    height: 20px;
-    margin-left: 6.9px;
-    margin-bottom: 5px;
+}
+.triangleUp {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid rgb(238, 150, 35,1);
 }

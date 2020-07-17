@@ -6,12 +6,8 @@ const TopButton = () => {
     return (
         <div className={Style.button}>
             <a href="#top">
-                <img
-                    
-                    style={Style.img}
-                    src={icon}
-                    alt=""
-                />
+                <div className={Style.triangleUp}>
+                </div>
             </a>
         </div>
     );
