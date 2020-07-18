@@ -1,5 +1,5 @@
 import React from 'react';
-import { grid, card, picture,heading1,information } from '../Overview/index.module.css';
+import { grid, card, picture, heading1, information } from '../Overview/index.module.css';
 
 const Overview = () => {
     return (
