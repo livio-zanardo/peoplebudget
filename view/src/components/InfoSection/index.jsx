@@ -1,77 +1,27 @@
 import React from 'react';
-import Map from '../../miamiMapBW.png';
-import { container, grid, map, table, triangleUp } from './index.module.css';
-import icon from '../../triangleIcon.png';
+import { container, map, table } from './index.module.css';
 
 const Info = () => {
     return (
         <div className={container}>
-            <div className={grid}>
-                <div className={map}>{/* <img src={Map}></img> */}</div>
-                <div className={table}>
-                    
-                        {/*TITLE*/}
-                        <h3>
-                            <b>Current Top Projects Rankings</b>
-                        </h3>
-                        <hr id="HeaderHR" />
-
-                        <div>
-                            <span>
-                                {/*Needs to auto-update*/}
-                                Complete Maintenance on the Metrorail
-                            </span>
-                        </div>
-
-                        <div>
-                            <p>
-                                {/*Needs to be auto-update*/}
-                                48
-                            </p>
-                        </div>
-                        <div>
-                           <div className={triangleUp}></div>
-                        </div>
-
-                        <hr />
-
-                        <div>
-                            <span>
-                                {/*Needs to be auto-update*/}
-                                Remodel Douglas Park Public Bathrooms
-                            </span>
-                        </div>
-
-                        <div>
-                            <p>
-                                {/*Needs to be auto-update*/}
-                                32
-                            </p>
-                        </div>
-                        <div>
-                            <img src={icon} />
-                        </div>
-
-                        <hr />
-                    
+            <div className={map}></div>
+            <div className={table}>
+                <h3>Current Top Projects Rankings</h3>
+                <hr />
+                <div>
+                    <div>Complete Maintenance on the Metrorail</div>
+                    <div>48</div>
+                    <div></div>
                 </div>
+                <hr />
+                <div>
+                    <div>Remodel Douglas Park Public Bathrooms</div>
+                    <div>32</div>
+                    <div></div>
+                </div>
+                <hr />
             </div>
         </div>
-
-        // {/* <div className="container">
-        //         <div className="GridItems">
-
-        //                 {/*LEFT COL*/}
-        //                 <div className="firstCol">
-        //                     <img src={map}></img>
-        //                 </div>
-        //                 {/*RIGHT COL*/}
-        //                 <div className="secondCol">
-        //                     <div className="card">
-        //                         {Card}
-
-        //         </div>
-        //     </div>
     );
 };
 
