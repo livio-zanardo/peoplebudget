@@ -23,7 +23,7 @@ This project was inspired by "Austin Budget Party" a project funded by Mozilla w
 - 1. Clone repository
 
         ```sh
-        git clone https://github.com/Code-for-Miami/peoplebudget
+        git clone https://github.com/CodeForSouth/peoplebudget
         ```
 
   2. Install MYSQL https://dev.mysql.com/downloads/mysql/ (note use a password you will remember)
